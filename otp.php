@@ -72,7 +72,7 @@ error_reporting(0);
 				</form>
 				<div style="font-size:0.9rem;margin-top: 20px;padding: 10px;">
             		<span>Kamu belum memperoleh OTP Kamibox?</span>
-            		<p>Jika masih terkendala <a href="kirim_bantuan_otp.php" style="color:blue;font-weight: 600;">klik disini</a> untuk memperoleh bantuan dari kami</p>
+            		<p>Jika masih terkendala <a href="aktifkan_akun_via_otp.php" style="color:blue;font-weight: 600;">klik disini</a> untuk memperoleh bantuan dari kami.</p>
           		</div>
 
 			</div>

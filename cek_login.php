@@ -27,8 +27,13 @@ session_start();
 				$cek_rows_status = mysqli_num_rows($cek_status_email);
 				if ($cek_rows_status>0) {   //echo "<br/>status akun ". $email." aktif.";
 
+					//update data last_activity where email
+					$date = date('Y-m-d H:i:s');
+					$update_activity_login = mysqli_query($conn, "update users set last_activity = '$date' where email = '$email'");
+
+
 					//cek level
-					if($cek_rows>0)
+					if($update_activity_login==true and $cek_rows>0)
 					{
 						$data = mysqli_fetch_assoc($cek_email);
 
@@ -41,15 +46,16 @@ session_start();
 						$_SESSION['status_user'] = $data['active'];
 						$_SESSION['avatar_user'] = $data['avatar'];
 
+
 						if($data['userlevelid']=='1'){
 			                //echo "<br/>level akun anda = admin";
-			                header("location:admin.php");
+			                header("location:admin/update_harga.php");
 			            }elseif($data['userlevelid']=='2'){
 			                //echo "<br/>level akun anda = mitra";
-			                header("location:mitra.php");
+			                header("location:mitra/index.php");
 			            }elseif($data['userlevelid']=='3'){
 			                //echo "<br/>level akun anda = pemasok";
-			                header("location:pemasok.php");
+			                header("location:pemasok/index.php");
 			            }
 					}else{ 
 						return false;

@@ -1,9 +1,9 @@
 <?php 
  
 $server = "localhost";
-$user = "decreat2_kami";
-$pass = "ka!boxmidi";
-$database = "decreat2_kami";
+$user = "root";
+$pass = "";
+$database = "kamibox";
  
 $conn = mysqli_connect($server, $user, $pass, $database);
  

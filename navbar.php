@@ -15,11 +15,11 @@
 				session_start();
 					
 					if($_SESSION['login']==true && $_SESSION['level_user']=='1' ){
-						echo "<a href='admin.php' class='btn-login-true'> Hai, ".$_SESSION['nama_user']."</a>";
+						echo "<a href='admin/update_harga.php' class='btn-login-true'> Hai, ".$_SESSION['nama_user']."</a>";
 					}elseif($_SESSION['login']==true && $_SESSION['level_user']=='2' ){
-						echo "<a href='mitra.php' class='btn-login-true'> Hai, ".$_SESSION['nama_user']."</a>";
+						echo "<a href='mitra/index.php' class='btn-login-true'> Hai, ".$_SESSION['nama_user']."</a>";
 					}elseif($_SESSION['login']==true && $_SESSION['level_user']=='3' ){
-						echo "<a href='pemasok.php' class='btn-login-true'> Hai, ".$_SESSION['nama_user']."</a>";
+						echo "<a href='pemasok/index.php' class='btn-login-true'> Hai, ".$_SESSION['nama_user']."</a>";
 					}else{
 						echo "<a href='login.php' class='btn-login'>Login</a>";
 					}		

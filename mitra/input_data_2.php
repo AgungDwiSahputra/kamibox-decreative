@@ -1,27 +1,46 @@
+<?php 
+error_reporting(0);
+session_start();
+
+//cek status login user di session
+		$status_login = $_SESSION['login'];
+		$id_user      = $_SESSION['id_user'];
+        $email        = $_SESSION['email_user'];
+        $avatar       = $_SESSION['avatar_user'];
+        $nama         = $_SESSION['nama_user'];
+        $telp         = $_SESSION['notelp_user'];
+        $level        = $_SESSION['level_user'];
+        $status_user  = $_SESSION['status_user'];	
+		
+        //cek login
+		if(($status_login !== true) && empty($email)){
+			header("location:login.php");
+		}
+		
+        //pastikan hanya admin yg boleh akses halaman ini
+		if($level !== '2'){
+			header("location:index.php");
+		}else{
+			//echo "mitra page. <a href='logout.php'>Logout</a>";
+?>
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Description Web -->
-    <meta name="keywords" content="kamibox">
-    <meta name="description" content="">
-    <meta name="author" content="Agung Dwi Sahputra">
-    <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
 
     <title>Input Data | Mitra Kamibox</title>
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
-    <div class="navigation-top">
+
+	<div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
+            <li class="nav-left"><b>Hai,</b> <?php echo $nama;?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -133,59 +152,64 @@
         <div id="phase-3">
             <div class="row">
                 <h5>Jenis Daur Ulang</h5>
-                <ul>
-                    <li class="dropdown">
-                        <a href="#">
-                            <img src="../assets/Icon/delete-button.png" alt="Hapus" id="hapus">
-                        </a>
-                        <div class="list">
-                            <span class="jenis"> Arsip Kantor</span>
-                            <img src="../assets/Icon/arrow-point-to-right.png" alt="panah" id="panah">
-                            <img src="../assets/Icon/add-button.png" alt="Add" id="add"><input type="number" class="total" placeholder="100" min="0">kg
-                        </div>
-                        <ul class="isi-dropdown">
-                            <li>
-                                <span class="daur_ulang">Penimbangan 1&emsp;: 70kg</span>
-                            </li>
-                            <li>
-                                <span class="daur_ulang">Penimbangan 2&emsp;: 90kg</span>
-                            </li>
-                            <li class="daur_ulang_total">
-                                <span>Total Berat&emsp;: 160kg</span>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <!-- Button -->
-                <a href="input_data.php"><button type="submit" class="btn default">Tambah</button></a>
-            </div>
-            <div class="row">
-                <h5>Perkiraan Pendapatan</h5>
-                <div class="kotak">
-                    <ul class="atas">
-                        <li>
-                            <span class="title">Total Harga</span>
-                            <span class="keterangan">55.555</span>
-                        </li>
-                        <li>
-                            <span class="title">Total Berat</span>
-                            <span class="keterangan">300kg</span>
-                        </li>
-                        <li>
-                            <span class="title">Biaya Admin (10%)</span>
-                            <span class="keterangan">5.555</span>
-                        </li>
-                    </ul>
-                    <h4 class="bawah">
-                        <span class="title">Estimasi Pendapatan</span>
-                        <span class="keterangan">50.555</span>
-                    </h4>
-                </div>
-                <!-- Button -->
-                <a href="input_data.php"><button type="submit" class="btn default mt-4">Input</button></a>
-            </div>
-        </div>
-    </div>
+
+				<?php 
+				include '../connect_db.php';
+					
+					$id_data = $_SESSION['id_data'];
+					
+					$query = mysqli_query($conn, "select distinct barang FROM input_item WHERE id_input_data = $id_data");
+
+					if($query == true){
+						
+						while( $row=mysqli_fetch_array($query) ){
+						
+							echo "<form action='proses_input_data_2.php' method='post'>";
+						
+							$id_barang = $row['barang'];
+							$query2 = mysqli_query($conn, "select * from barang where id_barang = $id_barang ");
+
+							if($query2==true){
+								$data = mysqli_fetch_assoc($query2);
+								$barang = $data['nama_barang'];
+							}else{
+								echo "gagal tampilkan nama barang";
+							}
+							echo $barang." ";
+							echo "<input type='text' name='berat' placeholder='berat'> Kg
+							      <input type='submit' name='tambah' value='+'>";
+							$total_berat=0;
+							echo " Total berat : ".$total_berat;
+							echo "<a href=input_data_2.php> Rincian berat</a>";
+							echo "</form>";
+							echo "<br/>";
+
+							//tampilkan semua barang dari id_barang
+						    $query_semua_barang = mysqli_query($conn, "select * from input_item where barang = $id_barang and id_input_data = $id_data");
+
+						    $no=1;
+						    $total_berat=0;
+						    while($row2 = mysqli_fetch_array($query_semua_barang)){
+						        echo $row2['id_input_item']." ";
+						        echo "Penimbangan ".$no++ ." ";
+						        echo $berat = $row2['berat']. "kg <br/>"; 
+
+						        $total_berat += $berat; 
+						    }
+
+						    echo "Total berat : ".$total_berat."<br/><br/>";
+						}
+
+					}else{
+						echo "tidak bisa tampilkan data";
+					}
+
+				?>
+
+
+			</div>
+       </div></div>
+   </div>
 
     <!-- ====================================== -->
     <!-- JAVA SCRIPT -->
@@ -246,5 +270,8 @@
     </script>
 
 </body>
-
 </html>
+
+
+
+<?php }?>

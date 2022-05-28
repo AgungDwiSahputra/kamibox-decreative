@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Bulan Mei 2022 pada 01.44
+-- Waktu pembuatan: 28 Bulan Mei 2022 pada 13.22
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 7.4.27
 
@@ -20,23 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `kamibox`
 --
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `alamat_user`
---
-
-CREATE TABLE `alamat_user` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  `detail` text DEFAULT NULL,
-  `kecamatan` varchar(50) DEFAULT NULL,
-  `kabupaten` tinytext DEFAULT NULL,
-  `provinsi` varchar(50) DEFAULT NULL,
-  `kodepos` int(7) DEFAULT NULL,
-  `update_at` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -121,6 +104,95 @@ CREATE TABLE `detail_invoice` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `input_data`
+--
+
+CREATE TABLE `input_data` (
+  `id_data` int(11) NOT NULL,
+  `mitra_id` int(11) NOT NULL,
+  `pemasok_id` int(11) NOT NULL,
+  `tgl_beli` date DEFAULT NULL,
+  `nama` varchar(200) NOT NULL,
+  `alamat` text NOT NULL,
+  `notelp` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `input_data`
+--
+
+INSERT INTO `input_data` (`id_data`, `mitra_id`, `pemasok_id`, `tgl_beli`, `nama`, `alamat`, `notelp`, `email`, `time`) VALUES
+(47, 1, 48, '2022-05-27', '', '', '', '', '2022-05-27 10:23:41'),
+(48, 1, 48, '2022-05-27', '', '', '', '', '2022-05-27 11:14:22'),
+(49, 1, 48, '2022-05-27', '', '', '', '', '2022-05-27 11:26:22'),
+(50, 1, 48, '2022-05-27', '', '', '', '', '2022-05-27 12:33:25'),
+(51, 1, 48, '2022-05-27', '', '', '', '', '2022-05-27 12:49:47'),
+(52, 1, 48, '2022-05-28', '', '', '', '', '2022-05-27 22:22:36'),
+(53, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 02:18:43'),
+(54, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 03:57:49'),
+(55, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 04:30:56'),
+(56, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 04:37:20'),
+(57, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 05:21:01'),
+(58, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 06:32:04'),
+(59, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 06:40:23'),
+(60, 1, 48, '2022-05-28', '', '', '', '', '2022-05-28 07:07:49'),
+(61, 1, 48, '2022-05-28', 'Annisa Sukma Putri', 'jl raya dringu', '085732100010', 'ceamey@yahoo.co.id', '2022-05-28 09:41:09');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `input_item`
+--
+
+CREATE TABLE `input_item` (
+  `id_input_item` int(11) NOT NULL,
+  `id_input_data` int(11) DEFAULT NULL,
+  `barang` int(11) NOT NULL,
+  `berat` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `input_item`
+--
+
+INSERT INTO `input_item` (`id_input_item`, `id_input_data`, `barang`, `berat`) VALUES
+(32, 48, 2, 0),
+(33, 48, 2, 0),
+(34, 49, 1, 0),
+(35, 49, 1, 0),
+(36, 50, 3, 0),
+(37, 51, 1, 10),
+(38, 51, 2, 20),
+(39, 51, 3, 30),
+(40, 51, 1, 40),
+(41, 52, 5, 0),
+(44, 55, 2, 0),
+(45, 56, 2, 0),
+(46, 57, 4, 0),
+(47, 58, 2, 0),
+(48, 59, 4, 0),
+(49, 60, 3, 0),
+(50, 60, 6, 0),
+(51, 61, 2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `input_total_berat_barang`
+--
+
+CREATE TABLE `input_total_berat_barang` (
+  `id_total_berat` int(11) NOT NULL,
+  `barang` int(11) NOT NULL,
+  `id_data` int(11) NOT NULL,
+  `total_berat` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `invoice`
 --
 
@@ -148,13 +220,6 @@ CREATE TABLE `kode_otp` (
   `created_at` datetime DEFAULT current_timestamp(),
   `expired` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `kode_otp`
---
-
-INSERT INTO `kode_otp` (`id_kodeotp`, `email_user`, `notelp_user`, `kodeotp`, `active`, `created_at`, `expired`) VALUES
-(1, 'annisasukmaputri@gmail.com', NULL, '4684', 'N', '2022-04-24 07:10:49', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -231,6 +296,23 @@ CREATE TABLE `pendapatan_pembelian` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `rw_transaksi`
+--
+
+CREATE TABLE `rw_transaksi` (
+  `id_rw` int(11) NOT NULL,
+  `Tgl_tr` datetime NOT NULL,
+  `nm` varchar(100) NOT NULL,
+  `berat` int(11) NOT NULL,
+  `alamat` text NOT NULL,
+  `no_invoice` varchar(11) NOT NULL,
+  `total_tr` int(11) NOT NULL,
+  `status_tr` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `transaksi_pembelian`
 --
 
@@ -255,31 +337,26 @@ CREATE TABLE `users` (
   `email` varchar(50) DEFAULT NULL,
   `avatar` varchar(200) DEFAULT NULL,
   `nama_lengkap` varchar(100) DEFAULT NULL,
+  `alamat` text NOT NULL,
   `notelp` varchar(50) DEFAULT NULL,
   `userlevelid` int(1) NOT NULL DEFAULT 3,
   `active` char(1) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `last_activity` datetime DEFAULT NULL
+  `last_activity` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id_user`, `email`, `avatar`, `nama_lengkap`, `notelp`, `userlevelid`, `active`, `created_at`, `updated_at`, `last_activity`) VALUES
-(1, 'annisasukmaputri@gmail.com', NULL, 'maya', '085735020915', 3, '1', '2022-04-24 07:10:48', '2022-04-24 07:10:48', NULL);
+INSERT INTO `users` (`id_user`, `email`, `avatar`, `nama_lengkap`, `alamat`, `notelp`, `userlevelid`, `active`, `created_at`, `updated_at`, `last_activity`) VALUES
+(1, 'annisasukmaputri@gmail.com', NULL, 'maya', '', '085735020915', 2, '1', '2022-04-24 07:10:48', '2022-04-24 07:10:48', '2022-05-28 05:46:39'),
+(48, 'ceamey@yahoo.co.id', NULL, 'Annisa Sukma Putri', '', '085732100010', 3, '1', '2022-05-21 20:55:32', '2022-05-21 20:55:32', '2022-05-27 09:00:07');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indeks untuk tabel `alamat_user`
---
-ALTER TABLE `alamat_user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `alamat_user_id_user_foreign` (`id_user`);
 
 --
 -- Indeks untuk tabel `barang`
@@ -306,6 +383,30 @@ ALTER TABLE `ci_sessions`
 ALTER TABLE `detail_invoice`
   ADD PRIMARY KEY (`id`),
   ADD KEY `detail_invoice_no_invoice_foreign` (`no_invoice`);
+
+--
+-- Indeks untuk tabel `input_data`
+--
+ALTER TABLE `input_data`
+  ADD PRIMARY KEY (`id_data`),
+  ADD KEY `idx_pemasok_id` (`pemasok_id`),
+  ADD KEY `idx_mitra_id` (`mitra_id`);
+
+--
+-- Indeks untuk tabel `input_item`
+--
+ALTER TABLE `input_item`
+  ADD PRIMARY KEY (`id_input_item`),
+  ADD KEY `idx_id_input_data` (`id_input_data`),
+  ADD KEY `idx_barang` (`barang`);
+
+--
+-- Indeks untuk tabel `input_total_berat_barang`
+--
+ALTER TABLE `input_total_berat_barang`
+  ADD PRIMARY KEY (`id_total_berat`),
+  ADD KEY `idx_tt_brt-brg` (`barang`),
+  ADD KEY `idx_ttb_dsa_d` (`id_data`);
 
 --
 -- Indeks untuk tabel `invoice`
@@ -344,6 +445,12 @@ ALTER TABLE `pendapatan_pembelian`
   ADD KEY `pendapatan_pembelian_no_invoice_foreign` (`no_invoice`);
 
 --
+-- Indeks untuk tabel `rw_transaksi`
+--
+ALTER TABLE `rw_transaksi`
+  ADD PRIMARY KEY (`id_rw`);
+
+--
 -- Indeks untuk tabel `transaksi_pembelian`
 --
 ALTER TABLE `transaksi_pembelian`
@@ -362,12 +469,6 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
-
---
--- AUTO_INCREMENT untuk tabel `alamat_user`
---
-ALTER TABLE `alamat_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `barang`
@@ -394,6 +495,24 @@ ALTER TABLE `detail_invoice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `input_data`
+--
+ALTER TABLE `input_data`
+  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT untuk tabel `input_item`
+--
+ALTER TABLE `input_item`
+  MODIFY `id_input_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT untuk tabel `input_total_berat_barang`
+--
+ALTER TABLE `input_total_berat_barang`
+  MODIFY `id_total_berat` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `invoice`
 --
 ALTER TABLE `invoice`
@@ -403,7 +522,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT untuk tabel `kode_otp`
 --
 ALTER TABLE `kode_otp`
-  MODIFY `id_kodeotp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_kodeotp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT untuk tabel `level_users`
@@ -424,6 +543,12 @@ ALTER TABLE `pendapatan_pembelian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `rw_transaksi`
+--
+ALTER TABLE `rw_transaksi`
+  MODIFY `id_rw` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `transaksi_pembelian`
 --
 ALTER TABLE `transaksi_pembelian`
@@ -433,23 +558,38 @@ ALTER TABLE `transaksi_pembelian`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Ketidakleluasaan untuk tabel `alamat_user`
---
-ALTER TABLE `alamat_user`
-  ADD CONSTRAINT `alamat_user_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
-
---
 -- Ketidakleluasaan untuk tabel `detail_invoice`
 --
 ALTER TABLE `detail_invoice`
   ADD CONSTRAINT `detail_invoice_no_invoice_foreign` FOREIGN KEY (`no_invoice`) REFERENCES `invoice` (`no_invoice`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `input_data`
+--
+ALTER TABLE `input_data`
+  ADD CONSTRAINT `input_data_ibfk_1` FOREIGN KEY (`pemasok_id`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `input_data_ibfk_2` FOREIGN KEY (`mitra_id`) REFERENCES `users` (`id_user`);
+
+--
+-- Ketidakleluasaan untuk tabel `input_item`
+--
+ALTER TABLE `input_item`
+  ADD CONSTRAINT `input_item_ibfk_1` FOREIGN KEY (`id_input_data`) REFERENCES `input_data` (`id_data`),
+  ADD CONSTRAINT `input_item_ibfk_2` FOREIGN KEY (`barang`) REFERENCES `barang` (`id_barang`);
+
+--
+-- Ketidakleluasaan untuk tabel `input_total_berat_barang`
+--
+ALTER TABLE `input_total_berat_barang`
+  ADD CONSTRAINT `input_total_berat_barang_ibfk_1` FOREIGN KEY (`barang`) REFERENCES `barang` (`id_barang`),
+  ADD CONSTRAINT `input_total_berat_barang_ibfk_2` FOREIGN KEY (`id_data`) REFERENCES `input_data` (`id_data`);
 
 --
 -- Ketidakleluasaan untuk tabel `invoice`

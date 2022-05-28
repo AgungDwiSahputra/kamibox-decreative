@@ -13,7 +13,7 @@ session_start();
 		
         //cek login
 		if($status_login === true and !empty($email) and $level == '3'){
-			header("location:pemasok/index.php");;
+			echo "pemasok page. <a href='logout.php'>Logout</a>";
 		}
 
 		if(($status_login !== true) && empty($email)){

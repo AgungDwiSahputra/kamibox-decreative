@@ -1,27 +1,56 @@
+<?php 
+session_start();
+
+//cek status login user di session
+		$status_login = $_SESSION['login'];
+		$id_user      = $_SESSION['id_user'];
+        $email        = $_SESSION['email_user'];
+        $avatar       = $_SESSION['avatar_user'];
+        $nama         = $_SESSION['nama_user'];
+        $telp         = $_SESSION['notelp_user'];
+        $level        = $_SESSION['level_user'];
+        $status_user  = $_SESSION['status_user'];	
+		
+        //cek login
+		if(($status_login !== true) && empty($email)){
+			header("location:login.php");
+		}
+		
+        //pastikan hanya admin yg boleh akses halaman ini
+		if($level !== '2'){
+			header("location:index.php");
+		}else{
+			//echo "mitra page. <a href='logout.php'>Logout</a>";
+?>
+
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Description Web -->
-    <meta name="keywords" content="kamibox">
-    <meta name="description" content="">
-    <meta name="author" content="Agung Dwi Sahputra">
-    <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
 
     <title>Input Data | Mitra Kamibox</title>
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+    <style type="text/css">
+    	.btn-submit-jenis{
+    		border-radius: 30px;
+    		background-color: green;
+    		color: white;
+    		cursor: pointer;
+    		width: 150px;
+    		height: 30px;
+    		
+    	}
+    </style>
 </head>
-
 <body>
-    <div class="navigation-top">
+	<div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
+            <li class="nav-left"><b>Hai,</b> <?php echo $nama;?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -130,31 +159,29 @@
         </div>
         <!-- PHASE 2 -->
         <div id="phase-2">
+
             <div class="row">
-                <div class="btn kembali"><a href="input_data.php"><img src="../assets/Icon/arrow-point-to-right.png">Back</a></div>
-                <form action="input_data_2.php" method="post" id="form_data">
-                    <ul>
-                        <li class="dropdown">
-                            <div class="list">
-                                <span class="jenis"><img src="../assets/Icon/repeat-1.png" alt="Repeat" id="repeat"> Pilih jenis daur ulangmu</span>
-                                <img src="../assets/Icon/arrow-point-to-right.png" alt="panah" id="panah">
-                            </div>
-                            <ul class="isi-dropdown">
-                                <a href="#">
-                                    <li onclick="pilih('coba')">
-                                        <span class="panah"><img src="../assets/Icon/arrow-point-to-right.png" alt="panah"></span>
-                                        <span class="daur_ulang">Arsip Kantor</span>
-                                    </li>
-                                </a>
-                                <a href="#">
-                                    <li>
-                                        <span class="panah"><img src="../assets/Icon/arrow-point-to-right.png" alt="panah"></span>
-                                        <span class="daur_ulang">Kardus</span>
-                                    </li>
-                                </a>
-                            </ul>
-                        </li>
-                    </ul>
+                <div><b>Jenis Daur Ulang</b></div>
+                <form action="proses_input_data_1.php" method="post" id="form_data">
+                    <select name="jenis_daur_ulang" style="width:400px">
+		
+						<?php 
+						include '../connect_db.php';
+							$query = mysqli_query($conn, "select * from barang");
+							if($query==true){
+
+						        while($row=mysqli_fetch_array($query)){
+						            echo "<option value=".$row['id_barang'].">".$row['nama_barang']."</option>";
+						        }
+
+						    }else{
+						        echo "gagal tampilkan nama barang";
+						    }
+						
+						?>
+
+					</select>
+					<input type="submit" name="submit" value="pilih" class="btn-submit-jenis">
                 </form>
             </div>
         </div>
@@ -224,7 +251,7 @@
             document.getElementById('form_data').submit();
         }
     </script>
-
 </body>
-
 </html>
+
+<?php }?>

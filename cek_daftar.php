@@ -161,8 +161,6 @@
          	}else{
          		echo "insert registrasi gagal.";
          	}
-
-
 		}
 	
 

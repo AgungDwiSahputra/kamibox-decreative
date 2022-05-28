@@ -47,11 +47,11 @@ include 'unset_validasi.php';
                 		<?php
                 			if(isset($_GET['email'])){
                 				if($_GET['email']== "kosong"){
-                					echo "<p class='subheading-error-login'>kolom email harap diisi.</p>";
+                					echo "<p class='subheading-error-login'>Kolom email harus diisi.</p>";
                 				}elseif($_GET['email']== "tidak_tersedia"){
-                					echo "<p class='subheading-error-login'>maaf email tidak tersedia di database.</p>";
+                					echo "<p class='subheading-error-login'>Maaf email tidak tersedia di database.</p>";
                 				}elseif($_GET['email']== "tidak_aktif"){
-                					echo "<p class='subheading-error-login'>maaf status akun anda sedang tidak aktif.</p>";
+                					echo "<p class='subheading-error-login'>Maaf status akun Anda sedang tidak aktif. Silahkan <a href='aktifkan_akun_via_otp.php'>klik disini</a> untuk mendapat bantuan.</p>";
                 				}
                 			}
                 		?>

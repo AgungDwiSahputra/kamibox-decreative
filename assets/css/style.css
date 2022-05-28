@@ -8,8 +8,6 @@
 
 body{
 	font-family: var(--main-font);
-	background-repeat: no-repeat;
-	background-size: cover;
 }
 
 *{
@@ -21,6 +19,7 @@ body{
 	outline: none;
 }
 
+
 section{
 	margin-top: 150px;
 }
@@ -31,9 +30,8 @@ section{
 
 .navbar{
 	margin: 0px;
-	/* background-image: url(assets/images/hgh2.png) no-repeat; */
+	background-image: url(assets/images/hgh2.png) no-repeat;
 	position: relative;
-	padding: 0 20px;
 }
 
 
@@ -119,7 +117,6 @@ section{
 
 .home{
 	margin: 0px;
-	margin-left: 100px;
 }
 
 .home .home-wrapper{
@@ -188,6 +185,7 @@ section{
 
 .heading-produk{
 	text-align: center;
+	
 }
 
 .produk-wrapper .row2{
@@ -250,7 +248,6 @@ section{
 /*kmb Start-----------------------------------------------------------------*/
 .tentang-kamibox{
 	margin: 0px;
-	padding: 0 150px;
 }
 
 .tentang-kamibox .tentang-kamibox-wrapper{
@@ -309,7 +306,7 @@ section{
 
 /*start transaksi-----------------------------------------------------------------*/
 .data-transaksi{
-	margin-top: 3em;
+	margin: 0px;
 }
 
 .data-transaksi-wrapper{
@@ -319,7 +316,7 @@ section{
 	box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.3);
 	border-radius: 70px;
 	background-color: #FFF;
-	margin: 0 auto;
+	margin-left: 210px;
 }
 
 .content-transaksi{
@@ -347,7 +344,7 @@ section{
 
 /*klien start-----------------------------------------------------------------*/
 .data-klien{
-	margin-top: 10em;
+	margin-top: 150px;
 }
 
 .data-klien-wrapper{
@@ -479,7 +476,7 @@ section{
 
 /*lokasi start-----------------------------------------------------------------*/
 .lokasi-kamibox{
-	margin-top: 17em;
+	margin: 0;
 }
 
 .heading-lokasikmb{
@@ -608,6 +605,13 @@ footer{
 
 	.row2 .card-produk p, .row2 .card-produk .btn-produk{
 		font-size: 0.8rem;
+	}
+
+	.data-transaksi .data-transaksi-wrapper{
+		max-width: 450px;
+		max-height: 80px;
+		border-radius: 50px;
+		margin-left: 250px;
 	}
 
 	.content-transaksi{

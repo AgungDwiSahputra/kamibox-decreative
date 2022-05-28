@@ -1,27 +1,46 @@
+<?php 
+session_start();
+
+//cek status login user di session
+		$status_login = $_SESSION['login'];
+		$id_user      = $_SESSION['id_user'];
+        $email        = $_SESSION['email_user'];
+        $avatar       = $_SESSION['avatar_user'];
+        $nama         = $_SESSION['nama_user'];
+        $telp         = $_SESSION['notelp_user'];
+        $level        = $_SESSION['level_user'];
+        $status_user  = $_SESSION['status_user'];	
+		
+		if(($status_login !== true) && empty($email)){
+			header("location:login.php");
+		}
+		
+        //pastikan hanya pemasok yg boleh akses halaman ini
+		if($level !== '3'){
+			header("location:index.php");
+		}
+
+		//cek login
+		if($status_login === true and !empty($email) and $level == '3'){
+			//echo "pemasok page. <a href='logout.php'>Logout</a>";
+		
+?>
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Description Web -->
-    <meta name="keywords" content="kamibox">
-    <meta name="description" content="">
-    <meta name="author" content="Agung Dwi Sahputra">
-    <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
-
-    <title>Daftar Harga| Pemasok Kamibox</title>
-
-    <!-- Custom CSS -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Daftar Harga| Pemasok Kamibox</title>
+	<link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
+	<!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="navigation-top">
+	<div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
+            <li class="nav-left"><b>Hai,</b> <?php echo $nama;?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -63,7 +82,8 @@
             </li>
         </ul>
     </div>
-    <div class="navigation">
+
+        <div class="navigation">
         <ul>
             <div class="toggle">
                 <img src="../assets/Logo Kamibox Putih.png" alt="Logo Kamibox" class="open">
@@ -105,7 +125,7 @@
         </ul>
     </div>
 
-    <!-- ====================================== -->
+        <!-- ====================================== -->
     <!-- ISI CONTENT -->
     <!-- ====================================== -->
     <div class="container">
@@ -119,29 +139,25 @@
         </div>
         <div class="row body">
             <ul>
-                <li>
-                    <span class="jenis">Arsip Kantor</span>
-                    <span class="harga">Rp. 5.000/kg</span>
-                </li>
-                <li>
-                    <span class="jenis">Kardus</span>
-                    <span class="harga">Rp. 5.000/kg</span>
-                </li>
-                <li>
-                    <span class="jenis">HVS Bekas</span>
-                    <span class="harga">Rp. 5.000/kg</span>
-                </li>
-                <li>
-                    <span class="jenis">Buku / Majalah</span>
-                    <span class="harga">Rp. 5.000/kg</span>
-                </li>
-                <li>
-                    <span class="jenis">Botol Kaca</span>
-                    <span class="harga">Rp. 5.000/kg</span>
-                </li>
+                <?php 
+                include '../connect_db.php';
+
+                //query tampilkan nama barang
+				$query = mysqli_query($conn, "select * from barang");
+                
+                while($row=mysqli_fetch_array($query)){
+					echo "<li>";
+					echo "<span class=jenis>".$row['nama_barang']."</span>";
+					echo "<span class=harga> Rp. ".$row['harga_barang']."/kg </span>";
+					echo "</li>";
+				}
+
+                ?>
             </ul>
+
         </div>
     </div>
+    <br/><br/>
 
     <!-- ====================================== -->
     <!-- JAVA SCRIPT -->
@@ -190,3 +206,8 @@
 </body>
 
 </html>
+
+
+
+
+<?php }?>

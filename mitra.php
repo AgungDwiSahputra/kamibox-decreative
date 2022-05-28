@@ -20,7 +20,7 @@ session_start();
 		if($level !== '2'){
 			header("location:index.php");
 		}else{
-			header("location:mitra/index.php");
+			echo "mitra page. <a href='logout.php'>Logout</a>";
 		}
 
 

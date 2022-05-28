@@ -20,7 +20,7 @@ session_start();
 		if($level !== '1'){
 			header("location:index.php");
 		}else{
-			header("location:admin/update_harga.php");
+			echo "admin page. <a href='logout.php'>Logout</a>";
 		}
 
 

@@ -1,27 +1,59 @@
+<?php 
+session_start();
+
+//cek status login user di session
+		$status_login = $_SESSION['login'];
+		$id_user      = $_SESSION['id_user'];
+        $email        = $_SESSION['email_user'];
+        $avatar       = $_SESSION['avatar_user'];
+        $nama         = $_SESSION['nama_user'];
+        $telp         = $_SESSION['notelp_user'];
+        $level        = $_SESSION['level_user'];
+        $status_user  = $_SESSION['status_user'];	
+		
+        //cek login
+		if(($status_login !== true) && empty($email)){
+			header("location:login.php");
+		}
+		
+        //pastikan hanya admin yg boleh akses halaman ini
+		if($level !== '2'){
+			header("location:index.php");
+		}else{
+			//echo "mitra page. <a href='logout.php'>Logout</a>";
+?>
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Description Web -->
-    <meta name="keywords" content="kamibox">
-    <meta name="description" content="">
-    <meta name="author" content="Agung Dwi Sahputra">
-    <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
     <title>Input Data | Mitra Kamibox</title>
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-</head>
+    <style type="text/css">
+        .heading-error-input-data{
+            margin-top: 10px;
+            margin-bottom: 0px;
+            padding: 0px ;
+        }
 
+        .subheading-error{
+            color: red;
+            font-size: 0.65rem;
+            font-weight: 500;
+            margin-left: 160px;
+        }
+
+
+    </style>
+</head>
 <body>
-    <div class="navigation-top">
+	<div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
+            <li class="nav-left"><b>Hai,</b> <?php echo $nama;?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -128,19 +160,38 @@
                 <a href="">Input Data</a>
             </h5>
         </div>
+
+        <div class="heading-error-input-data">
+            <?php
+
+                if(isset($_GET['pesan'])){
+                    if($_GET['pesan']== "validasi"){
+                        $validasi=$_SESSION['validasi'];
+                            foreach ($validasi as $value) {
+                                echo "<p class='subheading-error'>$value</p>";
+                            }   
+                    }
+                }
+
+            ?>
+
+        </div>
+
         <div id="phase-1">
             <div class="row">
-                <form action="input_data_1.php" method="POST" class="input_jadwal">
-                    <input type="text" name="nama" placeholder="Nama Lengkap">
-                    <input type="text" name="alamat" placeholder="Alamat Lengkap / Copy Link Maps">
-                    <input type="text" name="waktu" placeholder="Tanggal Pembelian">
-                    <input type="text" name="nomor_p" placeholder="Nomor Ponsel">
+                <form action="proses_input_data.php" method="POST" class="input_jadwal">
+                    <input type="text" name="nama_pemasok" placeholder="Nama Lengkap">
+                    <input type="text" name="alamat_pemasok" placeholder="Alamat Lengkap / Copy Link Maps">
+                    <?php $date = date('d-m-Y');?>
+                    <input type="text" name="tgl_beli" placeholder="Tanggal Pembelian : <?php echo $date;?>">
+
+                    <input type="text" name="notelp_pemasok" placeholder="Nomor Ponsel">
                     <span class="pesan">Note : Nomor telepon harus sesuai dengan nomor yang terdaftar di akun pemasok</span>
-                    <input type="email" name="email" placeholder="Email">
+                    <input type="email" name="email_pemasok" placeholder="Email">
                     <span class="pesan">Note : Email harus sesuai dengan yang terdaftar di akun pemasok</span>
 
                     <!-- Button -->
-                    <button type="submit" class="btn">Input</button>
+                    <input type="submit" name="submit" value="input" class="btn-input">
                 </form>
             </div>
         </div>
@@ -205,6 +256,9 @@
         }
     </script>
 
+
 </body>
 
 </html>
+
+<?php }?>
