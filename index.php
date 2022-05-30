@@ -11,7 +11,7 @@ include 'unset_validasi.php';
 	<title>Kamibox | 2022 </title>
 	<meta charset="utf-8">
 	<meta name="description" contents="KAMIBOX.ID">
-	<link rel="shortcut icon" type="image/png" href="assets/favicon.png">
+	<link rel="shortcut icon" type="image/png" href="assets/icon.png">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@next/dist/aos.css">
 	<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>

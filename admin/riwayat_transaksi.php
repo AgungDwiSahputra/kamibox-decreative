@@ -13,7 +13,7 @@
     <meta name="author" content="Agung Dwi Sahputra">
     <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
 
-    <title>Update Harga | Admin Kamibox</title>
+    <title>Riwayat Transaksi | Admin Kamibox</title>
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
@@ -69,10 +69,10 @@
                 <img src="../assets/Logo Kamibox Putih.png" alt="Logo Kamibox" class="open">
                 <img src="../assets/logo.png" alt="Logo Kamibox" class="close">
             </div>
-            <li class="list active">
+            <li class="list">
                 <b></b>
                 <b></b>
-                <a href="">
+                <a href="update_harga.php">
                     <span class="icon">
                         <img src="../assets/Icon/transaction_p.png" alt="Update Harga" class="putih">
                         <img src="../assets/Icon/transaction_h.png" alt="Update Harga" class="hijau">
@@ -80,10 +80,10 @@
                     <span class="title">Update Harga</span>
                 </a>
             </li>
-            <li class="list">
+            <li class="list active">
                 <b></b>
                 <b></b>
-                <a href="riwayat_transaksi.php">
+                <a href="">
                     <span class="icon">
                         <img src="../assets/Icon/input_p.png" alt="Riwayat Transaksi" class="putih">
                         <img src="../assets/Icon/input_h.png" alt="Riwayat Transaksi" class="hijau">
@@ -110,111 +110,84 @@
     <!-- ====================================== -->
     <div class="container">
         <div class="row header">
-            <h2>Update Harga</h2>
+            <h2>Riwayat Transaksi</h2>
             <h5>
                 <a href="">Beranda</a>
                 <span class="panah">></span>
-                <a href="">Update Harga</a>
+                <a href="">Riwayat Transaksi</a>
             </h5>
         </div>
-        <div class="row content">
-            <ul>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">Arsip Kantor</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
+        <div class="row pencarian">
+            <form action="" method="post">
+                <img src="../assets/Icon/search.png" alt="Cari">
+                <input type="text" name="cari" id="cari_transaksi" class="input_cari" placeholder="Cari mutasi...">
+            </form>
+        </div>
+        <div class="row">
+            <ul class="list_riwayat">
+                <li>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="tanggal">Sabtu, 26-2-2022</span>
+                            <span class="nomor">#0001</span>
+                        </div>
                     </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">Kardus</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
+                            <span class="harga"><b>Rp. 205.000</b></span>
+                        </div>
                     </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">HVS Bekas</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
+                            <span class="status success">Berhasil</span>
+                        </div>
                     </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
                 </li>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">Buku/Majalah</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
+                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
+                <li>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="tanggal">Sabtu, 26-2-2022</span>
+                            <span class="nomor">#0001</span>
+                        </div>
                     </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
+                            <span class="harga"><b>Rp. 205.000</b></span>
+                        </div>
+                    </div>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
+                            <span class="status success">Berhasil</span>
+                        </div>
+                    </div>
                 </li>
+                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
+                <li>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="tanggal">Sabtu, 26-2-2022</span>
+                            <span class="nomor">#0001</span>
+                        </div>
+                    </div>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
+                            <span class="harga"><b>Rp. 205.000</b></span>
+                        </div>
+                    </div>
+                    <div class="row2">
+                        <div class="col">
+                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
+                            <span class="status success">Berhasil</span>
+                        </div>
+                    </div>
+                </li>
+                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
             </ul>
         </div>
     </div>

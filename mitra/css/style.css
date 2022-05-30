@@ -700,7 +700,7 @@ a{
     vertical-align: middle;
 }
 /* PHASE 1 (Input Data) */
-.row .input_jadwal input{
+.row .input_jadwal input, .row .input_jadwal #akun_customer{
     width: 350px;
     height: 30px;
     border-radius: 30px;
@@ -709,6 +709,10 @@ a{
     padding: 0 20px;
     font-size: 14px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.row .input_jadwal #akun_customer{
+    width: 390px;
+    padding: 0 15px;
 }
 .row .input_jadwal input[name='nomor_p'],
 .row .input_jadwal input[name='email']{
@@ -785,18 +789,20 @@ a{
     width: 85%;
     height: 0;
     margin: 0 auto;
-    color: white;
+    color: black;
     background-color: #fff;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     overflow: hidden;
     transition: height 0.5s;
+    overflow-y: scroll;
 }
 #phase-2 ul li.dropdown ul.isi-dropdown.active{
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.2);
     height: 150px;
     margin-top: -2px;
+    overflow-y: scroll;
 }
 #phase-2 ul li.dropdown ul.isi-dropdown li{
     width: 100%;
@@ -826,19 +832,30 @@ a{
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: white;
     vertical-align: middle;
+}
+#phase-3 ul li.dropdown .list #panah{
     cursor: pointer;
+}
+#phase-3 ul li.dropdown .list .jenis{
+    width: 9em;
+    display: inline-block;
 }
 #phase-3 ul li.dropdown .total{
     border: 1px solid rgba(0, 0, 0, 0.2);
-    margin-left: 110px;
+    margin-left: 60px;
     width: 40px;
 }
-#phase-3 ul li.dropdown img#add{
-    margin-right: 25px;
-    width: 20px;
+#phase-3 ul li.dropdown .btn_add{
+    width: auto;
+    margin-right: 10px;
+    float: right;
+    padding: 0;
+    display: inline;
+    background-color: #fff;
     border-radius: 50%;
+    cursor: pointer;
 }
-#phase-3 ul li.dropdown img#add:hover{
+#phase-3 ul li.dropdown .btn_add:hover{
     box-shadow: 1px 0 20px rgba(0, 0, 0, 0.2);
 }
 #phase-3 ul li.dropdown img{
@@ -885,11 +902,21 @@ a{
     font-weight: normal;
     font-size: 14px;
 }
-#phase-3 ul li.daur_ulang_total{
+#phase-3 ul .berat_list{
+    height: 120px;
+    overflow-y: auto;
+
+}
+#phase-3 ul .berat_total{
+    position: relative;
+    text-align: right;
+    padding-right: 10px;
+}
+/* #phase-3 ul li.daur_ulang_total{
     text-align: right;
     position: relative;
-    bottom: -70px;
-}
+    bottom: -3em;
+} */
 
 /* ================== */
 /*  Kotak Pendapatan  */

@@ -1,45 +1,27 @@
-<?php 
-session_start();
-
-//cek status login user di session
-		$status_login = $_SESSION['login'];
-		$id_user      = $_SESSION['id_user'];
-        $email        = $_SESSION['email_user'];
-        $avatar       = $_SESSION['avatar_user'];
-        $nama         = $_SESSION['nama_user'];
-        $telp         = $_SESSION['notelp_user'];
-        $level        = $_SESSION['level_user'];
-        $status_user  = $_SESSION['status_user'];	
-		
-
-		if(($status_login !== true) && empty($email)){
-			header("location:login.php");
-		}
-		
-        //pastikan hanya pemasok yg boleh akses halaman ini
-		if($level !== '3'){
-			header("location:index.php");
-		}
-
-		//cek login
-		if($status_login === true and !empty($email) and $level == '3'){
-		
-?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Riwayat Transaksi| Pemasok Kamibox</title>
-	<link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
-	<!-- Custom CSS -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Description Web -->
+    <meta name="keywords" content="kamibox">
+    <meta name="description" content="">
+    <meta name="author" content="Agung Dwi Sahputra">
+    <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
+
+    <title>Input Jadwal Penjemputan | Admin Kamibox</title>
+
+    <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
-	<div class="navigation-top">
+    <div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> <?php echo $nama;?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -49,7 +31,7 @@ session_start();
                         <h4 style="margin: 0;">Profile</h4>
                     </div>
                     <div class="body">
-                        <a href="profile.php"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
+                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
                     </div>
                     <div class="footer">
                         <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
@@ -90,34 +72,34 @@ session_start();
             <li class="list">
                 <b></b>
                 <b></b>
-                <a href="index.php">
+                <a href="update_harga.php">
                     <span class="icon">
-                        <img src="../assets/Icon/home_p.png" alt="Beranda" class="putih">
-                        <img src="../assets/Icon/home_h.png" alt="Beranda" class="hijau">
+                        <img src="../assets/Icon/transaction_p.png" alt="Update Harga" class="putih">
+                        <img src="../assets/Icon/transaction_h.png" alt="Update Harga" class="hijau">
                     </span>
-                    <span class="title">Beranda</span>
-                </a>
-            </li>
-            <li class="list active">
-                <b></b>
-                <b></b>
-                <a href="riwayat_transaksi.php">
-                    <span class="icon">
-                        <img src="../assets/Icon/transaction_p.png" alt="Riwayat Transaksi" class="putih">
-                        <img src="../assets/Icon/transaction_h.png" alt="Riwayat Transaksi" class="hijau">
-                    </span>
-                    <span class="title">Riwayat Transaksi</span>
+                    <span class="title">Update Harga</span>
                 </a>
             </li>
             <li class="list">
                 <b></b>
                 <b></b>
-                <a href="daftar_harga.php">
+                <a href="riwayat_transaksi.php">
                     <span class="icon">
-                        <img src="../assets/Icon/input_p.png" alt="Input Data" class="putih">
-                        <img src="../assets/Icon/input_h.png" alt="Input Data" class="hijau">
+                        <img src="../assets/Icon/input_p.png" alt="Riwayat Transaksi" class="putih">
+                        <img src="../assets/Icon/input_h.png" alt="Riwayat Transaksi" class="hijau">
                     </span>
-                    <span class="title">Harga Barang</span>
+                    <span class="title">Riwayat Transaksi</span>
+                </a>
+            </li>
+            <li class="list active">
+                <b></b>
+                <b></b>
+                <a href="">
+                    <span class="icon">
+                        <img src="../assets/Icon/calendar_p.png" alt="Jadwal Kurir" class="putih">
+                        <img src="../assets/Icon/calendar_h.png" alt="Jadwal Kurir" class="hijau">
+                    </span>
+                    <span class="title">Jadwal Kurir</span>
                 </a>
             </li>
         </ul>
@@ -128,70 +110,30 @@ session_start();
     <!-- ====================================== -->
     <div class="container">
         <div class="row header">
-            <h2>Riwayat Transaksi</h2>
+            <h2>Input Jadwal Penjemputan</h2>
             <h5>
-                <a href="index.php">Beranda</a>
+                <a href="">Beranda</a>
                 <span class="panah">></span>
-                <a href="riwayat_transaksi.php">Riwayat Transaksi</a>
+                <a href="">Jadwal Kurir</a>
+                <span class="panah">></span>
+                <a href="">Input Jadwal Penjemputan</a>
             </h5>
         </div>
         <div class="row">
-            <ul class="list_riwayat">
-        <?php 
-        	include '../connect_db.php';
-			include 'hari_indo.php';
-        	
-        	$query = mysqli_query($conn,"select * from rw_transaksi");
-        	
-        	while($row=mysqli_fetch_array($query)){
+            <div class="btn kembali"><a href="jadwal_kurir.php"><img src="../assets/Icon/arrow-point-to-right.png">Back</a></div>
+            <form action="#" method="POST" class="input_jadwal">
+                <input type="text" name="nama_p" placeholder="Nama Pemasok">
+                <input type="text" name="alamat" placeholder="Alamat Lengkap / Copy Link Maps">
+                <input type="text" name="waktu" placeholder="Waktu / Tanggal Penjemputan">
+                <input type="text" name="kode_p" placeholder="Kode Pemasok">
+                <input type="text" name="nomor_p" placeholder="Nomor Ponsel">
+                <span class="pesan">Note : Nomor telepon harus sesuai dengan nomor yang terdaftar di akun pemasok</span>
+                <input type="email" name="email" placeholder="Email">
+                <span class="pesan">Note : Email harus sesuai dengan yang terdaftar di akun pemasok</span>
 
-        		$date = $row['Tgl_beli'];
-
-        		$date1 = date_create($date);
-        		$date2 = date_format($date1,'l');
-        		$date3 = hariIndo($date2);
-        		$date4 = $date3.", ".date_format($date1,'d/m/Y');
-        ?>
-        		<li>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="tanggal"><?php echo $date4;?></span>
-                            <span class="nomor">#<?php echo $row['no_invoice']?></span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="keterangan"><b><?php echo $row['nm'];?> | (<?php echo $row['berat']?> kg)</b></span>
-                            <span class="harga"><b>
-                          <?php 
-                            $harga = $row['total_tr'];
-                            $harga2 = number_format($harga, 2, ",", ".");
-                            echo "Rp ".$harga2;
-                             ?>
-                             </b></span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="alamat"><b>Alamat : </b><?php echo $row['alamat']?></span>
-                            <span class="status success">
-                            	<?php 
-                            	$status = $row['status_tr'];
-                            	if($status == 1){
-                            		echo "Berhasil";
-                            	}else{
-                            		echo "Gagal";
-                            	}
-
-                        ?></span>
-                        </div>
-                    </div>
-                </li>
-                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
-<?php      	}
-        ?>	
-                            
-            </ul>
+                <!-- Button -->
+                <button type="submit" class="btn">Input</button>
+            </form>
         </div>
     </div>
 
@@ -203,6 +145,20 @@ session_start();
         let list = document.querySelectorAll('.navigation .list');
         let nav_dropdown = document.querySelectorAll('.nav-dropdown #nav-ListDropdown');
         let nav_ListDropdown = document.querySelectorAll('.navigation-top ul li .nav-ListDropdown');
+        let dropdown = document.querySelectorAll('.dropdown .list');
+        let isi_dropdown = document.querySelectorAll('.content .dropdown .isi-dropdown');
+
+        //Navbar Sebelah Kiri
+        // for (let i = 0; i < list.length; i++) {
+        //     list[i].onclick = function() {
+        //         let j = 0;
+        //         while (j < list.length) {
+        //             list[j++].className = "list";
+        //         }
+        //         list[i].className = "list active";
+        //     }
+        // }
+
         //Dropdown Navigasi
         {
             let active = 0;
@@ -226,6 +182,29 @@ session_start();
                 }
             }
         }
+
+        //Dropdown list menu harga
+        {
+            let active = 0;
+            for (let i = 0; i < dropdown.length; i++) {
+                dropdown[i].onclick = function() {
+                    let j = 0;
+                    if (active == 0) {
+                        while (j < isi_dropdown.length) {
+                            isi_dropdown[j++].className = "isi-dropdown";
+                        }
+                        isi_dropdown[i].className = "isi-dropdown active";
+                        active = 1;
+                    } else {
+                        while (j < isi_dropdown.length) {
+                            isi_dropdown[j++].className = "isi-dropdown";
+                        }
+                        isi_dropdown[i].className = "isi-dropdown";
+                        active = 0;
+                    }
+                }
+            }
+        }
     </script>
 
     <!-- Toggle Button untuk Navigation -->
@@ -237,8 +216,7 @@ session_start();
             navigation.classList.toggle('active');
         }
     </script>
+
 </body>
+
 </html>
-
-
-<?php }?>

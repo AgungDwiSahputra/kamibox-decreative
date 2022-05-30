@@ -1,33 +1,3 @@
-<?php session_start();
-require '../connect_db.php';
-
-$query = mysqli_query($conn, "SELECT * FROM users");
-$id_user = @$_POST['akun_customer'];
-$query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id_user'");
-$data_user_id = mysqli_fetch_array($query_user);
-
-/* Setelah klik button next */
-if (isset($_POST['next'])) {
-    $nama =  $_POST['nama'];
-    $alamat =  $_POST['alamat'];
-    $ttl_transaksi =  date('Y-m-d H:i:s'); //2022-05-28 14:09:41;
-    $no_telp =  $_POST['nomor_p'];
-    $email =  $_POST['email'];
-
-    $_SESSION['nama'] = $nama;
-    $_SESSION['alamat'] = $alamat;
-    $_SESSION['nomor_p'] = $no_telp;
-    $_SESSION['email'] = $email;
-    $_SESSION['ttl_transaksi'] = $ttl_transaksi;
-
-    $key_next = md5(rand(1, 999999999));
-    setcookie('key', $key_next, time() + (3 * 1), "/");
-
-    header("Location: input_data_1.php?next=" . $_POST['next'] . "&key=" . $key_next);
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -160,43 +130,108 @@ if (isset($_POST['next'])) {
         </div>
         <div id="phase-1">
             <div class="row">
-                <form action="" method="POST" class="input_jadwal">
-                    <select onchange="this.form.submit()" name="akun_customer" id="akun_customer">
-                        <option value="">-- PILIH AKUN PEMASOK --</option>
-                        <?php
-                        $no = 1;
-                        while ($data = mysqli_fetch_array($query)) {
-                        ?>
-                            <option <?php if (!empty($data['id_user'])) {
-                                        echo $data['id_user'] == $id_user ? 'selected' : '';
-                                    } ?> value="<?= $data['id_user'] ?>"><?= $no . ". " . $data['nama_lengkap'] ?></option>
-                        <?php
-                            $no++;
-                        }
-                        ?>
-                    </select>
-                    <input type="text" name="nama" placeholder="Nama Lengkap" value="<?php if ($id_user != "") {
-                                                                                            echo $data_user_id['nama_lengkap'];
-                                                                                        } else {
-                                                                                            echo '';
-                                                                                        } ?>">
-                    <input type="text" name="nomor_p" placeholder="Nomor Ponsel" value="<?php if ($id_user != "") {
-                                                                                            echo $data_user_id['notelp'];
-                                                                                        } else {
-                                                                                            echo '';
-                                                                                        } ?>">
-                    <span class="pesan">Note : Nomor telepon harus sesuai dengan nomor yang terdaftar di akun pemasok</span>
-                    <input type="email" name="email" placeholder="Email" value="<?php if ($id_user != "") {
-                                                                                    echo $data_user_id['email'];
-                                                                                } else {
-                                                                                    echo '';
-                                                                                } ?>">
-                    <span class="pesan">Note : Email harus sesuai dengan yang terdaftar di akun pemasok</span>
+                <form action="#" method="POST" class="input_jadwal">
+                    <input type="text" name="nama" placeholder="Nama Lengkap">
                     <input type="text" name="alamat" placeholder="Alamat Lengkap / Copy Link Maps">
+                    <input type="text" name="waktu" placeholder="Tanggal Pembelian">
+                    <input type="text" name="nomor_p" placeholder="Nomor Ponsel">
+                    <span class="pesan">Note : Nomor telepon harus sesuai dengan nomor yang terdaftar di akun pemasok</span>
+                    <input type="email" name="email" placeholder="Email">
+                    <span class="pesan">Note : Email harus sesuai dengan yang terdaftar di akun pemasok</span>
 
                     <!-- Button -->
-                    <button type="submit" class="btn" name="next" value="next">Next</button>
+                    <button type="submit" class="btn">Input</button>
                 </form>
+            </div>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div id="phase-2">
+            <div class="row">
+                <form action="#" method="post">
+                    <ul>
+                        <li class="dropdown">
+                            <div class="list">
+                                <span class="jenis"><img src="../assets/Icon/repeat-1.png" alt="Repeat" id="repeat"> Pilih jenis daur ulangmu</span>
+                                <img src="../assets/Icon/arrow-point-to-right.png" alt="panah" id="panah">
+                            </div>
+                            <ul class="isi-dropdown">
+                                <a href="#">
+                                    <li>
+                                        <span class="panah"><img src="../assets/Icon/arrow-point-to-right.png" alt="panah"></span>
+                                        <span class="daur_ulang">Arsip Kantor</span>
+                                    </li>
+                                </a>
+                                <a href="#">
+                                    <li>
+                                        <span class="panah"><img src="../assets/Icon/arrow-point-to-right.png" alt="panah"></span>
+                                        <span class="daur_ulang">Kardus</span>
+                                    </li>
+                                </a>
+                            </ul>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+
+        <!-- PHASE 3 -->
+        <div id="phase-3">
+            <div class="row">
+                <h5>Jenis Daur Ulang</h5>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">
+                            <img src="../assets/Icon/delete-button.png" alt="Hapus" id="hapus">
+                        </a>
+                        <div class="list">
+                            <span class="jenis"> Arsip Kantor</span>
+                            <img src="../assets/Icon/arrow-point-to-right.png" alt="panah" id="panah">
+                            <span class="total">200 kg</span>
+                        </div>
+                        <ul class="isi-dropdown">
+                            <a href="#">
+                                <li>
+                                    <span class="panah"><img src="../assets/Icon/arrow-point-to-right.png" alt="panah"></span>
+                                    <span class="daur_ulang">Arsip Kantor</span>
+                                </li>
+                            </a>
+                            <a href="#">
+                                <li>
+                                    <span class="panah"><img src="../assets/Icon/arrow-point-to-right.png" alt="panah"></span>
+                                    <span class="daur_ulang">Kardus</span>
+                                </li>
+                            </a>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- Button -->
+                <button type="submit" class="btn default">Tambah</button>
+            </div>
+            <div class="row">
+                <h5>Perkiraan Pendapatan</h5>
+                <div class="kotak">
+                    <ul class="atas">
+                        <li>
+                            <span class="title">Total Harga</span>
+                            <span class="keterangan">55.555</span>
+                        </li>
+                        <li>
+                            <span class="title">Total Berat</span>
+                            <span class="keterangan">300kg</span>
+                        </li>
+                        <li>
+                            <span class="title">Biaya Admin (10%)</span>
+                            <span class="keterangan">5.555</span>
+                        </li>
+                    </ul>
+                    <h4 class="bawah">
+                        <span class="title">Estimasi Pendapatan</span>
+                        <span class="keterangan">50.555</span>
+                    </h4>
+                </div>
+                <!-- Button -->
+                <button type="submit" class="btn default mt-4">Input</button>
             </div>
         </div>
     </div>
@@ -249,8 +284,50 @@ if (isset($_POST['next'])) {
             }
         }
 
-        function data_user() {
-            console.log("TESTINGAklajajhsva");
+        //Dropdown Pilih Daur Ulangmu(Phase 2)
+        {
+            let active = 0;
+            for (let i = 0; i < dropdown2.length; i++) {
+                dropdown2[i].onclick = function() {
+                    let j = 0;
+                    if (active == 0) {
+                        while (j < isi_dropdown2.length) {
+                            isi_dropdown2[j++].className = "isi-dropdown";
+                        }
+                        isi_dropdown2[i].className = "isi-dropdown active";
+                        active = 1;
+                    } else {
+                        while (j < isi_dropdown2.length) {
+                            isi_dropdown2[j++].className = "isi-dropdown";
+                        }
+                        isi_dropdown2[i].className = "isi-dropdown";
+                        active = 0;
+                    }
+                }
+            }
+        }
+
+        //Dropdown Jenis Daur Ulangmu(Phase 3)
+        {
+            let active = 0;
+            for (let i = 0; i < dropdown3.length; i++) {
+                dropdown3[i].onclick = function() {
+                    let j = 0;
+                    if (active == 0) {
+                        while (j < isi_dropdown3.length) {
+                            isi_dropdown3[j++].className = "isi-dropdown";
+                        }
+                        isi_dropdown3[i].className = "isi-dropdown active";
+                        active = 1;
+                    } else {
+                        while (j < isi_dropdown3.length) {
+                            isi_dropdown3[j++].className = "isi-dropdown";
+                        }
+                        isi_dropdown3[i].className = "isi-dropdown";
+                        active = 0;
+                    }
+                }
+            }
         }
     </script>
 

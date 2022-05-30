@@ -1,0 +1,713 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif !important;
+}
+body{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    width: auto;
+    text-decoration: none;
+    color: black;
+}
+
+.btn{
+    display: block;
+    width: 25%;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.pt-1{
+    padding-top: 10px;
+}
+.pt-2{
+    padding-top: 20px;
+}
+.pt-3{
+    padding-top: 30px;
+}
+.pt-4{
+    padding-top: 40px;
+}
+/* -------------------------------- */
+.pb-1{
+    padding-bottom: 10px;
+}
+.pb-2{
+    padding-bottom: 20px;
+}
+.pb-3{
+    padding-bottom: 30px;
+}
+.pb-4{
+    padding-bottom: 40px;
+}
+/* -------------------------------- */
+.pl-1{
+    padding-left: 10px;
+}
+.pl-2{
+    padding-left: 20px;
+}
+.pl-3{
+    padding-left: 30px;
+}
+.pl-4{
+    padding-left: 40px;
+}
+/* -------------------------------- */
+.pr-1{
+    padding-right: 10px;
+}
+.pr-2{
+    padding-right: 20px;
+}
+.pr-3{
+    padding-right: 30px;
+}
+.pr-4{
+    padding-right: 40px;
+}
+
+/* Margin */
+.ml-1{
+    margin-left: 10px;
+}
+.ml-2{
+    margin-left: 20px;
+}
+.ml-3{
+    margin-left: 30px;
+}
+.ml-4{
+    margin-left: 40px;
+}
+.ml-4s{
+    margin-left: 40%;
+}
+/* ------------------------------ */
+.mr-1{
+    margin-right: 10px;
+}
+.mr-2{
+    margin-right: 20px;
+}
+.mr-3{
+    margin-right: 30px;
+}
+.mr-4{
+    margin-right: 40px;
+}
+.mr-4s{
+    margin-right: 40%;
+}
+
+/* ------------------------------- */
+@media screen and (min-width: 900px) {
+    .mr-4s{
+        margin-right: 40%;
+    }
+    .ml-4s{
+        margin-left: 40%;
+    }
+}
+@media screen and (max-width: 900px) {
+    .mr-4s{
+        margin-right: 20%;
+    }
+    .ml-4s{
+        margin-left: 20%;
+    }
+}
+
+/* WARNA */
+.success{
+    color: #08AC4D;
+}
+
+
+
+/* =========================================== */
+/* Navigation Top */
+/* =========================================== */
+.navigation-top{
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    box-shadow: 1px 0 20px rgba(0, 0, 0, 0.2);
+}
+.navigation-top ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0 30px;
+}
+.navigation-top ul li{
+    float: right;
+    margin: 10px;
+    line-height: 30px;
+    align-items: center;
+}
+.navigation-top ul li a{
+    text-decoration: none;
+}
+.navigation-top ul li a .user,
+.navigation-top ul li a .bell{
+    vertical-align: middle;
+}
+.navigation-top ul li a .user{
+    width: 35px;
+}
+.navigation-top ul li a .bell{
+    width: 25px;
+}
+/* DROPDOWN */
+.navigation-top ul li .nav-ListDropdown{
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    top: 8%;
+    width: 200px;
+    box-shadow: 1px 0 20px rgba(0, 0, 0, 0.2);
+}
+.navigation-top ul li .nav-ListDropdown.active{
+    display: block !important;
+}
+.navigation-top ul li .nav-ListDropdown#user{
+    right: 3%;
+    display: none;
+}
+.navigation-top ul li .nav-ListDropdown#bell{
+    width: 300px !important;
+    height: 300px;
+    overflow-y: scroll;
+    right: 7%;
+    display: none;
+}
+.navigation-top ul li .nav-ListDropdown .head{
+    padding: 5px 15px;
+    background-color: #08AC4D;
+    color: white;
+    border-radius: 5px 5px 0 0;
+    font-size: 18px;
+}
+.navigation-top ul li .nav-ListDropdown .body{
+    font-size: 14px;
+}
+.navigation-top ul li .nav-ListDropdown#user .body{
+    padding: 5px 15px 10px 15px;
+}
+.navigation-top ul li .nav-ListDropdown .body img{
+    width: 10px;
+    margin-right: 5px;
+}
+.navigation-top ul li .nav-ListDropdown .body img#riwayat{
+    width: 30px;
+}
+.navigation-top ul li .nav-ListDropdown .body .row{
+    margin: 0;
+    padding: 15px 15px 10px 15px;
+    display: grid;
+    grid-row-gap: 50px;
+    grid-template-columns: 40px auto;
+    line-height: 10px;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.navigation-top ul li .nav-ListDropdown .body .row .tanggal,
+.navigation-top ul li .nav-ListDropdown .body .row .keterangan{
+    display: block;
+    height: 15px;
+}
+.navigation-top ul li .nav-ListDropdown .body .row .tanggal{
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.7);
+}
+.navigation-top ul li .nav-ListDropdown .body .row:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.navigation-top ul li .nav-ListDropdown .footer{
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 0 0 5px 5px;
+    font-size: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+.navigation-top ul li .nav-ListDropdown .footer .btn{
+    border-radius: 30px;
+    background-color: #08AC4D;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 100px !important;
+    margin: 0 auto;
+}
+
+/* ============================================ */
+/* Navigation Left */
+/* ============================================ */
+.navigation{
+    z-index: 999;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    bottom: 20px;
+    width: 70px;
+    border-radius: 20px;
+    box-sizing: initial;
+    border-left: 5px solid #08AC4D;
+    background-color: #08AC4D;
+    box-shadow: 5px 5px 20px white;
+    transition: width 0.3s;
+    overflow-x: hidden;
+}
+/* Active */
+.navigation.active{
+    width: 300px;
+}
+.navigation ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 10px;
+}
+.navigation ul li{
+    position: relative;
+    list-style: none;
+    width: 100%;
+    margin: 15px 0;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+/* Active */
+.navigation ul li.active{
+    background-color: #fff;
+}
+
+.navigation ul li a{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+/* Active */
+.navigation ul li.active a{
+    color: #08AC4D;
+}
+
+.navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 70px;
+    text-align: center;    
+}
+
+.navigation ul li .icon img.putih,
+.navigation ul li .icon img.hijau{
+    display: none;
+    width: 30px;
+    margin: 15px 15px;
+}
+.navigation ul li.active .icon img.hijau,
+.navigation ul li .icon img.putih{
+    display: block;
+}
+.navigation ul li.active .icon img.putih,
+.navigation ul li .icon img.hijau{
+    display: none;
+}
+
+.navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding-left: 10px;
+    height: 60px;
+    line-height: 60px;
+    white-space: normal;
+}
+
+/* Atas */
+.navigation ul li b:nth-child(1){
+    position: absolute;
+    top: -20px;
+    margin-left: -5px;
+    height: 20px;
+    width: 100%;
+    background-color: white;
+    display: none;
+}
+.navigation ul li b:nth-child(1)::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-bottom-right-radius: 30px;
+    background-color: #08AC4D;
+}
+/* Bawah */
+.navigation ul li b:nth-child(2){
+    position: absolute;
+    margin-left: -5px;
+    bottom: -20px;
+    height: 20px;
+    width: 100%;
+    background-color: white;
+    display: none;
+}
+.navigation ul li b:nth-child(2)::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-top-right-radius: 30px;
+    background-color: #08AC4D;
+}
+/* Active */
+.navigation ul li.active b:nth-child(1),
+.navigation ul li.active b:nth-child(2){
+    display: block;
+}
+
+/* Toggle */
+.toggle{
+    position: relative;
+    margin: 5px 0 40px 5px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.toggle img.open{
+    width: 220px;
+    margin-left: 5px;
+}
+.toggle img.close{
+    width: 35px;
+    margin-left: 5px;
+}
+.toggle img.close,
+.toggle.active img.open{
+    display: block;
+}
+.toggle.active img.close,
+.toggle img.open{
+    display: none;
+}
+
+/* ================================= */
+/* CONTENT */
+/* ================================= */
+.container{
+    width: 100%;
+}
+.container .row{
+    margin-top: 40px;
+    margin-left: 140px;
+}
+.container .row.header h2{
+    margin-bottom: 10px;
+}
+.container .row.header h5{
+    margin-top: 10px;
+}
+.container .row.header h5 a{
+    text-decoration: none;
+    font-weight: normal;
+    color: black;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++ */
+/* UPDATE HARGA */
+/* +++++++++++++++++++++++++++++++++++++++++++ */
+.container .row.content ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.container .row.content ul li.dropdown{
+    width: 400px;
+    margin: 15px 0;
+}
+.container .row.content ul li.dropdown .list{
+    line-height: 20px;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    cursor: pointer;
+}
+.container .row.content ul li.dropdown .harga{
+    margin-right: 60px;
+    position: relative;
+    float: right;
+}
+.container .row.content ul li.dropdown img{
+    position: relative;
+    width: 15px;
+    padding: 3px;
+    float: right;
+    transform: rotate(90deg);
+    transition: transform 0.5s;
+}
+.container .row.content ul li.dropdown .list:hover{
+    background-color: rgb(250, 250, 250);
+}
+
+/* Isi Dropdown */
+.container .row.content ul li.dropdown ul.isi-dropdown{
+    list-style-type: none;
+    width: 80%;
+    height: 0;
+    padding: 0 15px;
+    margin: 0 auto;
+    color: white;
+    background-color: #08AC4D;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: hidden;
+    transition: height 0.5s;
+}
+.container .row.content ul li.dropdown ul.isi-dropdown.active{
+    height: 150px;
+    padding: 10px 15px;
+}
+.container .row.content ul li.dropdown ul.isi-dropdown li{
+    width: 100%;
+}
+.container .row.content ul li.dropdown ul.isi-dropdown span{
+    font-weight: normal;
+    font-size: 14px;
+}
+.container .row.content ul li.dropdown ul.isi-dropdown .keterangan{
+    position: relative;
+    float: right;
+}
+.container .row.content ul li.dropdown ul.isi-dropdown .btn{
+    margin-top: 30px !important;
+    margin: 10px auto;
+    border-radius: 30px;
+    color: #08AC4D;
+    background-color: white;
+    transition: background-color 1s, color 0.5s, border 0.2;
+}
+.container .row.content ul li.dropdown ul.isi-dropdown .btn:hover{
+    background-color: #08AC4D;
+    color: white;
+    border: 2px solid white;
+}
+
+/* ===================================================== */
+/* +++++++++++++++++++++++++++++++++++++++++++ */
+/* RIWAYAT TRANSAKSI */
+/* +++++++++++++++++++++++++++++++++++++++++++ */
+/* =========================================== */
+/* Input Pencarian */
+/* =========================================== */
+.pencarian .input_cari{
+    width: 80%;
+    height: 35px;
+    border-radius: 30px;
+    padding: 0 20px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.pencarian img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 80%;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+/*support google chrome*/
+.input_cari::-webkit-input-placeholder{
+	color: rgba(0, 0, 0, 0.2);
+}
+ 
+/*support mozilla*/
+.input_cari:-moz-input-placeholder{
+	color: rgba(0, 0, 0, 0.2);
+}
+ 
+/*support internet explorer*/
+.input_cari:-ms-input-placeholder{
+	color: rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (min-width: 750px) {
+    .pencarian .input_cari{
+        width: 90%;
+    }
+    .pencarian img{
+        left: 90%;
+        margin-left: 15px;
+    }
+}
+/* ===================================== */
+/* List RIwayat Transaksi */
+/* ===================================== */
+.container .list_riwayat{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.container .list_riwayat li{
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+}
+.container .list_riwayat li .col{
+    display: grid;
+    grid-column-gap: 100px;
+    grid-template-columns: 70% auto;
+}
+.container .list_riwayat .row2 .nomor,
+.container .list_riwayat .row2 .harga,
+.container .list_riwayat .row2 .status{
+    margin-left: auto;
+}
+.container .list_riwayat .row2 .nomor{
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.7);
+}
+.container .list_riwayat .row2 .tanggal,
+.container .list_riwayat .row2 .alamat{
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* ===================================================== */
+/* =========================================== */
+/* Jadwal Kurir */
+/* =========================================== */
+.content .link-btn{
+    text-decoration: none;
+}
+.content .link-btn .btn{
+    border-radius: 30px;
+    background-color: #08AC4D;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 150px !important;
+    margin-left: auto;
+    margin-right: 70px;
+    margin-bottom: 50px;
+}
+.content .link-btn .btn:hover{
+    background-color: #008638;
+}
+.row .kotak{
+    width: 90%;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
+}
+.row .kotak img{
+    width: 30px;
+    padding: 20px 0 0 20px;
+}
+.row .kotak .row2{
+    padding: 5px;
+}
+.row .kotak .row3{
+    display: grid;
+    grid-row-gap: 50px;
+    grid-template-columns: 60px auto;
+}
+.row .kotak .row3.tombol{
+    grid-template-columns: 50% 50%;
+}
+.row .kotak .row3 .tanggal,
+.row .kotak .row3 .keterangan,
+.row .kotak .row3 .alamat{
+    display: block;
+}
+.row .kotak .row3 .tanggal,
+.row .kotak .row3 .alamat{
+    color: rgba(0, 0, 0, 0.7);
+}
+.row .kotak .row3.tombol a{
+    text-decoration: none;
+}
+.row .kotak .row3.tombol .btn{
+    border-radius: 30px;
+    background-color: #08AC4D;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 150px !important;
+    margin: 0 auto;
+}
+.row .kotak .row3.tombol .btn:hover{
+    background-color: #008638;
+}
+
+/* =========================================== */
+/* Input Jadwal Penjemputan */
+/* =========================================== */
+.row .btn.kembali{
+    width: 70px;
+    padding: 2px 15px;
+    line-height: 30px;
+    vertical-align: middle;
+    border-radius: 30px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    background-color: red;
+}
+.row .btn.kembali img{
+    width: 13px;
+    transform: rotate(180deg);
+    margin-right: 10px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+.row .input_jadwal input{
+    width: 350px;
+    height: 30px;
+    border-radius: 30px;
+    display: block;
+    margin-bottom: 10px;
+    padding: 0 20px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.row .input_jadwal input[name='nomor_p'],
+.row .input_jadwal input[name='email']{
+    margin-bottom: 0;
+}
+.row .input_jadwal .pesan{
+    font-size: 10px;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    color: red;
+}
+.row .input_jadwal button{
+    border-radius: 30px;
+    background-color: #08AC4D;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 150px !important;
+    margin-top: 50px;
+    margin-left: 120px;
+}
+.row .input_jadwal button:hover{
+    background-color: #008638;
+}

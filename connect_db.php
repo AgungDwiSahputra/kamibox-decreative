@@ -12,5 +12,5 @@ if (!$conn) {
 }else{
     ("<script>alert('Sukses tersambung dengan database.')</script>");
 }
- 
-?>
+
+$datetime = date("Y-m-d H:i:s");

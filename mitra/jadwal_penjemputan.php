@@ -12,7 +12,7 @@
     <meta name="author" content="Agung Dwi Sahputra">
     <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
 
-    <title>Dashboard | Mitra Kamibox</title>
+    <title>Jadwal Penjemputan Kurir | Mitra Kamibox</title>
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
@@ -69,7 +69,7 @@
                 <img src="../assets/Logo Kamibox Putih.png" alt="Logo Kamibox" class="open">
                 <img src="../assets/logo.png" alt="Logo Kamibox" class="close">
             </div>
-            <li class="list active">
+            <li class="list">
                 <b></b>
                 <b></b>
                 <a href="index.php">
@@ -80,10 +80,10 @@
                     <span class="title">Beranda</span>
                 </a>
             </li>
-            <li class="list">
+            <li class="list active">
                 <b></b>
                 <b></b>
-                <a href="jadwal_penjemputan.php">
+                <a href="">
                     <span class="icon">
                         <img src="../assets/Icon/calendar_p.png" alt="Jadwal Kurir" class="putih">
                         <img src="../assets/Icon/calendar_h.png" alt="Jadwal Kurir" class="hijau">
@@ -119,39 +119,17 @@
     <!-- ====================================== -->
     <!-- ISI CONTENT -->
     <!-- ====================================== -->
-    <div class="container dashboard">
+    <div class="container">
         <div class="row header">
-            <h2>Dashboard</h2>
+            <h2>Jadwal Penjemputan Kurir</h2>
+            <h5>
+                <a href="">Beranda</a>
+                <span class="panah">></span>
+                <a href="">Jadwal Penjemputan</a>
+            </h5>
         </div>
-
-        <div class="row body">
-            <div class="col grafik">
-                <span class="judul">Grafik Terkini</span>
-                <div id="basic-doughnut" style="height:250px;"></div>
-                <span class="footer">Total Penjualan : <b>Rp. 12.000.000</b> </span>
-            </div>
-            <div class="col transaksi">
-                <span class="judul">Riwayat Transaksi</span>
-                <table>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                </table>
-                <span id="selengkapnya">Selengkapnya</span>
-            </div>
-        </div>
-        <div class="row footer">
-            <div class="col">
-                <span class="judul">Jadwal Penjemputan</span>
+        <div class="row">
+            <div class="kotak">
                 <div class="row2">
                     <div class="row3">
                         <div class="col">
@@ -174,9 +152,42 @@
                             <a href="#"><button class="btn">Input Data</button></a>
                         </div>
                     </div>
+                    <div class="isi-dropdown" id="isi-dropdown">
+                        <input type="text" name="keterangan" placeholder="Masukan Keterangan Tambahan...">
+                        <button type="submit" class="btn">Input</button>
+                    </div>
+                    <img src="../assets/Icon/arrow-point-to-right.png" alt="Panah" class="dropdown" id="dropdown">
                     <hr width="90%" size="2" style="color:rgba(0, 0, 0, 0.2);">
                 </div>
-                <a href="#"><button type="submit" class="btn">Selengkapnya</button></a>
+                <div class="row2">
+                    <div class="row3">
+                        <div class="col">
+                            <img src="../assets/Icon/trash.png" alt="Trash">
+                        </div>
+                        <div class="col pt-1 pb-4 pr-3">
+                            <span class="tanggal">Sabtu, 26-2-2022 <span style="float: right;">Pukul : 09.30 WIB</span></span>
+                            <span class="keterangan"><b>Sarah Rahmadanty</b></span>
+                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
+                        </div>
+                    </div>
+                    <div class="row3 tombol pb-1">
+                        <div class="col ml-4s">
+                            <a href="#"><button class="btn">Lokasi</button></a>
+                        </div>
+                        <div class="col">
+                            <a href="#"><button class="btn">Kontak</button></a>
+                        </div>
+                        <div class="col mr-4s">
+                            <a href="#"><button class="btn">Input Data</button></a>
+                        </div>
+                    </div>
+                    <div class="isi-dropdown" id="isi-dropdown">
+                        <input type="text" name="keterangan" placeholder="Masukan Keterangan Tambahan...">
+                        <button type="submit" class="btn">Input</button>
+                    </div>
+                    <img src="../assets/Icon/arrow-point-to-right.png" alt="Panah" class="dropdown" id="dropdown">
+                    <hr width="90%" size="2" style="color:rgba(0, 0, 0, 0.2);">
+                </div>
             </div>
         </div>
     </div>
@@ -184,13 +195,24 @@
     <!-- ====================================== -->
     <!-- JAVA SCRIPT -->
     <!-- ====================================== -->
-    <script src="js/echarts-en.min.js"></script>
-
     <!-- Navigation Interactive -->
     <script>
-        let list = document.querySelectorAll('.navigation .list');
+        let list = document.querySelectorAll('.navigation .list'); //NAVIGATION
         let nav_dropdown = document.querySelectorAll('.nav-dropdown #nav-ListDropdown');
         let nav_ListDropdown = document.querySelectorAll('.navigation-top ul li .nav-ListDropdown');
+        let dropdown = document.querySelectorAll('.row .kotak .row2 img.dropdown');
+        let isi_dropdown = document.querySelectorAll('.row .kotak .row2 #isi-dropdown');
+
+        //Navbar Sebelah Kiri
+        // for (let i = 0; i < list.length; i++) {
+        //     list[i].onclick = function() {
+        //         let j = 0;
+        //         while (j < list.length) {
+        //             list[j++].className = "list";
+        //         }
+        //         list[i].className = "list active";
+        //     }
+        // }
 
         //Dropdown Navigasi
         {
@@ -216,88 +238,38 @@
             }
         }
 
-        // Toggle Button untuk Navigation 
+        //Dropdown list menu harga
+        {
+            let active = 0;
+            for (let i = 0; i < dropdown.length; i++) {
+                dropdown[i].onclick = function() {
+                    let j = 0;
+                    while (j < isi_dropdown.length) {
+                        isi_dropdown[j++].className = "isi-dropdown";
+                        dropdown[j++].className = "dropdown";
+                    }
+                    if (active == 0) {
+                        isi_dropdown[i].className = "isi-dropdown active";
+                        dropdown[i].className = "dropdown active";
+                        active = 1;
+                    } else {
+                        isi_dropdown[i].className = "isi-dropdown";
+                        dropdown[i].className = "dropdown";
+                        active = 0;
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Toggle Button untuk Navigation -->
+    <script>
         let menuToggle = document.querySelector('.toggle');
         let navigation = document.querySelector('.navigation');
         menuToggle.onclick = function() {
             menuToggle.classList.toggle('active');
             navigation.classList.toggle('active');
         }
-
-        // ------------------------------
-        // Basic pie chart
-        // ------------------------------
-        // based on prepared DOM, initialize echarts instance
-        var basicdoughnutChart = echarts.init(document.getElementById('basic-doughnut'));
-        var option = {
-
-            // Add legend
-            legend: {
-                orient: 'vertical',
-                x: 'right',
-                data: ['Kertas', 'Plastik', 'Logam', 'Kaca']
-            },
-
-            // Add custom colors
-            color: ['#ffbc34', '#4fc3f7', '#2962FF', '#f62d51'],
-
-            // Display toolbox
-            toolbox: {
-                show: false,
-            },
-
-            // Enable drag recalculate
-            calculable: true,
-
-            // Add series
-            series: [{
-                name: 'Grafik Terkini',
-                type: 'pie',
-                radius: ['40%', '60%'],
-                center: ['41%', '45%'],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true
-                        },
-                        labelLine: {
-                            show: true
-                        }
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            formatter: '{b}' + '\n\n' + '{c} ({d}%)',
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '13',
-                                fontWeight: '800'
-                            }
-                        }
-                    }
-                },
-
-                data: [{
-                        value: 10,
-                        name: 'Kertas'
-                    },
-                    {
-                        value: 9,
-                        name: 'Plastik'
-                    },
-                    {
-                        value: 2,
-                        name: 'Logam'
-                    },
-                    {
-                        value: 4,
-                        name: 'Kaca'
-                    }
-                ]
-            }]
-        };
-
-        basicdoughnutChart.setOption(option);
     </script>
 
 </body>

@@ -50,7 +50,7 @@ session_start();
                         <h4 style="margin: 0;">Profile</h4>
                     </div>
                     <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
+                        <a href="profile.php"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
                     </div>
                     <div class="footer">
                         <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
