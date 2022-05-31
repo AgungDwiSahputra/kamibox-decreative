@@ -1,4 +1,13 @@
-
+<?php
+require '../connect_db.php';
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
+/* =========================================================== */
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +31,7 @@
 <body>
     <div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
+            <li class="nav-left"><b>Hai,</b> <?= $nama ?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -48,17 +57,25 @@
                         <h4 style="margin: 0;">Notifikasi</h4>
                     </div>
                     <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
+                        <?php
+                        /* RIWAYAT TRANSAKSI */
+                        $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+                        while ($data_transaksiN = mysqli_fetch_array($query_transaksi)) {
+                        ?>
+                            <a href="#">
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
+                                    </div>
+                                    <div class="col">
+                                        <span class="tanggal"><?= $data_transaksiN['ttl_transaksi'] ?></span>
+                                        <span class="keterangan"><b>Transaksi Berhasil</b></span>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </li>
@@ -137,69 +154,39 @@
         </div>
         <div class="row">
             <ul class="list_riwayat">
-                <li>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="tanggal">Sabtu, 26-2-2022</span>
-                            <span class="nomor">#0001</span>
+                <?php
+                /* Riwayat Transaksi */
+                $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+                // Tabel Transaksi Pembelian
+                while ($data_transaksi = mysqli_fetch_array($query_transaksi)) {
+                    $pemasok_id = $data_transaksi['pemasok_id'];
+                    $query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$pemasok_id'");
+                    $data_user = mysqli_fetch_array($query_user);
+                ?>
+                    <li>
+                        <div class="row2">
+                            <div class="col">
+                                <span class="tanggal"><?= $data_transaksi['ttl_transaksi'] ?></span>
+                                <span class="nomor">#<?= $data_transaksi['no_invoice'] ?></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
-                            <span class="harga"><b>Rp. 205.000</b></span>
+                        <div class="row2">
+                            <div class="col">
+                                <span class="keterangan"><b><?= $data_user['nama_lengkap'] ?> | (<?= $data_transaksi['total_berat']  ?>kg)</b></span>
+                                <span class="harga"><b>Rp. <?= number_format($data_transaksi['harga'], 0, ',', '.') ?></b></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                            <span class="status success">Berhasil</span>
+                        <div class="row2">
+                            <div class="col">
+                                <span class="alamat"><b>Alamat : </b><?= $data_transaksi['alamat'] ?></span>
+                                <span class="status success">Berhasil</span>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
-                <li>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="tanggal">Sabtu, 26-2-2022</span>
-                            <span class="nomor">#0001</span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
-                            <span class="harga"><b>Rp. 205.000</b></span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                            <span class="status success">Berhasil</span>
-                        </div>
-                    </div>
-                </li>
-                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
-                <li>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="tanggal">Sabtu, 26-2-2022</span>
-                            <span class="nomor">#0001</span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
-                            <span class="harga"><b>Rp. 205.000</b></span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                            <span class="status success">Berhasil</span>
-                        </div>
-                    </div>
-                </li>
-                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
+                    </li>
+                    <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
+                <?php
+                }
+                ?>
             </ul>
         </div>
     </div>

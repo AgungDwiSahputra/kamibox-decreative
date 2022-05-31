@@ -1,29 +1,38 @@
-<?php session_start();
+<?php
 require '../connect_db.php';
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
+
+// Memastikan jika mitra sudah mengisi data pemasok tidak akan bisa masuk kembali ke tampilan ini
+if (isset($_SESSION['no_invoice'])) {
+    header("Location: input_data_1.php");
+}
+/* =========================================================== */
 
 $query = mysqli_query($conn, "SELECT * FROM users");
-$id_user = @$_POST['akun_customer'];
-$query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id_user'");
+$id = @$_POST['akun_customer'];
+$query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id'");
 $data_user_id = mysqli_fetch_array($query_user);
 
 /* Setelah klik button next */
 if (isset($_POST['next'])) {
-    $nama =  $_POST['nama'];
+    $id_userPemasok = $_POST['id_user'];
     $alamat =  $_POST['alamat'];
-    $ttl_transaksi =  date('Y-m-d H:i:s'); //2022-05-28 14:09:41;
-    $no_telp =  $_POST['nomor_p'];
-    $email =  $_POST['email'];
 
-    $_SESSION['nama'] = $nama;
-    $_SESSION['alamat'] = $alamat;
-    $_SESSION['nomor_p'] = $no_telp;
-    $_SESSION['email'] = $email;
-    $_SESSION['ttl_transaksi'] = $ttl_transaksi;
+    /* INVOICE */
+    $invoice =  $id_userPemasok . date('mHis');
+    $query = mysqli_query($conn, "INSERT INTO transaksi_pembelian VALUES ('$invoice','$id_user','$id_userPemasok',null,null, '$alamat',null,'$datetime')");
+    if ($query) {
+        $_SESSION['no_invoice'] = $invoice;
 
-    $key_next = md5(rand(1, 999999999));
-    setcookie('key', $key_next, time() + (3 * 1), "/");
-
-    header("Location: input_data_1.php?next=" . $_POST['next'] . "&key=" . $key_next);
+        header("Location: input_data_1.php");
+    } else {
+        header("Location: input_data.php");
+    }
 }
 
 ?>
@@ -168,29 +177,34 @@ if (isset($_POST['next'])) {
                         while ($data = mysqli_fetch_array($query)) {
                         ?>
                             <option <?php if (!empty($data['id_user'])) {
-                                        echo $data['id_user'] == $id_user ? 'selected' : '';
+                                        echo $data['id_user'] == $id ? 'selected' : '';
                                     } ?> value="<?= $data['id_user'] ?>"><?= $no . ". " . $data['nama_lengkap'] ?></option>
                         <?php
                             $no++;
                         }
                         ?>
                     </select>
-                    <input type="text" name="nama" placeholder="Nama Lengkap" value="<?php if ($id_user != "") {
+                    <input type="text" name="id_user" placeholder="ID Pemasok" value="<?php if ($id != "") {
+                                                                                            echo $data_user_id['id_user'];
+                                                                                        } else {
+                                                                                            echo '';
+                                                                                        } ?>" readonly>
+                    <input type="text" name="nama" placeholder="Nama Lengkap" value="<?php if ($id != "") {
                                                                                             echo $data_user_id['nama_lengkap'];
                                                                                         } else {
                                                                                             echo '';
-                                                                                        } ?>">
-                    <input type="text" name="nomor_p" placeholder="Nomor Ponsel" value="<?php if ($id_user != "") {
+                                                                                        } ?>" readonly>
+                    <input type="text" name="nomor_p" placeholder="Nomor Ponsel" value="<?php if ($id != "") {
                                                                                             echo $data_user_id['notelp'];
                                                                                         } else {
                                                                                             echo '';
-                                                                                        } ?>">
+                                                                                        } ?>" readonly>
                     <span class="pesan">Note : Nomor telepon harus sesuai dengan nomor yang terdaftar di akun pemasok</span>
-                    <input type="email" name="email" placeholder="Email" value="<?php if ($id_user != "") {
+                    <input type="email" name="email" placeholder="Email" value="<?php if ($id != "") {
                                                                                     echo $data_user_id['email'];
                                                                                 } else {
                                                                                     echo '';
-                                                                                } ?>">
+                                                                                } ?>" readonly>
                     <span class="pesan">Note : Email harus sesuai dengan yang terdaftar di akun pemasok</span>
                     <input type="text" name="alamat" placeholder="Alamat Lengkap / Copy Link Maps">
 
