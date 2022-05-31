@@ -236,7 +236,7 @@ a{
 .navigation-top ul li .nav-ListDropdown#bell{
     width: 300px !important;
     height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
     right: 7%;
     display: none;
 }
@@ -1074,4 +1074,27 @@ a{
 .container .list_riwayat .row2 .tanggal,
 .container .list_riwayat .row2 .alamat{
     color: rgba(0, 0, 0, 0.7);
+}
+
+/* ============================================= */
+/* PROFILE */
+/* ============================================= */
+.container .row.body ul{
+    list-style-type: none;
+    padding: 20px;
+    margin: 0;
+}
+.container .row.body li{
+    padding: 5px 30px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    margin: 10px 0;
+}
+.container .row.body li:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.container .row.body li .harga{
+    float: right;
+    margin-right: 30px;
 }

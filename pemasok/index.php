@@ -1,5 +1,7 @@
 <?php
 session_start();
+include '../connect_db.php';
+include 'hari_indo.php';
 
 //cek status login user di session
 $status_login = $_SESSION['login'];
@@ -300,17 +302,27 @@ if ($status_login === true and !empty($email) and $level == '3') {
                             <h4 style="margin: 0;">Notifikasi</h4>
                         </div>
                         <div class="body">
-                            <a href="#">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
+                            <?php
+                            /* RIWAYAT TRANSAKSI */
+                            $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE pemasok_id = '$id_user'");
+                            $total_penjualan = 0; //UNTUK TOTAL PENJUALAN PADA GRAFIK
+                            while ($data_transaksiN = mysqli_fetch_array($query_transaksi)) {
+                                $total_penjualan += $data_transaksiN['harga'];
+                            ?>
+                                <a href="#">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
+                                        </div>
+                                        <div class="col">
+                                            <span class="tanggal"><?= $data_transaksiN['ttl_transaksi'] ?></span>
+                                            <span class="keterangan"><b>Transaksi Berhasil</b></span>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <span class="tanggal">Sabtu, 26-2-2022</span>
-                                        <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                    </div>
-                                </div>
-                            </a>
+                                </a>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </li>
@@ -366,8 +378,6 @@ if ($status_login === true and !empty($email) and $level == '3') {
 
                 <div class="cards">
                     <?php
-                    include '../connect_db.php';
-                    include 'hari_indo.php';
                     $query = mysqli_query($conn, "select * from grafik");
                     $data = mysqli_fetch_assoc($query);
                     ?>
@@ -380,7 +390,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
                         </div>
                         <p style="margin-left:30px;padding-bottom: 10px;font-size: 0.85rem;">Total Penjualan : <span style="font-weight: 700;margin-left: 30px;"><?php
                                                                                                                                                                     $total = $data['total_penjualan'];
-                                                                                                                                                                    $total2 = number_format($total, 2, ",", ".");
+                                                                                                                                                                    $total2 = number_format($total, 0, ",", ".");
                                                                                                                                                                     echo "Rp " . $total2;
                                                                                                                                                                     ?></span></p>
 
@@ -402,7 +412,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
                                 <div class="swiper-slide">
                                     <div class="segmen-artikel">
                                         <div class="post-img">
-                                            <img class="img-artikel" src="../<?php echo $row['img']; ?>">
+                                            <img class="img-artikel" src="../<?php echo $row['img']; ?>" alt="Blog">
                                         </div>
                                         <div class="segmen-content-blogs">
                                             <img class="img-bg-content-blog" src="">
@@ -446,7 +456,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
                         </div>
                         <div class="content-transaksi">
                             <?php
-                            $query3 = mysqli_query($conn, "select * from rw_transaksi limit 6");
+                            $query3 = mysqli_query($conn, "SELECT * from transaksi_pembelian WHERE pemasok_id = '$id_user' limit 6");
 
                             ?>
 
@@ -468,13 +478,13 @@ if ($status_login === true and !empty($email) and $level == '3') {
                             </div>
 
                             <div class="ct total">
-                                <?php $query4 = mysqli_query($conn, "select * from rw_transaksi limit 6");
+                                <?php $query4 = mysqli_query($conn, "SELECT * from transaksi_pembelian WHERE pemasok_id = '$id_user' limit 6");
 
                                 while ($row4 = mysqli_fetch_array($query4)) {
                                 ?>
                                     <p><?php
                                         $harga = $row4['total_tr'];
-                                        $harga2 = number_format($harga, 2, ",", ".");
+                                        $harga2 = number_format($harga, 0, ",", ".");
                                         echo "Rp " . $harga2;
                                         ?></p>
                                 <?php } ?>
@@ -512,7 +522,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
                                 ?>
                                     <p><?php
                                         $harga = $row6['harga_barang'];
-                                        $harga2 = number_format($harga, 2, ",", ".");
+                                        $harga2 = number_format($harga, 0, ",", ".");
                                         echo "Rp " . $harga2;
                                         ?></p>
                                 <?php } ?>

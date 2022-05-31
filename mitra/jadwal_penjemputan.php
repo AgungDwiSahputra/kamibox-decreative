@@ -1,3 +1,13 @@
+<?php
+require '../connect_db.php';
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
+/* =========================================================== */
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,50 +29,11 @@
 </head>
 
 <body>
-    <div class="navigation-top">
-        <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/user.png" alt="Account" class="user">
-                </a>
-                <div class="nav-ListDropdown" id="user">
-                    <div class="head">
-                        <h4 style="margin: 0;">Profile</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
-                    </div>
-                    <div class="footer">
-                        <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/bell.png" alt="Notifikasi" class="bell">
-                </a>
-                <div class="nav-ListDropdown" id="bell">
-                    <div class="head">
-                        <h4 style="margin: 0;">Notifikasi</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+
+    <!-- NAVIGATION TOP -->
+    <?php require '../nav-top.php'; ?>
+    <!-- ============================= -->
+
     <div class="navigation">
         <ul>
             <div class="toggle">

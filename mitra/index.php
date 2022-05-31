@@ -8,8 +8,6 @@ if ($level !== '2') {
 }
 /* =========================================================== */
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -33,58 +31,11 @@ if ($level !== '2') {
 </head>
 
 <body>
-    <div class="navigation-top">
-        <ul>
-            <li class="nav-left"><b>Hai,</b> <?= $nama ?></li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/user.png" alt="Account" class="user">
-                </a>
-                <div class="nav-ListDropdown" id="user">
-                    <div class="head">
-                        <h4 style="margin: 0;">Profile</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
-                    </div>
-                    <div class="footer">
-                        <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/bell.png" alt="Notifikasi" class="bell">
-                </a>
-                <div class="nav-ListDropdown" id="bell">
-                    <div class="head">
-                        <h4 style="margin: 0;">Notifikasi</h4>
-                    </div>
-                    <div class="body">
-                        <?php
-                        /* RIWAYAT TRANSAKSI */
-                        $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
-                        while ($data_transaksiN = mysqli_fetch_array($query_transaksi)) {
-                        ?>
-                            <a href="#">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                    </div>
-                                    <div class="col">
-                                        <span class="tanggal"><?= $data_transaksiN['ttl_transaksi'] ?></span>
-                                        <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                    </div>
-                                </div>
-                            </a>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+
+    <!-- NAVIGATION TOP -->
+    <?php require '../nav-top.php'; ?>
+    <!-- ============================= -->
+
     <div class="navigation">
         <ul>
             <div class="toggle">
@@ -150,7 +101,7 @@ if ($level !== '2') {
             <div class="col grafik">
                 <span class="judul">Grafik Terkini</span>
                 <div id="basic-doughnut" style="height:250px;"></div>
-                <span class="footer">Total Penjualan : <b>Rp. 12.000.000</b> </span>
+                <span class="footer">Total Penjualan : <b>Rp. <?= number_format($total_penjualan, 0, ',', '.') ?></b> </span>
             </div>
             <div class="col transaksi">
                 <span class="judul">Riwayat Transaksi</span>
@@ -159,17 +110,22 @@ if ($level !== '2') {
                         <?php
                         /* Riwayat Transaksi */
                         $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+                        $total_transaksi = mysqli_num_rows($query_transaksi);
                         // Tabel Transaksi Pembelian
-                        while ($data_transaksi = mysqli_fetch_array($query_transaksi)) {
-                            $pemasok_id = $data_transaksi['pemasok_id'];
-                            $query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$pemasok_id'");
-                            $data_user = mysqli_fetch_array($query_user);
+                        if ($total_transaksi != 0) {
+                            while ($data_transaksi = mysqli_fetch_array($query_transaksi)) {
+                                $pemasok_id = $data_transaksi['pemasok_id'];
+                                $query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$pemasok_id'");
+                                $data_user = mysqli_fetch_array($query_user);
                         ?>
-                            <tr>
-                                <td><?= $data_user['nama_lengkap'] ?></td>
-                                <td>Rp. <?= number_format($data_transaksi['harga'], 0, ',', '.') ?></td>
-                            </tr>
+                                <tr>
+                                    <td><?= $data_user['nama_lengkap'] ?></td>
+                                    <td>Rp. <?= number_format($data_transaksi['harga'], 0, ',', '.') ?></td>
+                                </tr>
                         <?php
+                            }
+                        } else {
+                            echo '<tr><td style="color:red;text-align:center;font-size:14px;">Data Transaksi masih kosong</td></tr>';
                         }
                         ?>
                     </table>
@@ -221,7 +177,7 @@ if ($level !== '2') {
     $TrxPembelian = mysqli_fetch_array($query_TrxPembelian);
     $query_Barang = mysqli_query($conn, "SELECT * FROM barang");
     $List_Barang = '';
-    while ($List = mysqli_fetch_array($query_Barang)) {
+    while ($List = mysqli_fetch_assoc($query_Barang)) {
         $List_Barang .= "'" . $List['nama_barang'] . "', ";
     }
     ?>
@@ -268,16 +224,14 @@ if ($level !== '2') {
         // ------------------------------
         // based on prepared DOM, initialize echarts instance
         var basicdoughnutChart = echarts.init(document.getElementById('basic-doughnut'));
-
         var barang = "<?= $List_Barang ?>";
-        console.log(barang);
         var option = {
 
             // Add legend
             legend: {
                 orient: 'vertical',
                 x: 'right',
-                data: [barang]
+                data: ['Kertas', 'Plastik', 'Logam', 'Kaca', 'Coba', ]
             },
 
             // Add custom colors
@@ -321,7 +275,7 @@ if ($level !== '2') {
 
                 data: [{
                         value: 10,
-                        name: 'kardus'
+                        name: 'Kertas'
                     },
                     {
                         value: 9,
@@ -332,25 +286,13 @@ if ($level !== '2') {
                         name: 'Logam'
                     },
                     {
-                        value: 2,
-                        name: 'Logam'
-                    },
-                    {
-                        value: 2,
-                        name: 'Logam'
-                    },
-                    {
-                        value: 2,
-                        name: 'Logam'
-                    },
-                    {
-                        value: 2,
-                        name: 'Logam'
-                    },
-                    {
                         value: 4,
                         name: 'Kaca'
-                    }
+                    },
+                    {
+                        value: 6,
+                        name: 'Coba'
+                    },
                 ]
             }]
         };
