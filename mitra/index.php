@@ -1,3 +1,17 @@
+<?php
+require '../connect_db.php';
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
+/* =========================================================== */
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +35,7 @@
 <body>
     <div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
+            <li class="nav-left"><b>Hai,</b> <?= $nama ?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -47,17 +61,25 @@
                         <h4 style="margin: 0;">Notifikasi</h4>
                     </div>
                     <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
+                        <?php
+                        /* RIWAYAT TRANSAKSI */
+                        $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+                        while ($data_transaksiN = mysqli_fetch_array($query_transaksi)) {
+                        ?>
+                            <a href="#">
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
+                                    </div>
+                                    <div class="col">
+                                        <span class="tanggal"><?= $data_transaksiN['ttl_transaksi'] ?></span>
+                                        <span class="keterangan"><b>Transaksi Berhasil</b></span>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </li>
@@ -132,21 +154,27 @@
             </div>
             <div class="col transaksi">
                 <span class="judul">Riwayat Transaksi</span>
-                <table>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                </table>
-                <span id="selengkapnya">Selengkapnya</span>
+                <div class="table">
+                    <table>
+                        <?php
+                        /* Riwayat Transaksi */
+                        $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+                        // Tabel Transaksi Pembelian
+                        while ($data_transaksi = mysqli_fetch_array($query_transaksi)) {
+                            $pemasok_id = $data_transaksi['pemasok_id'];
+                            $query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$pemasok_id'");
+                            $data_user = mysqli_fetch_array($query_user);
+                        ?>
+                            <tr>
+                                <td><?= $data_user['nama_lengkap'] ?></td>
+                                <td>Rp. <?= number_format($data_transaksi['harga'], 0, ',', '.') ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+                </div>
+                <a href="riwayat_transaksi.php" id="selengkapnya">Selengkapnya</a>
             </div>
         </div>
         <div class="row footer">
@@ -168,15 +196,15 @@
                             <a href="#"><button class="btn">Lokasi</button></a>
                         </div>
                         <div class="col">
-                            <a href="#"><button class="btn">Kontak</button></a>
+                            <a href="https://api.whatsapp.com/send?phone=XXXXXXXXXX&text=YYYYYY"><button class="btn">Kontak</button></a>
                         </div>
                         <div class="col mr-4s">
-                            <a href="#"><button class="btn">Input Data</button></a>
+                            <a href="input_data.php"><button class="btn">Input Data</button></a>
                         </div>
                     </div>
                     <hr width="90%" size="2" style="color:rgba(0, 0, 0, 0.2);">
                 </div>
-                <a href="#"><button type="submit" class="btn">Selengkapnya</button></a>
+                <a href="jadwal_penjemputan.php"><button type="submit" class="btn">Selengkapnya</button></a>
             </div>
         </div>
     </div>
@@ -187,6 +215,17 @@
     <script src="js/echarts-en.min.js"></script>
 
     <!-- Navigation Interactive -->
+    <!-- Untuk Grafik -->
+    <?php
+    $query_TrxPembelian = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+    $TrxPembelian = mysqli_fetch_array($query_TrxPembelian);
+    $query_Barang = mysqli_query($conn, "SELECT * FROM barang");
+    $List_Barang = '';
+    while ($List = mysqli_fetch_array($query_Barang)) {
+        $List_Barang .= "'" . $List['nama_barang'] . "', ";
+    }
+    ?>
+    <!-- =========================== -->
     <script>
         let list = document.querySelectorAll('.navigation .list');
         let nav_dropdown = document.querySelectorAll('.nav-dropdown #nav-ListDropdown');
@@ -229,17 +268,20 @@
         // ------------------------------
         // based on prepared DOM, initialize echarts instance
         var basicdoughnutChart = echarts.init(document.getElementById('basic-doughnut'));
+
+        var barang = "<?= $List_Barang ?>";
+        console.log(barang);
         var option = {
 
             // Add legend
             legend: {
                 orient: 'vertical',
                 x: 'right',
-                data: ['Kertas', 'Plastik', 'Logam', 'Kaca']
+                data: [barang]
             },
 
             // Add custom colors
-            color: ['#ffbc34', '#4fc3f7', '#2962FF', '#f62d51'],
+            // color: ['#ffbc34', '#4fc3f7', '#2962FF', '#f62d51'],
 
             // Display toolbox
             toolbox: {
@@ -279,11 +321,27 @@
 
                 data: [{
                         value: 10,
-                        name: 'Kertas'
+                        name: 'kardus'
                     },
                     {
                         value: 9,
                         name: 'Plastik'
+                    },
+                    {
+                        value: 2,
+                        name: 'Logam'
+                    },
+                    {
+                        value: 2,
+                        name: 'Logam'
+                    },
+                    {
+                        value: 2,
+                        name: 'Logam'
+                    },
+                    {
+                        value: 2,
+                        name: 'Logam'
                     },
                     {
                         value: 2,
