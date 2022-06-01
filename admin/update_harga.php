@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,178 +116,41 @@
                 <a href="">Update Harga</a>
             </h5>
         </div>
-        <div class="row content">
-            <ul>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">Arsip Kantor</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
-                    </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">Kardus</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
-                    </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">HVS Bekas</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
-                    </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <div class="list">
-                        <span class="jenis">Buku/Majalah</span>
-                        <img src="../assets/Icon/arrow-point-to-right.png" alt="panah">
-                        <span class="harga">Rp. 5.000/kg</span>
-                    </div>
-                    <ul class="isi-dropdown">
-                        <li>
-                            <span class="title">Nama Produk</span>
-                            <span class="keterangan">Arsip Kantor</span>
-                        </li>
-                        <li>
-                            <span class="title">HPP</span>
-                            <span class="keterangan">3000</span>
-                        </li>
-                        <li>
-                            <span class="title">Harga Jual</span>
-                            <span class="keterangan">5000</span>
-                        </li>
-                        <li>
-                            <button class="btn">Ubah</button>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="row content" id="show-data">
+
         </div>
     </div>
+    <!-- plugin -->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <!-- end plugin -->
+
+    <!-- ajax -->
+    <script>
+        show_data()
+
+        function show_data() {
+            $.ajax({
+                url: 'ajax/update_harga/data_harga.php',
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    $('#show-data').html(response.sukses)
+                },
+                error: function(xhr, status, error) {
+                    alert("Terjadi kesalahan silahkan coba lagi.");
+                }
+            })
+        }
+
+        $(document).on('click', '.ubah', function() {
+            alert($(this).attr('data-param'))
+        })
+    </script>
+    <!-- end ajax -->
 
     <!-- ====================================== -->
     <!-- JAVA SCRIPT -->
     <!-- ====================================== -->
-    <!-- Navigation Interactive -->
-    <script>
-        let list = document.querySelectorAll('.navigation .list');
-        let nav_dropdown = document.querySelectorAll('.nav-dropdown #nav-ListDropdown');
-        let nav_ListDropdown = document.querySelectorAll('.navigation-top ul li .nav-ListDropdown');
-        let dropdown = document.querySelectorAll('.dropdown .list');
-        let isi_dropdown = document.querySelectorAll('.content .dropdown .isi-dropdown');
-
-        //Navbar Sebelah Kiri
-        // for (let i = 0; i < list.length; i++) {
-        //     list[i].onclick = function() {
-        //         let j = 0;
-        //         while (j < list.length) {
-        //             list[j++].className = "list";
-        //         }
-        //         list[i].className = "list active";
-        //     }
-        // }
-
-        //Dropdown Navigasi
-        {
-            let active = 0;
-            for (let i = 0; i < nav_dropdown.length; i++) {
-                nav_dropdown[i].onclick = function() {
-                    let j = 0;
-                    if (active == 0) {
-                        while (j < nav_ListDropdown.length) {
-                            nav_ListDropdown[j++].className = "nav-ListDropdown";
-                        }
-                        nav_ListDropdown[i].className = "nav-ListDropdown active";
-                        active = 1;
-                    } else {
-                        while (j < nav_ListDropdown.length) {
-                            nav_ListDropdown[j++].className = "nav-ListDropdown";
-                        }
-                        nav_ListDropdown[i].className = "nav-ListDropdown";
-                        active = 0;
-                    }
-
-                }
-            }
-        }
-
-        //Dropdown list menu harga
-        {
-            let active = 0;
-            for (let i = 0; i < dropdown.length; i++) {
-                dropdown[i].onclick = function() {
-                    let j = 0;
-                    if (active == 0) {
-                        while (j < isi_dropdown.length) {
-                            isi_dropdown[j++].className = "isi-dropdown";
-                        }
-                        isi_dropdown[i].className = "isi-dropdown active";
-                        active = 1;
-                    } else {
-                        while (j < isi_dropdown.length) {
-                            isi_dropdown[j++].className = "isi-dropdown";
-                        }
-                        isi_dropdown[i].className = "isi-dropdown";
-                        active = 0;
-                    }
-                }
-            }
-        }
-    </script>
-
     <!-- Toggle Button untuk Navigation -->
     <script>
         let menuToggle = document.querySelector('.toggle');
