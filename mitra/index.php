@@ -1,3 +1,15 @@
+<?php
+require '../connect_db.php';
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
+/* =========================================================== */
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,50 +31,11 @@
 </head>
 
 <body>
-    <div class="navigation-top">
-        <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/user.png" alt="Account" class="user">
-                </a>
-                <div class="nav-ListDropdown" id="user">
-                    <div class="head">
-                        <h4 style="margin: 0;">Profile</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
-                    </div>
-                    <div class="footer">
-                        <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/bell.png" alt="Notifikasi" class="bell">
-                </a>
-                <div class="nav-ListDropdown" id="bell">
-                    <div class="head">
-                        <h4 style="margin: 0;">Notifikasi</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+
+    <!-- NAVIGATION TOP -->
+    <?php require '../nav-top.php'; ?>
+    <!-- ============================= -->
+
     <div class="navigation">
         <ul>
             <div class="toggle">
@@ -128,25 +101,36 @@
             <div class="col grafik">
                 <span class="judul">Grafik Terkini</span>
                 <div id="basic-doughnut" style="height:250px;"></div>
-                <span class="footer">Total Penjualan : <b>Rp. 12.000.000</b> </span>
+                <span class="footer">Total Penjualan : <b>Rp. <?= number_format($total_penjualan, 0, ',', '.') ?></b> </span>
             </div>
             <div class="col transaksi">
                 <span class="judul">Riwayat Transaksi</span>
-                <table>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                    <tr>
-                        <td>Indra Frimawan</td>
-                        <td>Rp. 200.000</td>
-                    </tr>
-                </table>
-                <span id="selengkapnya">Selengkapnya</span>
+                <div class="table">
+                    <table>
+                        <?php
+                        /* Riwayat Transaksi */
+                        $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+                        $total_transaksi = mysqli_num_rows($query_transaksi);
+                        // Tabel Transaksi Pembelian
+                        if ($total_transaksi != 0) {
+                            while ($data_transaksi = mysqli_fetch_array($query_transaksi)) {
+                                $pemasok_id = $data_transaksi['pemasok_id'];
+                                $query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$pemasok_id'");
+                                $data_user = mysqli_fetch_array($query_user);
+                        ?>
+                                <tr>
+                                    <td><?= $data_user['nama_lengkap'] ?></td>
+                                    <td>Rp. <?= number_format($data_transaksi['harga'], 0, ',', '.') ?></td>
+                                </tr>
+                        <?php
+                            }
+                        } else {
+                            echo '<tr><td style="color:red;text-align:center;font-size:14px;">Data Transaksi masih kosong</td></tr>';
+                        }
+                        ?>
+                    </table>
+                </div>
+                <a href="riwayat_transaksi.php" id="selengkapnya">Selengkapnya</a>
             </div>
         </div>
         <div class="row footer">
@@ -168,15 +152,15 @@
                             <a href="#"><button class="btn">Lokasi</button></a>
                         </div>
                         <div class="col">
-                            <a href="#"><button class="btn">Kontak</button></a>
+                            <a href="https://api.whatsapp.com/send?phone=XXXXXXXXXX&text=YYYYYY"><button class="btn">Kontak</button></a>
                         </div>
                         <div class="col mr-4s">
-                            <a href="#"><button class="btn">Input Data</button></a>
+                            <a href="input_data.php"><button class="btn">Input Data</button></a>
                         </div>
                     </div>
                     <hr width="90%" size="2" style="color:rgba(0, 0, 0, 0.2);">
                 </div>
-                <a href="#"><button type="submit" class="btn">Selengkapnya</button></a>
+                <a href="jadwal_penjemputan.php"><button type="submit" class="btn">Selengkapnya</button></a>
             </div>
         </div>
     </div>
@@ -187,6 +171,17 @@
     <script src="js/echarts-en.min.js"></script>
 
     <!-- Navigation Interactive -->
+    <!-- Untuk Grafik -->
+    <?php
+    $query_TrxPembelian = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");
+    $TrxPembelian = mysqli_fetch_array($query_TrxPembelian);
+    $query_Barang = mysqli_query($conn, "SELECT * FROM barang");
+    $List_Barang = '';
+    while ($List = mysqli_fetch_assoc($query_Barang)) {
+        $List_Barang .= "'" . $List['nama_barang'] . "', ";
+    }
+    ?>
+    <!-- =========================== -->
     <script>
         let list = document.querySelectorAll('.navigation .list');
         let nav_dropdown = document.querySelectorAll('.nav-dropdown #nav-ListDropdown');
@@ -229,17 +224,18 @@
         // ------------------------------
         // based on prepared DOM, initialize echarts instance
         var basicdoughnutChart = echarts.init(document.getElementById('basic-doughnut'));
+        var barang = "<?= $List_Barang ?>";
         var option = {
 
             // Add legend
             legend: {
                 orient: 'vertical',
                 x: 'right',
-                data: ['Kertas', 'Plastik', 'Logam', 'Kaca']
+                data: ['Kertas', 'Plastik', 'Logam', 'Kaca', 'Coba', ]
             },
 
             // Add custom colors
-            color: ['#ffbc34', '#4fc3f7', '#2962FF', '#f62d51'],
+            // color: ['#ffbc34', '#4fc3f7', '#2962FF', '#f62d51'],
 
             // Display toolbox
             toolbox: {
@@ -292,7 +288,11 @@
                     {
                         value: 4,
                         name: 'Kaca'
-                    }
+                    },
+                    {
+                        value: 6,
+                        name: 'Coba'
+                    },
                 ]
             }]
         };

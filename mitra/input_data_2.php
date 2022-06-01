@@ -1,98 +1,71 @@
 <?php
-session_start();
 require '../connect_db.php';
-
-/* SESSION SEBELUMNYA TETAP DI BAWA */
-// var_dump($_SESSION['nama']);
-// var_dump($_SESSION['alamat']);
-// var_dump($_SESSION['nomor_p']);
-// var_dump($_SESSION['email']);
-// var_dump($_SESSION['ttl_transaksi']);
-// foreach ($_SESSION['jumlah_item'] as $jumlah_item => $daur_ulang) {
-//     var_dump($daur_ulang);
-// }
-// session_unset();
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
+/* =========================================================== */
+/* DATA YANG DI BAWA DARI PROSES SEBELUMNYA */
+$invoice_session = $_SESSION['no_invoice'];
+/* =========================================================== */
 
 /* Jika Belum Menyelesaikan step awal */
-if (!isset($_SESSION['jumlah_item'])) {
+// Kondisi jika setelah memilih barang daur ulang tidak bisa kembali ketampilan ini dari URL kecuali dari button tambah pada tampilan menambahkan berat
+// if (!isset($_SESSION['input_barang'])) {
+//     header("Location: input_data_1.php");
+// }
+
+/* Mengambil TRX BARANG untuk mengambil id barang yang sedang di input */
+$query_TrxBarang = mysqli_query($conn, "SELECT * FROM transaksi_barang WHERE no_invoice = '$invoice_session'");
+
+/* Proses Input Berat */
+if (isset($_POST['berat_barang'])) {
+    $id_TrxBarang = $_POST['id_TrxBarang'];
+    $berat_TrxBarang = $_POST['berat_TrxBarang']; //Berat barang semula
+    $berat_barang = $_POST['berat_barang']; //Berat Barang Inputan
+
+    // var_dump($berat_TrxBarang);
+    if ($berat_TrxBarang == null) {
+        $Update_BBarang = mysqli_query($conn, "UPDATE transaksi_barang SET berat = '$berat_barang' WHERE id = '$id_TrxBarang'");
+    } else {
+        $berat_TrxBarang .= ", " . $berat_barang;
+        $Update_BBarang = mysqli_query($conn, "UPDATE transaksi_barang SET berat = '$berat_TrxBarang' WHERE id = '$id_TrxBarang'");
+    }
+
+    header("Location: input_data_2.php");
+}
+
+if (isset($_POST['tambah_item'])) {
+    unset($_SESSION['input_barang']);
     header("Location: input_data_1.php");
 }
 
-$key = md5(rand(1, 999999999));
-setcookie('key', $key, time() + (30 * 1), "/");
-
-/* Proses Hapus Item Daur Ulang */
-if (isset($_GET['hapus'])) {
-    if ($_GET['key'] == $_COOKIE['key']) {
-        $id = $_GET['hapus'];
-        // var_dump($_SESSION['jumlah_item'][$id]);
-        $_SESSION['hapus'] += 1;
-        unset($_SESSION['jumlah_item'][$id]);
-        unset($_SESSION['berat_item'][$_SESSION['jumlah_item'][$id]]);
-
+/* INPUT DATA */
+// Di Proses setelah user megklik tombol input data
+if (isset($_POST['input_data'])) {
+    $total_harga = $_POST['total_harga'];
+    $total_berat = $_POST['total_berat'];
+    $Update_TrxPembelian = mysqli_query($conn, "UPDATE transaksi_pembelian SET harga = '$total_harga', total_berat = '$total_berat' WHERE no_invoice = '$invoice_session'");
+    if ($Update_TrxPembelian) {
+        unset($_SESSION['no_invoice']);
+        unset($_SESSION['input_barang']);
+        header("Location: index.php");
+    } else {
         header("Location: input_data_2.php");
     }
 }
 
-/* Proses Input Berat */
-if (isset($_POST['berat_item'])) {
-    // var_dump($_POST['berat']);
-    $id_item = $_POST['id_item'];
-    $berat = $_POST['berat_item'];
-    if (!isset($_SESSION['berat_item'][$id_item])) {
-        $_SESSION['berat_item'][$id_item] = array();
+/* HAPUS LIST BARANG YANG DIPILIH */
+// $key = md5(rand(1, 999999999));
+// setcookie('key', $key, time() + (10 * 1), "/");
+if (isset($_GET['hapus'])) {
+    $id_barang = $_GET['hapus'];
+    $Delete_TrxBarang = mysqli_query($conn, "DELETE FROM transaksi_barang WHERE id = '$id_barang'");
+    if ($Delete_TrxBarang) {
+        header("Location: input_data_2.php");
     }
-    $_SESSION['berat_item'][$id_item][count($_SESSION['berat_item'][$id_item])] = $berat;
-    var_dump("JUMLAH : " . count($_SESSION['berat_item'][$id_item]) . "<br>");
-    var_dump("| ID Item : " . $id_item . " | Berat : " . $berat);
-    var_dump($_SESSION['berat_item'][$id_item]);
-    // header("Location: input_data_2.php");
-}
-// unset($_SESSION[$id_item]);
-// foreach ($_SESSION['berat_item'][$id_item] as $jumlah_item => $berat_item) {
-//     var_dump($berat_item);
-// }
-
-// var_dump($_SESSION['jumlah_item'][0]);
-/* INPUT DATA */
-// Di Proses setelah user megklik tombol input data
-if (isset($_POST['input_data'])) {
-    // var_dump($_SESSION['nama']);
-    // var_dump($_SESSION['alamat']);
-    // var_dump($_SESSION['nomor_p']);
-    // var_dump($_SESSION['email']);
-    // var_dump($_SESSION['ttl_transaksi']);
-    // foreach ($_SESSION['jumlah_item'] as $jumlah_item => $daur_ulang) {
-    //     var_dump($daur_ulang);
-    // }
-
-    $nama = $_SESSION['nama'];
-    $alamat = $_SESSION['alamat'];
-    $nomor_p = $_SESSION['nomor_p'];
-    $email = $_SESSION['email'];
-    $ttl_transaksi = $_SESSION['ttl_transaksi'];
-    $item = '';
-    $berat = '';
-    for ($i = 0; $i < count($_SESSION['jumlah_item']); $i++) {
-        if ($i == (count($_SESSION['jumlah_item']) - 1)) {
-            $item .= $_SESSION['jumlah_item'][$i];
-        } else {
-            $item .= $_SESSION['jumlah_item'][$i] . ", ";
-        }
-    }
-
-    foreach ($_SESSION['jumlah_item'] as $jumlah_item => $daur_ulang) {
-        for ($i = 0; $i < count($_SESSION['berat_item'][$jumlah_item]); $i++) {
-            if ($i == (count($_SESSION['berat_item'][$jumlah_item]) - 1)) {
-                $berat .= $_SESSION['berat_item'][$jumlah_item][$i] . " | "; //Kondisi Jika Akhiran akan menambahkan garis tegak
-            } else {
-                $berat .= $_SESSION['berat_item'][$jumlah_item][$i] . ", "; //Kondisi jika setiap peoses pembacaan di tambahkan ,
-            }
-        }
-    }
-    /* MEMASUKAN KE DATABASE */
-    $id_user = $_SESSION['id_user'];
-    $query = mysqli_query($conn, "INSERT INTO input_item VALUES ('','$id_user]','$item','$berat', '$datetime')");
 }
 
 ?>
@@ -117,50 +90,11 @@ if (isset($_POST['input_data'])) {
 </head>
 
 <body>
-    <div class="navigation-top">
-        <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/user.png" alt="Account" class="user">
-                </a>
-                <div class="nav-ListDropdown" id="user">
-                    <div class="head">
-                        <h4 style="margin: 0;">Profile</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
-                    </div>
-                    <div class="footer">
-                        <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/bell.png" alt="Notifikasi" class="bell">
-                </a>
-                <div class="nav-ListDropdown" id="bell">
-                    <div class="head">
-                        <h4 style="margin: 0;">Notifikasi</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+
+    <!-- NAVIGATION TOP -->
+    <?php require '../nav-top.php'; ?>
+    <!-- ============================= -->
+
     <div class="navigation">
         <ul>
             <div class="toggle">
@@ -233,39 +167,53 @@ if (isset($_POST['input_data'])) {
                 <h5>Jenis Daur Ulang</h5>
                 <ul>
                     <?php
-                    foreach ($_SESSION['jumlah_item'] as $jumlah_item => $daur_ulang) {
+                    // ---------------------------------------------------------------------------------
+                    $total_beratAll = 0; //Total Berat untuk di hitung total semua item daur ulang
+                    $total_harga = 0; //Total Harga semua Item Daur Ulang
+                    $biaya_penjemputan = 10000; //Harga per 1kg
+                    $total_penjemputan = 0; //Total Penjemputan untuk total smua berat item daur ulang
+                    $total_keseluruhan = 0;
+                    while ($TrxBarang = mysqli_fetch_array($query_TrxBarang)) {
+                        $id_barang = $TrxBarang['id_barang'];
+                        $query_BarangID = mysqli_query($conn, "SELECT * FROM barang WHERE id_barang = '$id_barang'");
+                        $BarangId = mysqli_fetch_array($query_BarangID); //Data Barang yang sesuai dengan ID arang pada TRX Barang
                     ?>
                         <li class="dropdown">
-                            <a href="?hapus=<?= $jumlah_item ?>&key=<?= $key ?>">
+                            <a href="?hapus=<?= $TrxBarang['id'] ?>">
                                 <img src="../assets/Icon/delete-button.png" alt="Hapus" id="hapus">
                             </a>
                             <div class="list">
-                                <span class="jenis"><?= $daur_ulang ?></span>
+                                <span class="jenis"><?= $BarangId['nama_barang'] ?></span>
                                 <img src="../assets/Icon/arrow-point-to-right.png" alt="panah" id="panah">
                                 <form action="" method="POST" style="display: inline;" id="input_berat_item">
-                                    <input id="id_item" type="text" name="id_item" value="<?= $jumlah_item ?>" hidden>
-                                    <input id="berat_item" name="berat_item" type="number" class="total" placeholder="100" min="0">kg
+                                    <input id="id_TrxBarang" type="text" name="id_TrxBarang" value="<?= $TrxBarang['id'] ?>" hidden>
+                                    <input id="berat_TrxBarang" type="text" name="berat_TrxBarang" value="<?= $TrxBarang['berat'] ?>" hidden>
+                                    <input id="berat_barang" name="berat_barang" type="number" class="total" placeholder="100" min="0">kg
                                     <button type="submit" class="btn_add"><img src="../assets/Icon/add-button.png" alt="Add" id="add"></button>
                                 </form>
                             </div>
                             <ul class="isi-dropdown">
                                 <div class="berat_list">
                                     <?php
-                                    $no = 1; //Nomor untuk urutan berat
+                                    $List_TrxBerat = explode(',', $TrxBarang['berat']);
                                     $total_berat = 0; // Total Berat per Item Daur Ulang
-                                    if (isset($_SESSION['berat_item'][$jumlah_item])) {
-                                        foreach ($_SESSION['berat_item'][$jumlah_item] as $id_item => $berat_item) {
+                                    // var_dump($List_TrxBerat[0]);
+                                    for ($i = 0; $i < count($List_TrxBerat); $i++) {
+                                        if ($List_TrxBerat[$i] != null) {
                                     ?>
                                             <li>
-                                                <span class="daur_ulang">Penimbangan <?= $no ?>&emsp;: <?= $berat_item ?>kg</span>
+                                                <span class="daur_ulang">Penimbangan <?= $i + 1 ?>&emsp;: <?= $List_TrxBerat[$i] ?>kg</span>
                                             </li>
                                     <?php
-                                            $total_berat += $berat_item; //Proses Perhitungan total berat per item
-                                            $no++;
+                                            $total_berat += $List_TrxBerat[$i]; //Proses Perhitungan total berat per item
+                                            $total_beratAll += $List_TrxBerat[$i]; //Proses Perhitungan total berat semua item
+                                            $total_harga += $BarangId['harga_barang'] * $List_TrxBerat[$i];
+                                        } else {
+                                            echo '<li><span class="daur_ulang">Belum ada hasil penimbangan</span></li>';
                                         }
-                                    } else {
-                                        echo '<li><span class="daur_ulang">Belum ada hasil penimbangan</span></li>';
                                     }
+                                    $total_penjemputan = $biaya_penjemputan * $total_beratAll;
+                                    $total_keseluruhan = $total_harga + $total_penjemputan;
                                     ?>
                                 </div>
                                 <div class="berat_total">
@@ -280,7 +228,7 @@ if (isset($_POST['input_data'])) {
                     ?>
                 </ul>
                 <!-- Button -->
-                <form action="input_data_1.php" method="POST">
+                <form action="" method="POST">
                     <button type="submit" class="btn default" name="tambah_item" value="tambah_item">
                         Tambah
                     </button>
@@ -289,29 +237,6 @@ if (isset($_POST['input_data'])) {
             <div class="row">
                 <h5>Perkiraan Pendapatan</h5>
                 <div class="kotak">
-                    <?php
-                    /* PERHITUNGAN */
-                    $total_berat = 0; //Total Berat untuk di hitung total semua item daur ulang
-                    $total_harga = 0; //Total Harga semua Item Daur Ulang
-                    $biaya_penjemputan = 10000; //Harga per 1kg
-                    $total_penjemputan = 0; //Total Penjemputan untuk total smua berat item daur ulang
-                    $total_keseluruhan = 0;
-                    foreach ($_SESSION['jumlah_item'] as $jumlah_item => $daur_ulang) {
-                        /* Mengambil data barang */
-                        $query = mysqli_query($conn, "SELECT * FROM barang WHERE nama_barang = '$daur_ulang'");
-                        $data = mysqli_fetch_array($query);
-                        // var_dump($data['harga_barang']);
-                        if (isset($_SESSION['berat_item'][$jumlah_item])) { //Kondisi ketika SESSION TERSEDIA
-                            foreach ($_SESSION['berat_item'][$jumlah_item] as $id_item => $berat_item) {
-                                $total_berat += $berat_item; //Perhitungan total berat semua item
-                                $total_harga += $data['harga_barang'] * $berat_item;
-                                // echo $berat_item . ", ";
-                            }
-                        }
-                    }
-                    $total_penjemputan = $biaya_penjemputan * $total_berat;
-                    $total_keseluruhan = $total_harga + $total_penjemputan;
-                    ?>
                     <ul class="atas">
                         <li>
                             <span class="title">Total Harga</span>
@@ -319,7 +244,7 @@ if (isset($_POST['input_data'])) {
                         </li>
                         <li>
                             <span class="title">Total Berat</span>
-                            <span class="keterangan"><?= $total_berat ?>kg</span>
+                            <span class="keterangan"><?= $total_beratAll ?>kg</span>
                         </li>
                         <li>
                             <span class="title">Biaya Penjemputan</span>
@@ -333,6 +258,8 @@ if (isset($_POST['input_data'])) {
                 </div>
                 <!-- Button -->
                 <form action="" method="POST">
+                    <input type="text" name="total_harga" value="<?= $total_keseluruhan ?>" hidden>
+                    <input type="text" name="total_berat" value="<?= $total_beratAll ?>" hidden>
                     <button type="submit" class="btn default mt-4" name="input_data">Input Data</button>
                 </form>
             </div>

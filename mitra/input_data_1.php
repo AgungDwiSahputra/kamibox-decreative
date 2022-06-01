@@ -1,51 +1,54 @@
-<?php session_start();
+<?php
 require '../connect_db.php';
-/* SESSION SEBELUMNYA TETAP DI BAWA */
-// var_dump($_SESSION['nama']);
-// var_dump($_SESSION['alamat']);
-// var_dump($_SESSION['nomor_p']);
-// var_dump($_SESSION['email']);
-// var_dump($_SESSION['ttl_transaksi']);
-// session_unset();
-
-/* KONDISI INI DIGUNAKAN UNRUK MENAMBAHKAN JUMLAH TOTAL ITEM SETELAH MELAKUKAN KLIK PADA PHASE AKHIR */
-// if(){
-
-// }
-
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
+/* =========================================================== */
+/* DATA YANG DI BAWA DARI PROSES SEBELUMNYA */
+$invoice_session = $_SESSION['no_invoice'];
+/* =========================================================== */
 /* Jika Belum Menyelesaikan step awal */
-if (!isset($_SESSION['jumlah_item'])) {
+if (!isset($_SESSION['no_invoice'])) {
     header("Location: input_data.php");
 }
 
-/* KONDISI DATA AWAL */
-if (isset($_COOKIE['key']) && $_COOKIE['key'] == @$_GET['key']) {
-    $_SESSION['jumlah_item'] = array();
-    header("Location: input_data_1.php");
-}
-var_dump($_SESSION['jumlah_item']);
-var_dump("hapus :" . @$_SESSION['hapus']);
-
-/* Mengambil data barang */
-$query = mysqli_query($conn, "SELECT * FROM barang");
-
-/* MEMASUKAN SESSION ITEM DAUR ULANG */
-if (isset($_POST['daur_ulang'])) {
-    $tersedia = 0;
-    foreach ($_SESSION['jumlah_item'] as $jumlah_item => $daur_ulang) {
-        if ($_POST['daur_ulang'] == $daur_ulang) {
-            $tersedia = 1;
-        }
-    }
-    if ($tersedia == 0) {
-        $_SESSION['jumlah_item'][count($_SESSION['jumlah_item']) + $_SESSION['hapus']] = $_POST['daur_ulang'];
-    }
+// Kondisi jika setelah memilih barang daur ulang tidak bisa kembali ketampilan ini dari URL kecuali dari button tambah pada tampilan menambahkan berat
+if (isset($_SESSION['input_barang'])) {
     header("Location: input_data_2.php");
 }
 
-// foreach ($_SESSION['jumlah_item'] as $jumlah_item => $daur_ulang) {
-//     var_dump($jumlah_item);
-// }
+$query_barang = mysqli_query($conn, "SELECT * FROM barang"); //Mengambil Data Barang
+
+/* MEMASUKAN SESSION ITEM DAUR ULANG */
+if (isset($_POST['daur_ulang'])) {
+    $id_barang = $_POST['daur_ulang'];
+    $query_TrxBarang = mysqli_query($conn, "SELECT * FROM transaksi_barang WHERE no_invoice = '$invoice_session'");
+    $tersedia = 0; //Untuk nilai kesamaan
+    while ($barang_TrxBarang = mysqli_fetch_array($query_TrxBarang)) {
+        if ($id_barang == $barang_TrxBarang['id_barang']) {
+            $tersedia++;
+        }
+    }
+    if ($tersedia == 0) {
+        $Input_Barang = mysqli_query($conn, "INSERT INTO transaksi_barang VALUES ('','$invoice_session','$id_barang','')");
+        if ($Input_Barang) {
+            $_SESSION['input_barang'] = 'sudah';
+            header("Location: input_data_2.php");
+        } else {
+            header("Location: input_data_1.php");
+        }
+    } else {
+?>
+        <script>
+            alert("Barang sudah dipilih");
+        </script>
+<?php
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,50 +71,11 @@ if (isset($_POST['daur_ulang'])) {
 </head>
 
 <body>
-    <div class="navigation-top">
-        <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/user.png" alt="Account" class="user">
-                </a>
-                <div class="nav-ListDropdown" id="user">
-                    <div class="head">
-                        <h4 style="margin: 0;">Profile</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
-                    </div>
-                    <div class="footer">
-                        <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/bell.png" alt="Notifikasi" class="bell">
-                </a>
-                <div class="nav-ListDropdown" id="bell">
-                    <div class="head">
-                        <h4 style="margin: 0;">Notifikasi</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+
+    <!-- NAVIGATION TOP -->
+    <?php require '../nav-top.php'; ?>
+    <!-- ============================= -->
+
     <div class="navigation">
         <ul>
             <div class="toggle">
@@ -199,10 +163,10 @@ if (isset($_POST['daur_ulang'])) {
                             <form action="" method="POST" id="form_data">
                                 <input id="formField" type="text" name="daur_ulang" hidden>
                                 <?php
-                                while ($data = mysqli_fetch_array($query)) {
-                                    $nama_barang = $data['nama_barang'];
+                                while ($data = mysqli_fetch_array($query_barang)) {
+                                    $id_barang = $data['id_barang'];
                                 ?>
-                                    <li onclick="pilih('<?= $nama_barang ?>')">
+                                    <li onclick="pilih('<?= $id_barang ?>')">
                                         <span class="panah"><img src="../assets/Icon/arrow-point-to-right.png" alt="panah"></span>
                                         <span class="daur_ulang"><?= $data['nama_barang'] ?></span>
                                     </li>

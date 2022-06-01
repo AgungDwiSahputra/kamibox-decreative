@@ -236,7 +236,7 @@ a{
 .navigation-top ul li .nav-ListDropdown#bell{
     width: 300px !important;
     height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
     right: 7%;
     display: none;
 }
@@ -505,6 +505,10 @@ a{
     height: auto !important;
     overflow: visible !important;
 }
+.container .row.body .col.transaksi .table{
+    height: 250px;
+    overflow-y: auto;
+}
 .container .row.body .col.transaksi table{
     width: 100%;
 }
@@ -514,11 +518,10 @@ a{
 .container .row.body .col.transaksi #selengkapnya{
     position: relative;
     display: block;
-    top: 35%;
+    bottom: 0;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
     color: #08AC4D;
-    cursor: pointer;
 }
 .container .row.body .col.transaksi #selengkapnya:hover{
     color: #008638;
@@ -1071,4 +1074,27 @@ a{
 .container .list_riwayat .row2 .tanggal,
 .container .list_riwayat .row2 .alamat{
     color: rgba(0, 0, 0, 0.7);
+}
+
+/* ============================================= */
+/* PROFILE */
+/* ============================================= */
+.container .row.body ul{
+    list-style-type: none;
+    padding: 20px;
+    margin: 0;
+}
+.container .row.body li{
+    padding: 5px 30px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    margin: 10px 0;
+}
+.container .row.body li:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.container .row.body li .harga{
+    float: right;
+    margin-right: 30px;
 }

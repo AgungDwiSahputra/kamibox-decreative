@@ -1,29 +1,38 @@
-<?php session_start();
+<?php
 require '../connect_db.php';
+require '../session_data.php';
+/* =========================================================== */
+//pastikan hanya pemasok yg boleh akses halaman ini
+if ($level !== '2') {
+    header("location:../index.php");
+}
 
-$query = mysqli_query($conn, "SELECT * FROM users");
-$id_user = @$_POST['akun_customer'];
-$query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id_user'");
+// Memastikan jika mitra sudah mengisi data pemasok tidak akan bisa masuk kembali ke tampilan ini
+if (isset($_SESSION['no_invoice'])) {
+    header("Location: input_data_1.php");
+}
+/* =========================================================== */
+
+$query = mysqli_query($conn, "SELECT * FROM users WHERE userlevelid = '1'");
+$id = @$_POST['akun_customer'];
+$query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id'");
 $data_user_id = mysqli_fetch_array($query_user);
 
 /* Setelah klik button next */
 if (isset($_POST['next'])) {
-    $nama =  $_POST['nama'];
+    $id_userPemasok = $_POST['id_user'];
     $alamat =  $_POST['alamat'];
-    $ttl_transaksi =  date('Y-m-d H:i:s'); //2022-05-28 14:09:41;
-    $no_telp =  $_POST['nomor_p'];
-    $email =  $_POST['email'];
 
-    $_SESSION['nama'] = $nama;
-    $_SESSION['alamat'] = $alamat;
-    $_SESSION['nomor_p'] = $no_telp;
-    $_SESSION['email'] = $email;
-    $_SESSION['ttl_transaksi'] = $ttl_transaksi;
+    /* INVOICE */
+    $invoice = date('mHis');
+    $query = mysqli_query($conn, "INSERT INTO transaksi_pembelian VALUES ('$invoice','$id_user','$id_userPemasok',null,null, '$alamat',null,'$datetime')");
+    if ($query) {
+        $_SESSION['no_invoice'] = $invoice;
 
-    $key_next = md5(rand(1, 999999999));
-    setcookie('key', $key_next, time() + (3 * 1), "/");
-
-    header("Location: input_data_1.php?next=" . $_POST['next'] . "&key=" . $key_next);
+        header("Location: input_data_1.php");
+    } else {
+        header("Location: input_data.php");
+    }
 }
 
 ?>
@@ -46,53 +55,21 @@ if (isset($_POST['next'])) {
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Select2 (Untuk inputan dalam select) -->
+    <link rel="stylesheet" href="css/select2.min.css">
+
+    <!-- JS Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 </head>
 
 <body>
-    <div class="navigation-top">
-        <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/user.png" alt="Account" class="user">
-                </a>
-                <div class="nav-ListDropdown" id="user">
-                    <div class="head">
-                        <h4 style="margin: 0;">Profile</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
-                    </div>
-                    <div class="footer">
-                        <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/bell.png" alt="Notifikasi" class="bell">
-                </a>
-                <div class="nav-ListDropdown" id="bell">
-                    <div class="head">
-                        <h4 style="margin: 0;">Notifikasi</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+
+    <!-- NAVIGATION TOP -->
+    <?php require '../nav-top.php'; ?>
+    <!-- ============================= -->
+
     <div class="navigation">
         <ul>
             <div class="toggle">
@@ -164,33 +141,37 @@ if (isset($_POST['next'])) {
                     <select onchange="this.form.submit()" name="akun_customer" id="akun_customer">
                         <option value="">-- PILIH AKUN PEMASOK --</option>
                         <?php
-                        $no = 1;
                         while ($data = mysqli_fetch_array($query)) {
                         ?>
                             <option <?php if (!empty($data['id_user'])) {
-                                        echo $data['id_user'] == $id_user ? 'selected' : '';
-                                    } ?> value="<?= $data['id_user'] ?>"><?= $no . ". " . $data['nama_lengkap'] ?></option>
+                                        echo $data['id_user'] == $id ? 'selected' : '';
+                                    } ?> value="<?= $data['id_user'] ?>"><?= "[" . $data['id_user'] . "] " . $data['nama_lengkap'] . " (" . $data['notelp'] . ")" ?></option>
                         <?php
                             $no++;
                         }
                         ?>
                     </select>
-                    <input type="text" name="nama" placeholder="Nama Lengkap" value="<?php if ($id_user != "") {
+                    <input type="text" name="id_user" placeholder="ID Pemasok" value="<?php if ($id != "") {
+                                                                                            echo $data_user_id['id_user'];
+                                                                                        } else {
+                                                                                            echo '';
+                                                                                        } ?>" readonly>
+                    <input type="text" name="nama" placeholder="Nama Lengkap" value="<?php if ($id != "") {
                                                                                             echo $data_user_id['nama_lengkap'];
                                                                                         } else {
                                                                                             echo '';
-                                                                                        } ?>">
-                    <input type="text" name="nomor_p" placeholder="Nomor Ponsel" value="<?php if ($id_user != "") {
+                                                                                        } ?>" readonly>
+                    <input type="text" name="nomor_p" placeholder="Nomor Ponsel" value="<?php if ($id != "") {
                                                                                             echo $data_user_id['notelp'];
                                                                                         } else {
                                                                                             echo '';
-                                                                                        } ?>">
+                                                                                        } ?>" readonly>
                     <span class="pesan">Note : Nomor telepon harus sesuai dengan nomor yang terdaftar di akun pemasok</span>
-                    <input type="email" name="email" placeholder="Email" value="<?php if ($id_user != "") {
+                    <input type="email" name="email" placeholder="Email" value="<?php if ($id != "") {
                                                                                     echo $data_user_id['email'];
                                                                                 } else {
                                                                                     echo '';
-                                                                                } ?>">
+                                                                                } ?>" readonly>
                     <span class="pesan">Note : Email harus sesuai dengan yang terdaftar di akun pemasok</span>
                     <input type="text" name="alamat" placeholder="Alamat Lengkap / Copy Link Maps">
 
@@ -206,6 +187,9 @@ if (isset($_POST['next'])) {
     <!-- ====================================== -->
     <!-- Navigation Interactive -->
     <script>
+        /* Select2 Jquery */
+        $("#akun_customer").select2();
+
         let list = document.querySelectorAll('.navigation .list'); //NAVIGATION
         let nav_dropdown = document.querySelectorAll('.nav-dropdown #nav-ListDropdown');
         let nav_ListDropdown = document.querySelectorAll('.navigation-top ul li .nav-ListDropdown');
@@ -247,10 +231,6 @@ if (isset($_POST['next'])) {
 
                 }
             }
-        }
-
-        function data_user() {
-            console.log("TESTINGAklajajhsva");
         }
     </script>
 

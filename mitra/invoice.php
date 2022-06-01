@@ -21,7 +21,7 @@
 <body>
     <div class="navigation-top">
         <ul>
-            <li class="nav-left"><b>Hai,</b> De Creative Agency</li>
+            <li class="nav-left"><b>Hai,</b> <?= $nama ?></li>
             <li class="nav-dropdown">
                 <a href="#" id="nav-ListDropdown">
                     <img src="../assets/Icon/user.png" alt="Account" class="user">
