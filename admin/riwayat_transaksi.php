@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,49 +19,12 @@
 </head>
 
 <body>
-    <div class="navigation-top">
-        <ul>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/user.png" alt="Account" class="user">
-                </a>
-                <div class="nav-ListDropdown" id="user">
-                    <div class="head">
-                        <h4 style="margin: 0;">Profile</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#"><img src="../assets/Icon/arrow-point-to-right.png" alt="Panah"> Data Diri</a>
-                    </div>
-                    <div class="footer">
-                        <a href="../logout.php" style="text-align:center;" class="btn">Logout</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-dropdown">
-                <a href="#" id="nav-ListDropdown">
-                    <img src="../assets/Icon/bell.png" alt="Notifikasi" class="bell">
-                </a>
-                <div class="nav-ListDropdown" id="bell">
-                    <div class="head">
-                        <h4 style="margin: 0;">Notifikasi</h4>
-                    </div>
-                    <div class="body">
-                        <a href="#">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                </div>
-                                <div class="col">
-                                    <span class="tanggal">Sabtu, 26-2-2022</span>
-                                    <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <!-- NAVIGATION TOP -->
+    <?php
+    require '../connect_db.php';
+    require '../session_data.php';
+    require '../nav-top.php'; ?>
+    <!-- ============================= -->
     <div class="navigation">
         <ul>
             <div class="toggle">
@@ -118,83 +80,119 @@
             </h5>
         </div>
         <div class="row pencarian">
-            <form action="" method="post">
+            <form id="form_pencarian">
                 <img src="../assets/Icon/search.png" alt="Cari">
                 <input type="text" name="cari" id="cari_transaksi" class="input_cari" placeholder="Cari mutasi...">
             </form>
         </div>
         <div class="row">
             <ul class="list_riwayat">
-                <li>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="tanggal">Sabtu, 26-2-2022</span>
-                            <span class="nomor">#0001</span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
-                            <span class="harga"><b>Rp. 205.000</b></span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                            <span class="status success">Berhasil</span>
-                        </div>
-                    </div>
-                </li>
-                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
-                <li>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="tanggal">Sabtu, 26-2-2022</span>
-                            <span class="nomor">#0001</span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
-                            <span class="harga"><b>Rp. 205.000</b></span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                            <span class="status success">Berhasil</span>
-                        </div>
-                    </div>
-                </li>
-                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
-                <li>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="tanggal">Sabtu, 26-2-2022</span>
-                            <span class="nomor">#0001</span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="keterangan"><b>Sarah Rahmadanty | (90kg)</b></span>
-                            <span class="harga"><b>Rp. 205.000</b></span>
-                        </div>
-                    </div>
-                    <div class="row2">
-                        <div class="col">
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                            <span class="status success">Berhasil</span>
-                        </div>
-                    </div>
-                </li>
-                <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
             </ul>
+            <!-- <div>
+                <div style="background:#ddd; width:90%; padding:50px 0px; text-align:center">
+                    <h1>Data tidak ditemukan</h1>
+                </div>
+            </div> -->
         </div>
     </div>
 
     <!-- ====================================== -->
     <!-- JAVA SCRIPT -->
     <!-- ====================================== -->
+    <!-- plugin -->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <!-- end plugin -->
+    <!-- ajax -->
+    <script>
+        show_data()
+
+        function show_data() {
+            $.ajax({
+                url: 'ajax/riwayat_transaksi/data_transaksi.php',
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+
+                    for (let index = 0; index < response.length; index++) {
+                        $('.list_riwayat').append('<li>' +
+                            '<div class="row2">' +
+                            '<div class="col">' +
+                            '<span class="tanggal">' + response[index].tgl_transaksi + '</span>' +
+                            '<span class="nomor">#' + response[index].no_invoice + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row2">' +
+                            '<div class="col">' +
+                            '<span class="keterangan"><b>' + response[index].nama_lengkap + ' | (' + response[index].total_berat + 'kg)</b></span>' +
+                            '<span class="harga"><b>Rp. ' + response[index].harga + '</b></span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row2">' +
+                            '<div class="col">' +
+                            '<span class="alamat"><b>Alamat : </b>' + response[index].alamat + '</span>' +
+                            '<span class="status success">Berhasil</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</li>' +
+                            '<hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">')
+                    }
+                    // console.log(response)
+                },
+                error: function(xhr, status, error) {
+                    $('.list_riwayat').html('<div style="background:#ddd; width:90%; padding:50px 0px; text-align:center">' +
+                        '<h1>Data tidak ditemukan</h1>' +
+                        '</div>');
+                }
+            })
+        }
+
+        $('#form_pencarian').on('submit', function(e) {
+            e.preventDefault()
+        })
+
+        $('#cari_transaksi').on('keyup', function() {
+            $.ajax({
+                url: "ajax/riwayat_transaksi/cari_transaksi.php",
+                type: "post",
+                data: {
+                    value: $(this).val()
+                },
+                dataType: "json",
+                success: function(response) {
+                    $('.list_riwayat').html('')
+                    for (let index = 0; index < response.length; index++) {
+                        $('.list_riwayat').append('<li>' +
+                            '<div class="row2">' +
+                            '<div class="col">' +
+                            '<span class="tanggal">' + response[index].tgl_transaksi + '</span>' +
+                            '<span class="nomor">#' + response[index].no_invoice + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row2">' +
+                            '<div class="col">' +
+                            '<span class="keterangan"><b>' + response[index].nama_lengkap + ' | (' + response[index].total_berat + 'kg)</b></span>' +
+                            '<span class="harga"><b>Rp. ' + response[index].harga + '</b></span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row2">' +
+                            '<div class="col">' +
+                            '<span class="alamat"><b>Alamat : </b>' + response[index].alamat + '</span>' +
+                            '<span class="status success">Berhasil</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</li>' +
+                            '<hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">')
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('.list_riwayat').html('<div style="background:#ddd; width:90%; padding:50px 0px; text-align:center">' +
+                        '<h1>Data tidak ditemukan</h1>' +
+                        '</div>');
+                }
+            })
+        })
+    </script>
+    <!-- end ajax -->
     <!-- Navigation Interactive -->
     <script>
         let list = document.querySelectorAll('.navigation .list');

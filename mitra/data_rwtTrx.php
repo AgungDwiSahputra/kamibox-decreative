@@ -10,8 +10,8 @@
     }
     $search_keyword = '%' . $s_keyword . '%';
     /* Riwayat Transaksi */
-    $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user' AND no_invoice LIKE '$search_keyword' OR pemasok_id LIKE '$search_keyword' OR ttl_transaksi LIKE '$search_keyword'");
-    $total_transaksi = mysqli_num_rows($query_transaksi);
+    $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user' AND no_invoice LIKE '$search_keyword' OR pemasok_id LIKE '$search_keyword' OR tgl_transaksi LIKE '$search_keyword'");
+    $total_transaksi = @mysqli_num_rows($query_transaksi);
     // Tabel Transaksi Pembelian
     if ($total_transaksi != 0) {
         while ($data_transaksi = mysqli_fetch_array($query_transaksi)) {
@@ -22,13 +22,13 @@
             <li>
                 <div class="row2">
                     <div class="col">
-                        <span class="tanggal"><?= $data_transaksi['ttl_transaksi'] ?></span>
+                        <span class="tanggal"><?= $data_transaksi['tgl_transaksi'] ?></span>
                         <span class="nomor">#<?= $data_transaksi['no_invoice'] ?></span>
                     </div>
                 </div>
                 <div class="row2">
                     <div class="col">
-                        <span class="keterangan"><b><?= $data_user['nama_lengkap'] ?> | (<?= $data_transaksi['total_berat']  ?>kg)</b></span>
+                        <span class="keterangan"><b><?= "(" . $data_user['id_user'] . ")" . $data_user['nama_lengkap'] ?> | (<?= $data_transaksi['total_berat']  ?>kg)</b></span>
                         <span class="harga"><b>Rp. <?= number_format($data_transaksi['harga'], 0, ',', '.') ?></b></span>
                     </div>
                 </div>

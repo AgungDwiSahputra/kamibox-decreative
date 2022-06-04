@@ -1,0 +1,12 @@
+Revisi
+
+1. Tabel transaksi_barang 
+	- Ada penambahan kolom pemasok_id (untuk keperluan tampilan grafik)
+
+2. Tabel transaksi_pembelian 
+	#- Ada penambahan date_grafik (untuk keperluan tampilan grafik dan pengurutan tanggal riwayat transaksi)
+	#- Ada penambahan kolom status_transaksi (untuk keperluan tampilan riwayat transaksi)
+3. Tabel blog
+	#- Ada penambahan kolom img (untuk penyimpanan gambar blog)
+4. Tabel users
+	- Ada penambahan kolom valid_notelp (untuk keperluan validasi notelp user *jika memang diperlukan)

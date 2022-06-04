@@ -13,7 +13,7 @@ if (isset($_SESSION['no_invoice'])) {
 }
 /* =========================================================== */
 
-$query = mysqli_query($conn, "SELECT * FROM users WHERE userlevelid = '1'");
+$query = mysqli_query($conn, "SELECT * FROM users WHERE userlevelid = '3'");
 $id = @$_POST['akun_customer'];
 $query_user = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id'");
 $data_user_id = mysqli_fetch_array($query_user);
@@ -25,9 +25,10 @@ if (isset($_POST['next'])) {
 
     /* INVOICE */
     $invoice = date('mHis');
-    $query = mysqli_query($conn, "INSERT INTO transaksi_pembelian VALUES ('$invoice','$id_user','$id_userPemasok',null,null, '$alamat',null,'$datetime')");
+    $query = mysqli_query($conn, "INSERT INTO transaksi_pembelian VALUES ('$invoice','$id_user','$id_userPemasok',null,null, '$alamat',null,'$datetime','','1')");
     if ($query) {
         $_SESSION['no_invoice'] = $invoice;
+        $_SESSION['id_pemasok'] = $id_userPemasok;
 
         header("Location: input_data_1.php");
     } else {

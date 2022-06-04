@@ -1,6 +1,12 @@
 <div class="navigation-top">
     <ul>
-        <li class="nav-left"><b>Hai,</b> <?= $nama ?></li>
+        <?php
+        if ($level != '1') {
+        ?>
+            <li class="nav-left"><b>Hai,</b> <?= $nama . " <b>[ID : " . $id_user . "]</b>" ?> </li>
+        <?php
+        }
+        ?>
         <li class="nav-dropdown">
             <a href="#" id="nav-ListDropdown">
                 <img src="../assets/Icon/user.png" alt="Account" class="user">
@@ -47,7 +53,7 @@
                                     <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
                                 </div>
                                 <div class="col">
-                                    <span class="tanggal"><?= $data_transaksiN['ttl_transaksi'] ?></span>
+                                    <span class="tanggal"><?= $data_transaksiN['tgl_transaksi'] ?></span>
                                     <span class="keterangan"><b>Transaksi Berhasil</b></span>
                                 </div>
                             </div>

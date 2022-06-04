@@ -7,6 +7,7 @@ if ($level !== '2') {
     header("location:../index.php");
 }
 /* =========================================================== */
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,64 +102,55 @@ if ($level !== '2') {
         </div>
         <div class="row">
             <div class="kotak">
-                <div class="row2">
-                    <div class="row3">
-                        <div class="col">
-                            <img src="../assets/Icon/trash.png" alt="Trash">
+                <?php
+                $query_penjemputan = mysqli_query($conn, "SELECT * FROM jadwal_penjemputan");
+                $total_DataPenjemputan = mysqli_num_rows($query_penjemputan);
+                if ($total_DataPenjemputan > 0) {
+                    while ($data_penjemputan = mysqli_fetch_array($query_penjemputan)) {
+                        $no_invoice = $data_penjemputan['no_invoice'];
+                        /* Transaksi Pembelian */
+                        $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE no_invoice = '$no_invoice'");
+                        $data_transaksi = mysqli_fetch_array($query_transaksi);
+                        /* Users */
+                        $pemasok_id = $data_transaksi['pemasok_id'];
+                        $query_users = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$pemasok_id'");
+                        $data_user = mysqli_fetch_array($query_users);
+                ?>
+                        <div class="row2">
+                            <div class="row3">
+                                <div class="col">
+                                    <img src="../assets/Icon/trash.png" alt="Trash">
+                                </div>
+                                <div class="col pt-1 pb-4 pr-3">
+                                    <span class="tanggal"><?= $data_penjemputan['ttl_penjemputan'] ?> <span style="float: right;">Pukul : <?= $data_penjemputan['waktu'] ?> WIB</span></span>
+                                    <span class="keterangan"><b><?= $data_user['nama_lengkap'] ?></b></span>
+                                    <span class="alamat"><b>Alamat : </b><?= $data_transaksi['alamat'] ?></span>
+                                </div>
+                            </div>
+                            <div class="row3 tombol pb-1">
+                                <div class="col ml-4s">
+                                    <a href="#"><button class="btn">Lokasi</button></a>
+                                </div>
+                                <div class="col">
+                                    <a href="#"><button class="btn">Kontak</button></a>
+                                </div>
+                                <div class="col mr-4s">
+                                    <a href="#"><button class="btn">Input Data</button></a>
+                                </div>
+                            </div>
+                            <div class="isi-dropdown" id="isi-dropdown">
+                                <input type="text" name="keterangan" placeholder="Masukan Keterangan Tambahan...">
+                                <button type="submit" class="btn">Input</button>
+                            </div>
+                            <img src="../assets/Icon/arrow-point-to-right.png" alt="Panah" class="dropdown" id="dropdown">
+                            <hr width="90%" size="2" style="color:rgba(0, 0, 0, 0.2);">
                         </div>
-                        <div class="col pt-1 pb-4 pr-3">
-                            <span class="tanggal">Sabtu, 26-2-2022 <span style="float: right;">Pukul : 09.30 WIB</span></span>
-                            <span class="keterangan"><b>Sarah Rahmadanty</b></span>
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                        </div>
-                    </div>
-                    <div class="row3 tombol pb-1">
-                        <div class="col ml-4s">
-                            <a href="#"><button class="btn">Lokasi</button></a>
-                        </div>
-                        <div class="col">
-                            <a href="#"><button class="btn">Kontak</button></a>
-                        </div>
-                        <div class="col mr-4s">
-                            <a href="#"><button class="btn">Input Data</button></a>
-                        </div>
-                    </div>
-                    <div class="isi-dropdown" id="isi-dropdown">
-                        <input type="text" name="keterangan" placeholder="Masukan Keterangan Tambahan...">
-                        <button type="submit" class="btn">Input</button>
-                    </div>
-                    <img src="../assets/Icon/arrow-point-to-right.png" alt="Panah" class="dropdown" id="dropdown">
-                    <hr width="90%" size="2" style="color:rgba(0, 0, 0, 0.2);">
-                </div>
-                <div class="row2">
-                    <div class="row3">
-                        <div class="col">
-                            <img src="../assets/Icon/trash.png" alt="Trash">
-                        </div>
-                        <div class="col pt-1 pb-4 pr-3">
-                            <span class="tanggal">Sabtu, 26-2-2022 <span style="float: right;">Pukul : 09.30 WIB</span></span>
-                            <span class="keterangan"><b>Sarah Rahmadanty</b></span>
-                            <span class="alamat"><b>Alamat : </b>Jl. Tangguban Perahu, Kec. Padangsambian, Kab. Denpasar Barat Provonsi Bali</span>
-                        </div>
-                    </div>
-                    <div class="row3 tombol pb-1">
-                        <div class="col ml-4s">
-                            <a href="#"><button class="btn">Lokasi</button></a>
-                        </div>
-                        <div class="col">
-                            <a href="#"><button class="btn">Kontak</button></a>
-                        </div>
-                        <div class="col mr-4s">
-                            <a href="#"><button class="btn">Input Data</button></a>
-                        </div>
-                    </div>
-                    <div class="isi-dropdown" id="isi-dropdown">
-                        <input type="text" name="keterangan" placeholder="Masukan Keterangan Tambahan...">
-                        <button type="submit" class="btn">Input</button>
-                    </div>
-                    <img src="../assets/Icon/arrow-point-to-right.png" alt="Panah" class="dropdown" id="dropdown">
-                    <hr width="90%" size="2" style="color:rgba(0, 0, 0, 0.2);">
-                </div>
+                <?php
+                    }
+                } else {
+                    echo '<center><span style="color:red;">Data Belum Tersedia</span></center>';
+                }
+                ?>
             </div>
         </div>
     </div>
