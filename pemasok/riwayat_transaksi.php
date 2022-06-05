@@ -1,7 +1,9 @@
 <?php 
 session_start();
+include '../connect_db.php';
+include 'session_timeout.php';
 
-//cek status login user di session
+//cek status login user di session //
 		$status_login = $_SESSION['login'];
 		$id_user      = $_SESSION['id_user'];
         $email        = $_SESSION['email_user'];
@@ -137,6 +139,18 @@ session_start();
         </div>
         <div class="row">
             <ul class="list_riwayat">
+                <?php 
+                $querycekrw = mysqli_query($conn, "select * from transaksi_pembelian where pemasok_id=$id_user ORDER BY date_grafik DESC");
+                        include 'hari_indo.php';
+
+                //cek ketersediaan transaksi pembelian di pemasok
+                $cekjmltr = mysqli_num_rows($querycekrw);
+                if ($cekjmltr == 0){
+                    echo "<div style='color:red'>Belum ada transaksi pembelian</div>";
+                }else{
+                                                
+                        ?>
+
         <?php 
         	include '../connect_db.php';
 			include 'hari_indo.php';
@@ -190,7 +204,7 @@ session_start();
                 <hr width="80%" size="2" align="left" style="margin-left: 80px;color:rgba(0, 0, 0, 0.2);">
 <?php      	}
         ?>	
-                            
+              <?php } ?>              
             </ul>
         </div>
     </div>

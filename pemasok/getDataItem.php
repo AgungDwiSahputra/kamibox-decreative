@@ -1,6 +1,6 @@
 <?php 
 session_start();
 
-echo $_SESSION['jsonDataItem'];
+echo $_SESSION['jsonDataItem'];//
 
 ?>

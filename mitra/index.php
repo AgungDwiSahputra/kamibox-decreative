@@ -102,12 +102,11 @@ if ($level !== '2') {
                 <div class="table">
                     <span class=" judul">Grafik Terkini</span>
                     <?php
-                    $Total_PTransaksi = 0; //Variabel awal
+                    $query_PTransaksi = mysqli_query($conn, "SELECT DISTINCT pemasok_id FROM transaksi_pembelian");
+                    $Total_PTransaksi = mysqli_num_rows($query_PTransaksi);
                     $query_UserTrx = mysqli_query($conn, "SELECT * FROM users");
                     while ($TotalUserTrx = mysqli_fetch_array($query_UserTrx)) {
                         $id_users = $TotalUserTrx['id_user'];
-                        $query_PTransaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE pemasok_id = '$id_users'");
-                        $Total_PTransaksi += mysqli_num_rows($query_PTransaksi);
                     }
                     /* Riwayat Transaksi */
                     $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE mitra_id = '$id_user'");

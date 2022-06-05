@@ -175,6 +175,12 @@ if (isset($_POST['next'])) {
                                                                                 } ?>" readonly>
                     <span class="pesan">Note : Email harus sesuai dengan yang terdaftar di akun pemasok</span>
                     <input type="text" name="alamat" placeholder="Alamat Lengkap / Copy Link Maps">
+                    <div id="latlong">
+                        <p>Latitude: <input size="20" type="text" id="latbox" name="lat"></p>
+                        <p>Longitude: <input size="20" type="text" id="lngbox" name="lng"></p>
+                    </div>
+                    <div id="dvMap" style="width: 500px; height: 300px"></div>
+
 
                     <!-- Button -->
                     <button type="submit" class="btn" name="next" value="next">Next</button>
@@ -186,6 +192,33 @@ if (isset($_POST['next'])) {
     <!-- ====================================== -->
     <!-- JAVA SCRIPT -->
     <!-- ====================================== -->
+    <script type="text/javascript">
+        window.onload = myMap();
+
+        function myMap() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-7.113690405416922, 110.80417227760267),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+
+            var marker = new google.maps.Marker({
+                draggable: true,
+                position: new google.maps.LatLng(-7.113690405416922, 110.80417227760267),
+                map: map,
+                title: "Your location"
+            });
+            google.maps.event.addListener(marker, 'click', function(e) {
+                document.getElementById("latbox").value = e.latLng.lat();
+                document.getElementById("lngbox").value = e.latLng.lng();
+                // alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+            });
+        }
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <!-- Navigation Interactive -->
     <script>
         /* Select2 Jquery */

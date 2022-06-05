@@ -1,6 +1,6 @@
 <?php 
 
-function hariIndo($hariInggris) {
+function hariIndo($hariInggris) {//
 
   switch ($hariInggris) {
     case 'Sunday':

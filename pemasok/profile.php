@@ -1,7 +1,8 @@
 <?php 
 session_start();
+include 'session_timeout.php';
 
-//cek status login user di session
+//cek status login user di session//
 		$status_login = $_SESSION['login'];
 		$id_user      = $_SESSION['id_user'];
         $email        = $_SESSION['email_user'];
@@ -32,7 +33,7 @@ session_start();
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Daftar Harga| Pemasok Kamibox</title>
-	<link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="../assets/icon.png" type="image/x-icon">
 	<!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 </head>

@@ -1,0 +1,54 @@
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$access_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 35
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$token_type in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 36
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$refresh_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 37
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$expires_in in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 38
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$scope in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 39
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Trying to get property 'referrer' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Trying to get property 'name' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 17:17:25 Asia/Jakarta] PHP Notice:  Trying to get property 'email' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$access_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 35
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$token_type in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 36
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$refresh_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 37
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$expires_in in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 38
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$scope in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 39
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Trying to get property 'referrer' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Trying to get property 'name' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 17:20:58 Asia/Jakarta] PHP Notice:  Trying to get property 'email' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 17:21:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$dataVersion in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 37
+[05-Jun-2022 17:21:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$licenseEnd in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 38
+[05-Jun-2022 17:21:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$session in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 39
+[05-Jun-2022 17:21:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$host in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 40
+[05-Jun-2022 17:21:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$accessibleUntil in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 41
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$access_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 35
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$token_type in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 36
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$refresh_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 37
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$expires_in in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 38
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$scope in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 39
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Trying to get property 'referrer' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Trying to get property 'name' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 18:45:34 Asia/Jakarta] PHP Notice:  Trying to get property 'email' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$access_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 35
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$token_type in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 36
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$refresh_token in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 37
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$expires_in in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 38
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$scope in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 39
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Trying to get property 'referrer' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 40
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Trying to get property 'name' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 41
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$user in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 18:48:17 Asia/Jakarta] PHP Notice:  Trying to get property 'email' of non-object in /home/decreat2/kamibox.decreativeart.com/admin/api/get_token.php on line 42
+[05-Jun-2022 18:48:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$dataVersion in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 37
+[05-Jun-2022 18:48:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$licenseEnd in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 38
+[05-Jun-2022 18:48:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$session in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 39
+[05-Jun-2022 18:48:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$host in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 40
+[05-Jun-2022 18:48:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$accessibleUntil in /home/decreat2/kamibox.decreativeart.com/admin/api/get_database.php on line 41

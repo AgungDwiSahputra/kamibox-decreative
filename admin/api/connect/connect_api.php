@@ -1,5 +1,5 @@
 <?php
-define("CALLBACK_URL", "http://localhost/kamibox-decreative/admin/api/get_token.php");
+define("CALLBACK_URL", "https://kamibox.decreativeart.com/admin/api/get_token.php");
 define("AUTH_URL", "https://account.accurate.id/oauth/authorize");
 define("ACCESS_TOKEN_URL", "https://account.accurate.id/oauth/token");
 define("CLIENT_ID", "45aa88f1-17e8-4f09-bcbe-ae8c0f317f43");

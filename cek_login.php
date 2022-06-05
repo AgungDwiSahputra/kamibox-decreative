@@ -78,6 +78,3 @@ session_start();
 	}elseif($_POST['submit'] == 'Daftar'){
 		header("location:daftar.php");
 	}
-	
-
-?>
