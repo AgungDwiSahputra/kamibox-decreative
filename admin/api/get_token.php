@@ -1,5 +1,5 @@
 <?php
-include './connect_api.php';
+include "../api/connect/connect_api.php";
 
 $code = $_GET['code'];
 

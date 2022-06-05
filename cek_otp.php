@@ -97,7 +97,7 @@ if (empty($validasi)) {
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => "$host/accurate/api/customer/bulk-save.do",
+			CURLOPT_URL => "$host/accurate/api/customer/save.do",
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 10,
