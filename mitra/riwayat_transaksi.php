@@ -108,8 +108,7 @@ if ($level !== '2') {
                 <input type="text" name="cari" id="cari_transaksi" class="input_cari" placeholder="Cari mutasi...">
             </form>
         </div>
-        <div class="row data_rwtTrx">
-        </div>
+        <div class="row data_rwtTrx"></div>
     </div>
 
     <!-- ====================================== -->

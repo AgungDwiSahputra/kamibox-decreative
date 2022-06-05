@@ -1,7 +1,7 @@
 <?php
+
 session_start();
 include '../connect_db.php';
-include 'hari_indo.php';
 
 //cek status login user di session
 $status_login = $_SESSION['login'];
@@ -40,7 +40,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
         <meta name="keywords" content="kamibox">
         <meta name="description" content="">
         <meta name="author" content="Agung Dwi Sahputra">
-        <link rel="shortcut icon" href="../assets/favicon.png" type="image/x-icon">
+        <link rel="shortcut icon" type="image/png" href="../assets/icon.png">
 
         <title>Dashboard Pemasok| Pemasok Kamibox</title>
 
@@ -67,8 +67,8 @@ if ($status_login === true and !empty($email) and $level == '3') {
             }
 
             .row3 {
-                margin-right: 150px;
-                margin-top: 10px;
+                margin-right: 250px;
+                margin-top: 40px;
             }
 
             .row4 {
@@ -242,31 +242,39 @@ if ($status_login === true and !empty($email) and $level == '3') {
         </style>
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script type="text/javascript">
+            // Load Charts and the corechart package.
             google.charts.load("current", {
                 packages: ["corechart"]
             });
-            google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Jenis sampah', 'Total Penjualan'],
-                    ['Kertas', 11],
-                    ['Plastik', 2],
-                    ['Logam', 2],
-                    ['Kaca', 2]
-                ]);
+            // Draw the pie chart when Charts is loaded.
 
+            google.charts.setOnLoadCallback(drawChartItem);
+
+            function drawChartItem() {
+                // Create the data table for Sarah's pizza.              
+                var jsonDataItem = $.ajax({
+                    url: "http://localhost/kamibox6/pemasok/getDataItem.php",
+                    type: "POST",
+                    dataType: "json",
+                    async: false
+                }).responseText;
+                var data = new google.visualization.DataTable(jsonDataItem);
                 var options = {
-                    title: ' ',
+                    title: "Grafik Total Transaksi barang",
+                    width: 450,
+                    height: 200,
                     pieHole: 0.8,
                     pieSliceTextStyle: {
-                        color: 'none',
-                    },
+                        color: 'black',
+                    }
 
                 };
-
-                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                // Instantiate and draw the chart 
+                var chart = new google.visualization.PieChart(document.getElementById('Item_chart_div'));
                 chart.draw(data, options);
             }
         </script>
@@ -302,27 +310,17 @@ if ($status_login === true and !empty($email) and $level == '3') {
                             <h4 style="margin: 0;">Notifikasi</h4>
                         </div>
                         <div class="body">
-                            <?php
-                            /* RIWAYAT TRANSAKSI */
-                            $query_transaksi = mysqli_query($conn, "SELECT * FROM transaksi_pembelian WHERE pemasok_id = '$id_user'");
-                            $total_penjualan = 0; //UNTUK TOTAL PENJUALAN PADA GRAFIK
-                            while ($data_transaksiN = mysqli_fetch_array($query_transaksi)) {
-                                $total_penjualan += $data_transaksiN['harga'];
-                            ?>
-                                <a href="#">
-                                    <div class="row">
-                                        <div class="col">
-                                            <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
-                                        </div>
-                                        <div class="col">
-                                            <span class="tanggal"><?= $data_transaksiN['ttl_transaksi'] ?></span>
-                                            <span class="keterangan"><b>Transaksi Berhasil</b></span>
-                                        </div>
+                            <a href="#">
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="../assets/Icon/hvs.png" alt="Riwayat" id="riwayat">
                                     </div>
-                                </a>
-                            <?php
-                            }
-                            ?>
+                                    <div class="col">
+                                        <span class="tanggal">Sabtu, 26-2-2022</span>
+                                        <span class="keterangan"><b>Transaksi Berhasil</b></span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -375,28 +373,58 @@ if ($status_login === true and !empty($email) and $level == '3') {
         <!-- ====================================== -->
         <div class="container">
             <div class="dashboard-wrapper">
-
+                <!-- card grafik -->
                 <div class="cards">
-                    <?php
-                    $query = mysqli_query($conn, "select * from grafik");
-                    $data = mysqli_fetch_assoc($query);
-                    ?>
                     <div class="row2 card-grafik">
                         <div class="heading-grafik">
                             <h4>Grafik Terkini</h4>
                         </div>
                         <div class="content-grafik">
-                            <div id="donutchart" style="width: 400px; height: 200px;"></div>
+                            <?php
+                            $rowsgrafik = array();
+                            $tablegrafik = array();
+                            $tablegrafik['cols'] = array(
+                                array('id' => '', 'label' => 'Jenis barang', 'type' => 'string'),
+                                array('id' => '', 'label' => 'Jumlah transaksi', 'type' => 'number')
+                            );
+
+                            $query1 = mysqli_query($conn, "select * from barang");
+                            while ($row1 = mysqli_fetch_array($query1)) {
+                                // 
+                                $barang_id = $row1['id_barang'];
+
+                                //jumlahbrang
+                                $query2 = mysqli_query($conn, "select count(transaksi_barang.id_barang) as jml from transaksi_pembelian inner join transaksi_barang ON transaksi_pembelian.pemasok_id = transaksi_barang.pemasok_id where transaksi_pembelian.pemasok_id=$id_user and transaksi_barang.id_barang = $barang_id and transaksi_pembelian.date_grafik >=DATE_ADD(NOW(), INTERVAL -30 DAY) AND transaksi_pembelian.date_grafik <= DATE(NOW())");
+
+                                while ($row2 = mysqli_fetch_array($query2)) {
+
+                                    $temp_total_brg = array();
+                                    $temp_total_brg[] = array('v' => (string) $row1['nama_barang']);
+                                    $temp_total_brg[] = array('v' => (int) $row2['jml']);
+                                    $rowsgrafik[]     = array('c' => $temp_total_brg);
+                                }
+                            }
+
+                            $tablegrafik['rows'] = $rowsgrafik;
+                            $jsonDataItem = json_encode($tablegrafik, true);
+                            $_SESSION['jsonDataItem'] = $jsonDataItem;
+
+                            ?>
+                            <div id="Item_chart_div" style="width: 400px; height: 200px;"></div>
                         </div>
-                        <p style="margin-left:30px;padding-bottom: 10px;font-size: 0.85rem;">Total Penjualan : <span style="font-weight: 700;margin-left: 30px;"><?php
-                                                                                                                                                                    $total = $data['total_penjualan'];
-                                                                                                                                                                    $total2 = number_format($total, 0, ",", ".");
-                                                                                                                                                                    echo "Rp " . $total2;
-                                                                                                                                                                    ?></span></p>
+                        <?php
+                        //query penjualan
+                        $query3 = mysqli_query($conn, "SELECT SUM( `transaksi_pembelian`.`harga`) as total_harga FROM `transaksi_pembelian` INNER JOIN transaksi_barang ON transaksi_pembelian.pemasok_id = transaksi_barang.pemasok_id WHERE transaksi_pembelian.pemasok_id=$id_user and transaksi_pembelian.date_grafik >= DATE_ADD(NOW(), INTERVAL -30 DAY) AND transaksi_pembelian.date_grafik <= DATE(NOW())");
+                        $data3 = mysqli_fetch_assoc($query3);
+                        $total = $data3['total_harga'];
+                        $total2 = number_format($total, 2, ",", ".");
 
+                        ?>
+                        <p style="margin-left:30px;padding-bottom: 10px;font-size: 0.85rem;">Total Penjualan : <span style="font-weight: 700;margin-left: 30px;">Rp <?php echo $total2 . " " . $id_user; ?></span> /30 hari terakhir</p>
                     </div>
-
                 </div>
+                <!-- end card grafik -->
+
                 <div class="cards">
                     <!-- Swiper -->
                     <div class="row3 swiper mySwiper">
@@ -412,7 +440,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
                                 <div class="swiper-slide">
                                     <div class="segmen-artikel">
                                         <div class="post-img">
-                                            <img class="img-artikel" src="../<?php echo $row['img']; ?>" alt="Blog">
+                                            <img class="img-artikel" src="../<?php echo $row['img']; ?>">
                                         </div>
                                         <div class="segmen-content-blogs">
                                             <img class="img-bg-content-blog" src="">
@@ -456,7 +484,8 @@ if ($status_login === true and !empty($email) and $level == '3') {
                         </div>
                         <div class="content-transaksi">
                             <?php
-                            $query3 = mysqli_query($conn, "SELECT * from transaksi_pembelian WHERE pemasok_id = '$id_user' limit 6");
+                            $query3 = mysqli_query($conn, "select * from transaksi_pembelian where pemasok_id=$id_user ORDER BY date_grafik DESC limit 6");
+                            include 'hari_indo.php';
 
                             ?>
 
@@ -464,7 +493,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
                                 <?php
                                 while ($row3 = mysqli_fetch_array($query3)) {
 
-                                    $date = $row3['Tgl_beli'];
+                                    $date = $row3['date_grafik'];
                                     $date1 = date_create($date);
                                     $date2 = date_format($date1, 'l');
                                     $tgl   = date_format($date1, 'd');
@@ -478,13 +507,13 @@ if ($status_login === true and !empty($email) and $level == '3') {
                             </div>
 
                             <div class="ct total">
-                                <?php $query4 = mysqli_query($conn, "SELECT * from transaksi_pembelian WHERE pemasok_id = '$id_user' limit 6");
+                                <?php $query4 = mysqli_query($conn, "select * from transaksi_pembelian where pemasok_id=$id_user limit 6");
 
                                 while ($row4 = mysqli_fetch_array($query4)) {
                                 ?>
                                     <p><?php
-                                        $harga = $row4['total_tr'];
-                                        $harga2 = number_format($harga, 0, ",", ".");
+                                        $harga = $row4['harga'];
+                                        $harga2 = number_format($harga, 2, ",", ".");
                                         echo "Rp " . $harga2;
                                         ?></p>
                                 <?php } ?>
@@ -522,7 +551,7 @@ if ($status_login === true and !empty($email) and $level == '3') {
                                 ?>
                                     <p><?php
                                         $harga = $row6['harga_barang'];
-                                        $harga2 = number_format($harga, 0, ",", ".");
+                                        $harga2 = number_format($harga, 2, ",", ".");
                                         echo "Rp " . $harga2;
                                         ?></p>
                                 <?php } ?>

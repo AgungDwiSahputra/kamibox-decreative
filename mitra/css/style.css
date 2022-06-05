@@ -505,6 +505,10 @@ a{
     height: auto !important;
     overflow: visible !important;
 }
+.container .row.body .col.grafik .table{
+    height: 330px;
+    overflow-y: auto;
+}
 .container .row.body .col.transaksi .table{
     height: 250px;
     overflow-y: auto;

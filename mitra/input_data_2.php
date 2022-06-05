@@ -51,6 +51,7 @@ if (isset($_POST['input_data'])) {
     if ($Update_TrxPembelian) {
         unset($_SESSION['no_invoice']);
         unset($_SESSION['input_barang']);
+        unset($_SESSION['id_pemasok']);
         header("Location: index.php");
     } else {
         header("Location: input_data_2.php");
