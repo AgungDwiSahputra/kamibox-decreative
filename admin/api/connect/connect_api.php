@@ -3,7 +3,7 @@ define("CALLBACK_URL", "http://localhost/kamibox-decreative/admin/api/get_token.
 define("AUTH_URL", "https://account.accurate.id/oauth/authorize");
 define("ACCESS_TOKEN_URL", "https://account.accurate.id/oauth/token");
 define("CLIENT_ID", "45aa88f1-17e8-4f09-bcbe-ae8c0f317f43");
-define("SCOPE", "item_view item_save sales_invoice_view");
+define("SCOPE", "item_view item_save item_delete customer_view customer_save customer_delete");
 
 if (!$_GET) {
     $url = AUTH_URL . "?"

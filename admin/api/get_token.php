@@ -47,13 +47,14 @@ if ($err) {
         while ($row = $result->fetch_assoc()) {
             $update_data = mysqli_query($conn, "UPDATE tb_api_accurate SET access_token='$access_token', token_type='$token_type', refresh_token='$refresh_token', expires_in='$expires_in', scope='$scope', referrer='$referrer', name='$name', email='$email'");
             if ($update_data == true) {
-                header('Location: http://localhost/kamibox-decreative/admin/index.php' . $url);
+                header('Location: http://localhost/kamibox-decreative/admin/api/get_database.php');
             }
         }
     } else {
         $insert_data = mysqli_query($conn, "insert into tb_api_accurate (access_token, token_type, refresh_token, expires_in, scope, referrer, name, email) values ('$access_token', '$token_type', '$refresh_token', '$expires_in', '$scope', '$referrer', '$name', '$email')");
         if ($insert_data == true) {
-            header('Location: http://localhost/kamibox-decreative/admin/index.php' . $url);
+            header('Location: http://localhost/kamibox-decreative/admin/api/get_database.php');
         }
     }
+    // echo $response;
 }

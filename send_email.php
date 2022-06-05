@@ -13,12 +13,12 @@ function send_otp_via_email($email, $nama, $otp){
 	try{
 		$mail->SMTPDebug = 0;
 		$mail->isSMTP();
-		$mail->Host = 'smtp.gmail.com';
+		$mail->Host = 'smtp-relay.sendinblue.com';//'smtp.gmail.com';
 		$mail->SMTPAuth = true;
-		$mail->Username = 'ikamibox@gmail.com';
-		$mail->Password = 'ka!boxmidi';
+		$mail->Username = 'annisasukmaputri@gmail.com';//'ikamibox@gmail.com';
+		$mail->Password = 'vPWFyQqVO9Lw1xpU';//'ka!boxmidi';
 		$mail->SMTPSecure = 'tls';
-		$mail->Port = 587;
+		$mail->Port = 587;//beberapa ada provider yg bol port 25
 
 		$mail->setFrom('ikamibox@gmail.com', 'Kamibox');
 		$mail->addAddress($email, $nama);

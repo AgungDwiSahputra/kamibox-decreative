@@ -21,31 +21,6 @@ include 'unset_validasi.php';
 
 
 	<style type="text/css">
-		/* header {
-			background: url(assets/images/hgh2.png)no-repeat;
-			background-size: cover;
-		}
-
-		.home {
-			background: url(assets/images/bghome.png) no-repeat;
-			background-size: cover;
-		}
-
-		.produk {
-			background: url(assets/images/bgproduk.png) no-repeat;
-			background-size: cover;
-		}
-
-		.tentang-kamibox {
-			background: url(assets/images/bgkmb.png) no-repeat;
-			background-size: cover;
-		}
-
-		.data-transaksi {
-			background: url(assets/images/bf.png) no-repeat;
-			background-size: cover;
-		} */
-
 		.img-tentang-kamibox {
 			max-width: 480px;
 			max-height: 440px;
@@ -54,11 +29,6 @@ include 'unset_validasi.php';
 		.data-klien {
 			background-color: #08AC4D;
 		}
-
-		/* .artikel {
-			background: url(assets/images/bgartikel.png);
-			background-size: cover;
-		} */
 
 		.swiper {
 			width: 1000px;
@@ -168,7 +138,7 @@ include 'unset_validasi.php';
 <body background="assets/images/hgh2.png">
 
 	<header>
-		<?php include "navbar.php"; ?>
+		<?php require "navbar.php"; ?>
 	</header>
 
 	<section class="home">

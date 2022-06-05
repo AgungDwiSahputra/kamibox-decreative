@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 28 Bulan Mei 2022 pada 13.22
--- Versi server: 10.4.22-MariaDB
--- Versi PHP: 7.4.27
+-- Host: localhost:3306
+-- Waktu pembuatan: 05 Jun 2022 pada 07.57
+-- Versi server: 5.7.33
+-- Versi PHP: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -56,8 +56,8 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `HPP`, `harga_barang`) VALUES
 CREATE TABLE `blog` (
   `id_blog` int(11) NOT NULL,
   `judul` varchar(255) DEFAULT NULL,
-  `isi` text DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp()
+  `isi` text,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `ci_sessions` (
   `id` varchar(100) NOT NULL,
   `ip_address` varchar(100) NOT NULL,
   `data` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -116,7 +116,7 @@ CREATE TABLE `input_data` (
   `alamat` text NOT NULL,
   `notelp` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -199,10 +199,10 @@ CREATE TABLE `input_total_berat_barang` (
 CREATE TABLE `invoice` (
   `id` int(11) NOT NULL,
   `no_invoice` int(11) DEFAULT NULL,
-  `tgl_transaksi` datetime DEFAULT current_timestamp(),
+  `tgl_transaksi` datetime DEFAULT CURRENT_TIMESTAMP,
   `id_user` int(11) DEFAULT NULL,
   `jumlah_tagihan` int(50) DEFAULT NULL,
-  `lokasi_penjemputan` text DEFAULT NULL
+  `lokasi_penjemputan` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -217,7 +217,7 @@ CREATE TABLE `kode_otp` (
   `notelp_user` varchar(50) DEFAULT NULL,
   `kodeotp` varchar(10) NOT NULL,
   `active` char(1) NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `expired` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -288,7 +288,7 @@ CREATE TABLE `pendapatan_pembelian` (
   `id` int(11) NOT NULL,
   `id_pembelian` int(11) DEFAULT NULL,
   `no_invoice` int(11) DEFAULT NULL,
-  `total_harga` text DEFAULT NULL,
+  `total_harga` text,
   `biaya_admin` int(100) DEFAULT NULL,
   `pendapatan` int(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -313,13 +313,60 @@ CREATE TABLE `rw_transaksi` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tb_api_accurate`
+--
+
+CREATE TABLE `tb_api_accurate` (
+  `id` bigint(45) NOT NULL,
+  `access_token` varchar(255) NOT NULL,
+  `token_type` varchar(255) NOT NULL,
+  `refresh_token` varchar(255) NOT NULL,
+  `expires_in` int(45) NOT NULL,
+  `scope` varchar(255) NOT NULL,
+  `referrer` varchar(45) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_api_accurate`
+--
+
+INSERT INTO `tb_api_accurate` (`id`, `access_token`, `token_type`, `refresh_token`, `expires_in`, `scope`, `referrer`, `name`, `email`) VALUES
+(2, 'c7ab556c-c7f0-4e63-93f8-577784e869bc', 'bearer', '790eb8c7-99cc-4960-bc6d-4ae950c532f0', 1295999, 'customer_save', '', 'M. Hanafi', 'hanzcreative1@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_database_response_api`
+--
+
+CREATE TABLE `tb_database_response_api` (
+  `access_token` varchar(255) NOT NULL,
+  `dataVersion` varchar(255) NOT NULL,
+  `licenseEnd` varchar(255) NOT NULL,
+  `session_db` varchar(255) NOT NULL,
+  `host` varchar(255) NOT NULL,
+  `accessibleUntil` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_database_response_api`
+--
+
+INSERT INTO `tb_database_response_api` (`access_token`, `dataVersion`, `licenseEnd`, `session_db`, `host`, `accessibleUntil`) VALUES
+('c7ab556c-c7f0-4e63-93f8-577784e869bc', '20220418091512', '26/06/2022', 'a94ba35b-c92a-4174-b870-03a11fd8702b', 'https://zeus.accurate.id', '01/07/2022');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `transaksi_pembelian`
 --
 
 CREATE TABLE `transaksi_pembelian` (
   `id` int(11) NOT NULL,
   `no_invoice` int(11) DEFAULT NULL,
-  `produk` text DEFAULT NULL,
+  `produk` text,
   `berat` int(100) DEFAULT NULL,
   `harga` int(225) DEFAULT NULL,
   `pajak` int(225) DEFAULT NULL,
@@ -339,11 +386,11 @@ CREATE TABLE `users` (
   `nama_lengkap` varchar(100) DEFAULT NULL,
   `alamat` text NOT NULL,
   `notelp` varchar(50) DEFAULT NULL,
-  `userlevelid` int(1) NOT NULL DEFAULT 3,
+  `userlevelid` int(1) NOT NULL DEFAULT '3',
   `active` char(1) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `last_activity` datetime DEFAULT current_timestamp()
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_activity` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -451,6 +498,12 @@ ALTER TABLE `rw_transaksi`
   ADD PRIMARY KEY (`id_rw`);
 
 --
+-- Indeks untuk tabel `tb_api_accurate`
+--
+ALTER TABLE `tb_api_accurate`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `transaksi_pembelian`
 --
 ALTER TABLE `transaksi_pembelian`
@@ -547,6 +600,12 @@ ALTER TABLE `pendapatan_pembelian`
 --
 ALTER TABLE `rw_transaksi`
   MODIFY `id_rw` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_api_accurate`
+--
+ALTER TABLE `tb_api_accurate`
+  MODIFY `id` bigint(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_pembelian`
