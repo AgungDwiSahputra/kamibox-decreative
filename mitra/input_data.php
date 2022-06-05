@@ -25,7 +25,7 @@ if (isset($_POST['next'])) {
 
     /* INVOICE */
     $invoice = date('mHis');
-    $query = mysqli_query($conn, "INSERT INTO transaksi_pembelian VALUES ('$invoice','$id_user','$id_userPemasok',null,null, '$alamat',null,'$datetime','','1')");
+    $query = mysqli_query($conn, "INSERT INTO transaksi_pembelian (`no_invoice`, `mitra_id`, `pemasok_id`, `total_berat`, `harga`, `alamat`, `koordinat`, `tgl_transaksi`, `date_grafik`, `status_transaksi`) VALUES ('$invoice','$id_user','$id_userPemasok',null,null, '$alamat',null,'$datetime',null,'1')");
     if ($query) {
         $_SESSION['no_invoice'] = $invoice;
         $_SESSION['id_pemasok'] = $id_userPemasok;

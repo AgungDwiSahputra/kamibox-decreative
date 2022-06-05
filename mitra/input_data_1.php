@@ -34,7 +34,7 @@ if (isset($_POST['daur_ulang'])) {
     }
     if ($tersedia == 0) {
         $id_pemasok = $_SESSION['id_pemasok'];
-        $Input_Barang = mysqli_query($conn, "INSERT INTO transaksi_barang VALUES ('','$invoice_session','$id_pemasok','$id_barang','')");
+        $Input_Barang = mysqli_query($conn, "INSERT INTO transaksi_barang (`id`, `no_invoice`, `pemasok_id`, `id_barang`, `berat`) VALUES ('','$invoice_session','$id_pemasok','$id_barang','')");
         if ($Input_Barang) {
             $_SESSION['input_barang'] = 'sudah';
             header("Location: input_data_2.php");

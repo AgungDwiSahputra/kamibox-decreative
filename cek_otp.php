@@ -128,7 +128,7 @@ if (empty($validasi)) {
 			//update iduser status aktif
 			$update_status_user = mysqli_query($conn, "update users set active ='1' where id_user='$id_user'");
 
-			echo "OTP Valid. Silahkan Masuk Login!";
+			echo "OTP Valid. Silahkan Masuk <a href='index.php'>Login</a>!";
 		}
 
 		// ========================== end sessi api acurate ==========================
