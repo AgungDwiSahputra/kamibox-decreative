@@ -80,7 +80,7 @@ if (empty($validasi)) {
 			$nama_lengkap .= $row->nama_lengkap;
 			$email .= $row->email;
 			$alamat .= $row->alamat;
-			$no_hp .= $row->no_hp;
+			$no_hp .= @$row->no_hp;
 		}
 
 		// mengambil sesion db accurate
