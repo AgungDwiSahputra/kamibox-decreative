@@ -354,17 +354,18 @@ section{
 	padding: 30px;
 }
 
-.heading-klien{
+.data-klien-wrapper .heading-klien{
 	color: #FFF;
 	font-size: 1.2rem;
 	font-weight: 700px;
 	text-align: center;
 }
 
-.segmen-klien{
+.data-klien-wrapper .segmen-klien{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	gap:20px ;
 }
 
 /*klien end-----------------------------------------------------------------*/
@@ -444,11 +445,11 @@ section{
 	height: 200px;
   	border-radius: 30px;
   	background-color: rgba(255, 255, 255, 0.8);
-  	margin-top: 100px;
+  	margin-top: 90px;
 }
 
 .segmen-content-blogs .segmen-isi-blog{
-	padding: 15px;
+	padding: 8px;
   	font-size: 0.8rem;
 }
 
@@ -526,6 +527,8 @@ section{
 .img-logo-kamibox-putih{
 	margin-top: 100px;
 	margin-bottom: 0px;
+	width: 270px;
+	height:42px;
 }
 
 
@@ -550,23 +553,153 @@ footer{
 }
 /*footer end-----------------------------------------------------------------*/
 
-/*about---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 
 /*---------------------------------------------------------------------------*/
 
+@media screen and (max-width: 1300px) {
+	.img-logo-kamibox-putih img{
+		width: 270px;height:42px;
+	}
+}
 
-@media screen and (max-width: 997px)
-{
-	.navbar .nav-wrapper{
-		padding: 0 20px;
+@media screen and (max-width: 1299px) {
+	.tentang-kamibox{
+		padding: 15px 0;
 	}
 
-	.nav-wrapper .menu-wrapper .menu{
+	.data-transaksi{
+		margin-top: 1em;
+	}
+
+	.lokasi-kamibox{
+		margin-top: 10em;
+	}
+
+	.tentang-kamibox-wrapper .kb-left,
+	.tentang-kamibox-wrapper .kb-right{
+		flex: 0 0 40%;
+	}
+}
+
+
+@media screen and (max-width: 1200px) {
+
+	.produk-wrapper .row1{
+		padding-top: 140px;
+	}
+
+	.content-right .img-wrapper{
+		max-width: 450px;
+	}
+
+}
+
+
+@media screen and (max-width: 1170px) {
+	.content-right .img-wrapper{
+		max-width: 400px;
+	}
+
+	.produk-wrapper .row1{
+		padding-top: 130px;
+	}
+
+	.data-transaksi{
+		margin-top: 2em;
+	}
+
+	.data-klien{
+		margin-top: 5em;
+	}
+
+	.lokasi-kamibox{
+		margin-top: 5em;
+	}
+
+	.peta-kamibox iframe{
+		width:700px;
+		height:380px;
+	}
+}
+
+
+@media screen and (max-width: 1060px) {
+
+	.tentang-kamibox{
+		padding: 0 100px;
+	}
+
+	.kb-left .img-tentang-kamibox{
+		margin-top: 5px;
+		max-width: 300px;
+	}
+
+	.heading-kmb{
+		padding-top:5px ;
+		font-size: 1.8rem;
+	}
+
+	.subheading-kmb{
+		font-size: 0.75rem;
+		margin: 8px;
+	}
+
+	.tentang-kamibox-wrapper .kb-left,
+	.tentang-kamibox-wrapper .kb-right{
+		flex: 0 0 40%;
+	}
+
+	.heading-artikel{
+		margin-top: 15px;
+	}
+
+	.data-transaksi-wrapper{
+		max-width: 760px;
+	}
+
+	.content-transaksi{
+		margin-left: 40px;
+	}
+
+	.data-transaksi-wrapper .segmen{
+		gap: 8px;	
+		margin: 15px;
+		padding:6 0px;
+	}
+
+	.segmen .heading-transaksi{
+		font-size: 1.1rem;
+	}
+
+	.segmen .subheading-transaksi{
+		font-size: 1.7rem;
+	}
+
+	.data-klien{
+		margin-top: 8em;
+	}
+
+	.data-klien-wrapper{
+		padding: 10px;
+	}
+
+
+	.data-klien-wrapper .segmen-klien{
+		gap:5px ;
+	}
+
+}
+
+
+@media screen and (max-width: 1034px) {
+
+	.nav-wrapper .menu-wrapper{
 		gap: 20px;
 	}
 
 	.menu-wrapper .menu .menu-link{
-		font-size: 0.8rem;
+		font-size: 0.95rem;
 	}
 
 	.menu-wrapper .btn-login{
@@ -574,13 +707,151 @@ footer{
 	}
 
 	.home-wrapper .heading{
-		font-size: 2.5rem;
-		margin-left: 30px;
+		font-size: 2.4rem;
+		margin-left: 0px;
 	}
 
 	.home-wrapper .subheading{
 		font-size: 1rem;
-		margin-left: 30px;
+		margin-left: 0px;
+	}
+
+	.tentang-kamibox{
+		padding: 0 70px;
+	}
+
+	.data-klien-wrapper{
+		padding: 6px;
+	}
+
+
+	.data-klien-wrapper .segmen-klien{
+		gap:2px ;
+	}
+
+	.produk-wrapper .row1{
+		padding-top: 80px;
+	}
+
+	.heading-artikel{
+		margin-top: 40px;
+		font-size: 1.5rem;
+	}
+
+	.swiper {
+    	width: 900px;
+    	height: 420px;
+	}
+
+	.card-artikel{
+		margin-top: 40px;
+	}
+			
+	.segmen-artikel{
+		width: 220px;
+		height: 270px;
+		gap: 10px;
+	}
+	.segmen-content-blogs{
+		width: 220px;
+		height: 270px;
+  		margin-top: 85px;
+	}
+
+	.segmen-content-blogs .segmen-isi-blog{
+		padding: 6px;
+	  	font-size: 0.7rem;
+	}
+
+	.segmen-content-blogs .segmen-button-blog{
+		margin-top: 8px;
+		padding: 8px;
+	}
+
+	.segmen-isi-blog .judul-blog{
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+
+	.segmen-button-blog .btn-blog{
+		font-weight: 500;
+	    margin: 32px 0;
+	    padding: 5px 12px;
+	    font-size: 0.7rem;
+	}
+
+}
+
+@media screen and (max-width: 1017px)
+{
+	.data-klien-wrapper{
+		padding: 4px;
+	}
+
+
+	.data-klien-wrapper .segmen-klien{
+		gap:0px ;
+	}
+
+	.segmen-klien .klien img{
+		width: 95%;
+		height: 100%;
+	}
+
+	.produk{
+		font-size: 0.9rem;
+	}
+
+	.produk-wrapper .row2{
+		gap:15px ;
+	}
+
+	.row2 .card-produk{
+		max-width: 190px;
+		max-height: 280px;
+	}
+
+	.row2 .card-produk img{
+		max-width: 140px;
+		max-height: 130px;
+		padding: 10px;
+	}
+}
+
+
+@media screen and (max-width: 1007px)
+{
+	.data-transaksi{
+		margin-top: 5em;
+	}
+
+	.segmen-klien .klien img{
+		width: 85%;
+		height: 90%;
+	}
+
+	.data-klien{
+		margin-top: 4em;
+	}
+
+	.data-klien-wrapper{
+		padding: 3px;
+	}
+}
+
+@media screen and (max-width: 997px)
+{
+
+	.nav-wrapper .menu-wrapper .menu{
+		gap: 50px;
+	}
+
+	.menu-wrapper .menu .menu-link{
+		font-size: 0.9rem;
+	}
+
+	.menu-wrapper .btn-login{
+		padding: 5px 20px;
 	}
 
 	.content-right .img-wrapper{
@@ -597,94 +868,264 @@ footer{
 	}
 
 	.produk-wrapper .row2 .card-produk{
-		width: 150px;
-		height: 150px;
+		width: 160px;
+		height: 160px;
 	}
 
 	.row2 .card-produk img{
-		width: 90px;
-		height: 90px;
+		width: 120px;
+		height: 120px;
+	}
+
+	.row2 .card-produk p, .row2 .card-produk .btn-produk{
+		font-size: 0.9rem;
+	}
+
+	.kb-left .img-tentang-kamibox {
+		margin-top: 5px;
+	}
+
+	.heading-kmb {
+		padding-top: 5px;
+		font-size: 1.3rem;
+	}
+
+	.subheading-kmb {
+		font-size: 0.75rem;
+	}
+
+	.data-transaksi{
+		margin-top: 7em;
+	}
+
+
+	.content-transaksi{
+		margin-left: 40px;
+	}
+
+	.data-transaksi-wrapper .segmen{
+		gap: 8px;	
+		margin: 15px;
+		padding:6 0px;
+	}
+
+	.segmen .heading-transaksi{
+		font-size: 1rem;
+	}
+
+	.segmen .subheading-transaksi{
+		font-size: 1.5rem;
+	}
+}
+
+
+@media screen and (max-width: 973px){	
+	.tentang-kamibox{
+		padding: 0 25px;
+	}
+	.tentang-kamibox-wrapper .kb-left,
+	.tentang-kamibox-wrapper .kb-right{
+		flex: 0 0 30%;
+	}
+	.kb-left .img-tentang-kamibox{
+		max-width: 280px;
+	}
+	.btn-kbx{
+		margin: 38px 0;
+		padding: 6px 18px;
+		border-radius: 50px;
+		font-size: 0.7rem;
+	}
+	.data-transaksi-wrapper{
+		max-width: 700px;
+	}
+	.content-transaksi{
+		margin-left: 15px;
+	}
+	.data-klien-wrapper .heading-klien{
+		font-size: 1rem;
+		margin-top: 20px;
+	}
+	.data-klien-wrapper .segmen-klien{
+		gap:10px ;
+	}
+	.segmen-klien .klien img{
+		width: 80%;
+		height: 90%;
+	}
+	.heading-left-footer{
+		font-size: 1rem;
+	}
+
+	.subheading-left-footer{
+		font-size: 0.8rem;	
+	}
+
+}
+
+
+@media screen and (max-width: 894px){	
+	.navbar .nav-wrapper{
+		padding: 0 20px;
+	}
+
+	.nav-wrapper .menu-wrapper .menu{
+		gap: 20px;		
+	}
+
+	.produk{
+		font-size: 0.9rem;
+	}
+
+	.produk-wrapper .row1{
+		padding-top: 2px;
+	}
+
+	.produk-wrapper .row2{
+		gap:10px ;
+	}
+
+	.row2 .card-produk{
+		max-width: 140px;
+		max-height: 220px;
+	}
+
+	.row2 .card-produk img{
+		max-width: 110px;
+		max-height: 100px;
+		padding: 7px;
+	}
+
+	.content-right .img-wrapper{
+		margin-top: 45px;
+		max-width: 300px;
+	}
+	.btn-gabung{
+		margin: 5px 10px;
+		padding: 4px 40px;		
+	}
+	
+	.heading-produk{
+		font-size: 1.2rem;
+	}
+
+	.produk-wrapper .row1{
+		padding-top: 180px;
+	}
+	.data-transaksi{
+		margin-top: 1.5em;
+	}
+
+	.content-transaksi{
+		margin-left: 50px;
+	}
+
+	.data-transaksi-wrapper .segmen{
+		gap: 6px;	
+		margin: 15px 0;
+		padding: 2px;
+	}
+
+	.data-transaksi-wrapper{
+		max-width: 650px;
+	}
+	.heading-artikel{
+		
+		font-size: 1.3rem;
+	}
+
+	.heading-lokasikmb{
+		font-size: 0.95rem;
+	}
+
+	.peta-kamibox iframe{
+		width:600px;
+		height:280px;
+	}
+	.btn-kbx{
+		margin-top: 10px;
+	}
+
+}
+
+@media screen and (max-width: 800px) {/**/
+	
+/*produk=================*/
+	.produk-wrapper .row2{
+		margin: 0;
+		gap:10px ;
+	}
+
+	.produk-wrapper .row2 .card-produk{
+		margin:0px;
+		width: 120px;
+		height: 120px;
+	}
+
+	.row2 .card-produk img{
+		width: 80px;
+		height: 80px;
+		padding-top: 5px;
 	}
 
 	.row2 .card-produk p, .row2 .card-produk .btn-produk{
 		font-size: 0.8rem;
 	}
 
-	.content-transaksi{
-		margin-left: 30px;
+	.card-produk p .nama-produk{
+		padding-top: 1px;
 	}
 
-	.data-transaksi-wrapper .segmen{
-		gap: 5px;	
-		margin: 10px;
-		padding: 3px;
+	.home{
+		margin: 0px;
+		margin-left: 50px;
 	}
 
-	.heading-transaksi{
-		color:#08AC4D;font-size: 0.9rem;
+	.home-wrapper .heading{
+		font-size: 1.8rem;
+		margin-top: 80px;
 	}
 
-	.subheading-transaksi{
-		color:#000;font-size: 1.5rem;
+	.home-wrapper .subheading{
+		font-size: 1rem;
+	}
+	.content-right .img-wrapper{
+		margin-top: 45px;
+		max-width: 250px;
 	}
 
-	.garis-tr{
-		display: none;
+	.nav-wrapper .logo img{
+		height: 50px;
+		width: 200px;	
 	}
 
-}
+	.heading-kmb{
+		font-size: 1.2rem;
+		margin-top: 40px;
+	}
 
-@media screen and (max-width: 850px){	
+	.subheading-kmb{
+		font-size: 0.6rem;
+		margin: 5px 38px;
+		padding: 2px 17px;
+	}
 
-	.navbar .nav-wrapper{
-		padding: 0 15px;
+	.kb-left .img-tentang-kamibox {
+	    max-width: 280px;
+	    margin-top: 40px;
 	}
 
 	.nav-wrapper .menu-wrapper .menu{
 		gap: 10px;		
 	}
-
-	.home-wrapper .heading{
-		font-size: 2rem;
-		margin-top: 50px;
-		margin-left: 30px;
-
-	}
-
-	.home-wrapper .subheading{
-		font-size: 0.8rem;
-		margin-left: 30px;
-	}
-
-	.content-right .img-wrapper{
-		margin-top: 25px;
-		max-width: 300px;
-	}
-
-	.btn-gabung{
-		margin: 10px 30px;
-		padding: 4px 40px;
-		border-radius: 30px;	
-		
-	}
-
-	.data-transaksi .data-transaksi-wrapper{
-		margin-left: 100px;
-	}
-
-	.heading-artikel{
-		font-size: 1.5rem;	
-	}
-
-	.garis-artikel{
-		margin-left: 130px;
-	}
-
-
 }
 
-@media screen and (max-width: 768px)
+@media screen and (max-width: 764px)
 {
+	.menu-wrapper .menu .menu-link {
+		color: #000;
+	}
+
 	.nav-wrapper .menu-wrapper{
 		position: absolute;
 		top : 100%;
@@ -718,11 +1159,10 @@ footer{
 		margin: 30px 0;
 	}
 
-
 	.nav-wrapper .menu-toggle{
 		display: initial;
 		font-size: 3rem;
-		color: var(--main-color);
+		color: #024A25;
 		transition: .5s;
 	}
 
@@ -738,43 +1178,271 @@ footer{
 		font-weight:650;
 	}
 
-	.produk-wrapper .row2{
-		display: flex;
-		margin: 10px 10px;
+	.tentang-kamibox-wrapper .kb-left,
+	.tentang-kamibox-wrapper .kb-right{
+		flex: 0 0 25%;
+	}
+}
 
+@media screen and (max-width: 716px)
+{
+	.tentang-kamibox{
+		padding: 0 15px;
 	}
 
-	.produk-wrapper .row2 .card-produk{
-		margin: auto;
-	}
-
-	.produk-wrapper .heading-produk{
+	.heading-kmb{
+		padding-top:0px ;
 		font-size: 1.2rem;
-		margin-left: 30px;
-		text-align: left;
-	}
-
-	.row2 .card-produk img{
-		width: 80px;
-		height: 80px;
-		padding-top: 10px;
-	}
-
-	.row2 .card-produk p, .row2 .card-produk .btn-produk{
-		font-size: 0.8rem;
-	}
-
-	.data-transaksi .data-transaksi-wrapper{
-		margin-left: 13px;
 	}
 
 	.subheading-kmb{
+		font-size: 0.7rem;
+		margin: 4px;
+	}
+
+	.btn-kbx{
+		margin: 10px 0;
+		padding: 2px 16px;
+		border-radius: 30px;
+		font-size: 0.5rem;
+	}
+}
+
+
+@media screen and (max-width: 696px)
+{
+
+	.tentang-kamibox{
+		padding: 0 10px;
+	}
+
+	.heading-kmb{
+		padding-top:0px ;
+		font-size: 1rem;
+	}
+
+	.subheading-kmb{
+		font-size: 0.6rem;
+		margin: 2px;
+	}
+
+	.btn-kbx{
+		margin: 10px 0;
+		padding: 2px 16px;
+		border-radius: 30px;
+		font-size: 0.5rem;
+	}
+
+	.data-transaksi{
+		margin-top: 8em;
+	}
+}
+
+
+@media screen and (max-width: 685px)
+{
+	
+	.produk-wrapper .row1{
+		padding-top: 0px;
+		margin-top: 140px;
+	}
+
+	.tentang-kamibox{
+		margin: 0px;
+		padding: 0px;
+		width: 90%;
+	}
+
+	.tentang-kamibox .tentang-kamibox-wrapper{
+		margin:auto;
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: left;
+	}
+
+	.tentang-kamibox-wrapper .kb-left,
+	.tentang-kamibox-wrapper .kb-right{
+		flex: 0 0 30%;
+	}
+
+	.tentang-kamibox-wrapper .kb-left{
+		text-align: left;
+	}
+
+	.tentang-kamibox-wrapper .kb-right{
+		text-align: center;
+	}
+
+
+	.kb-left .img-tentang-kamibox{
+		margin-top: 120px;
+		margin-left: 40px;
+		max-width: 200px;
+	}
+
+
+	.heading-kmb{
+		padding-top:0px ;
+		margin-top: 100px;
+		font-size: 1.2rem;
+	}
+
+	.subheading-kmb{
+		font-size: 0.65rem;
+		margin: 5px;
+		padding: 0px 30px;	
+	}
+
+	.btn-kbx{
+		margin: 20px 0;
+		padding: 3px 10px;
+		border-radius: 30px;
+		font-size: 0.65rem;
+	}
+	
+	.home-wrapper .heading{
+		font-size: 1.5rem;
+		margin-top: 80px;
+	}
+
+	.home-wrapper .subheading{
+		font-size: 1rem;
+	}
+	.content-right .img-wrapper{
+		margin-top: 75px;
+		max-width: 220px;
+	}
+}
+
+
+@media screen and (max-width: 680px)
+{
+	.produk-wrapper .row2{
+		gap: 10px;
+		width: 60%;
+		margin-left: 130px;
+	}
+
+	.tentang-kamibox{
+		width: 100%;
+	}
+
+	.tentang-kamibox .tentang-kamibox-wrapper{
+		margin:auto;
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: center;
+	}
+
+	.tentang-kamibox-wrapper .kb-left,
+	.tentang-kamibox-wrapper .kb-right{
+		flex: 0 0 30%;
+	}
+
+	.tentang-kamibox-wrapper .kb-left{
+		text-align: center;
+	}
+
+	.tentang-kamibox-wrapper .kb-right{
+		text-align: center;
+	}
+
+
+	.kb-left .img-tentang-kamibox{
+		margin-top: 100px;
+		margin-left: 40px;
+		max-width: 200px;
+	}
+
+
+	.heading-kmb{
+		padding-top:0px ;
+		margin-top: 60px;
+		font-size: 1.2rem;
+	}
+
+	.subheading-kmb{
+		font-size: 0.65rem;
+		margin: 5px;
+		padding: 0px 30px;
+	}
+
+	.produk{
+		width: 680px;
+		height: 350px;
+	}
+
+	.data-transaksi-wrapper{
+		max-width: 500px;
+	}
+
+	.content-transaksi{
 		margin-left: 30px;
-		margin-right: 30px;
 	}
-
+	.garis-tr img{
+		width: 60px;
+		height: 170px;
+	}
+	.klien{
+		width: 120px;
+	}
 	.segmen-klien{
-		margin: 0%;
+		text-align: center;
+	}
+	.lokasi-kamibox {
+	    margin-top: 2em;
+	}
+	.peta-kamibox iframe {
+	    width: 500px;
+	    height: 280px;
+	}
+	.contact-footer {
+	    margin-top: 100px;
 	}
 
+	.swiper {
+    	width: 450px;
+    	height: 400px;
+	}
+
+	.card-artikel{
+		margin-top: 30px;
+		width: 200px;
+		height: 220px;
+	}
+			
+	.segmen-artikel{
+		width: 200px;
+		height: 220px;
+		gap: 2px;
+	}
+	.segmen-content-blogs{
+		width: 200px;
+		height: 220px;
+  		margin-top: 65px;
+	}
+
+	.segmen-content-blogs .segmen-isi-blog{
+		padding: 4px;
+	  	font-size: 0.6rem;
+	}
+
+	.segmen-content-blogs .segmen-button-blog{
+		margin-top: 4px;
+		padding: 4px;
+	}
+
+	.segmen-isi-blog .judul-blog{
+		font-weight: 700;
+		margin-bottom: 3px;
+	}
+
+	.segmen-button-blog .btn-blog{
+		font-weight: 500;
+	    margin: 22px 0;
+	    padding: 2px 8px;
+	    font-size: 0.4rem;
+	}
+
+	
 }

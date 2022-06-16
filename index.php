@@ -14,6 +14,8 @@ include 'unset_validasi.php';
 	<link rel="shortcut icon" type="image/png" href="assets/icon.png">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@next/dist/aos.css">
+	<!-- Link Font Awesome's CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<!-- Link Swiper's CSS -->
@@ -21,6 +23,11 @@ include 'unset_validasi.php';
 
 
 	<style type="text/css">
+		body{
+			width: 100%;
+			height: 100%;
+		}
+
 		.img-tentang-kamibox {
 			max-width: 480px;
 			max-height: 440px;
@@ -29,6 +36,7 @@ include 'unset_validasi.php';
 		.data-klien {
 			background-color: #08AC4D;
 		}
+
 
 		.swiper {
 			width: 1000px;
@@ -70,72 +78,114 @@ include 'unset_validasi.php';
 			text-align: center;
 		}
 
-		/* .lokasi-kamibox {
-			background: url(assets/images/bglokasi.png);
-			background-size: cover;
+		.subheading-left-footer{
+			line-height: 150%;
 		}
+
+		.subheading-left-footer i{
+			padding: 0 10px;
+		}
+
 
 		.footer{
-			background: url(assets/images/bgfooter.png);
-		}
-		*/
-		.footer {
-			background: url(assets/images/bgfooter.png);
-			background-size: cover;
+			background: url(assets/images/bgfooter2.png);
+			margin-top: 0px;
 		}
 
+		@media screen and (max-width: 1300px) {
+			.footer {
+				background: url(assets/images/bgfooter2.png);
+			}
+			.data-transaksi{
+				margin-top: 5em;
+			}
+			.data-klien{
+				margin-top: 5em;
+			}
+		}
+
+		@media screen and (max-width: 1150px) {/**/
+			.img-logo-kamibox-putih img{
+				width: 95%;
+				height:95%;
+			}
+
+		}
+
+		@media screen and (max-width: 1017px)
+		{
+			.swiper {
+				width: 800px;
+				height: 380px;
+			}
+		}
+
+		@media screen and (max-width: 1000px)/**/
+		{
+			.footer {
+				background: url(assets/images/bgfooter2.png);
+			}
+		}
 
 		@media screen and (max-width: 997px) {
-
-			.heading-kmb {
-				font-size: 1.5rem;
-				color: #FFF;
+			.home-wrapper .heading{
+				font-size: 2rem;
+				margin-left: 10px;
 			}
 
-			.kb-left .img-tentang-kamibox {
-				margin-top: 5px;
-			}
-
-			.heading-kmb {
-				padding-top: 5px;
-			}
-
-			.subheading-kmb {
+			.home-wrapper .subheading{
 				font-size: 0.8rem;
-				color: #FFF;
+				margin-left: 10px;
+			}			
+		}
+
+		@media screen and (max-width: 973px) {/**/
+			.img-logo-kamibox-putih img{
+				width: 85%;
+				height:85%;
 			}
 
 		}
 
-		@media screen and (max-width: 850px) {
-
-			header,
-			.home,
-			.produk,
-			.tentang-kamibox {
-				background: none;
-			}
-
-			.menu-wrapper .menu .menu-link {
-				color: #000;
-			}
-
-			.subheading-kmb,
-			.heading-kmb {
-				color: #08AC4D;
+		@media screen and (max-width: 894px) {/**/
+			.footer{
+				background: url(assets/images/bgfooter3.png);	
 			}
 
 		}
 
-		@media screen and (max-width: 768px) {
-			.menu-wrapper .menu .menu-link {
-				color: #000;
+		@media screen and (max-width: 850px) {/**/
+			.swiper {
+				width: 600px;
+				height: 400px;
+			}
+
+		}
+
+		@media screen and (max-width: 696px) {/**/
+			.data-transaksi{
+				margin-top: 8em;
 			}
 		}
+
+		@media screen and (max-width 680px) {
+			.swiper {
+			    width: 450px;
+			    height: 400px;
+			}
+			.swiper-wrapper{
+				width: 450px;
+			}
+			.swiper-slide{
+				width: 250px;
+			}
+		}
+		
 	</style>
+
 </head>
 
-<body background="assets/images/hgh2.png">
+<body background="assets/images/hgh22.png">
 
 	<header>
 		<?php require "navbar.php"; ?>
@@ -166,7 +216,7 @@ include 'unset_validasi.php';
 			<div class="row2">
 				<div class="card-produk">
 					<img src="assets/images/Arsip-Kantor.png">
-					<p class="nama-produk">Arsip Kantor</p>
+					<p class="nama-produk">Kertas</p>
 					<div><a href="" class="btn-produk">cek harga</a></div>
 				</div>
 				<div class="card-produk">
@@ -175,12 +225,12 @@ include 'unset_validasi.php';
 					<div><a href="" class="btn-produk">cek harga</a></div>
 				</div>
 				<div class="card-produk">
-					<img src="assets/images/logam.png">
+					<img src="assets/images/lg.png">
 					<p class="nama-produk">Logam</p>
 					<div><a href="" class="btn-produk">cek harga</a></div>
 				</div>
 				<div class="card-produk">
-					<img src="assets/images/kaca.png">
+					<img src="assets/images/bt.png">
 					<p class="nama-produk">Kaca</p>
 					<div><a href="" class="btn-produk">cek harga</a></div>
 				</div>
@@ -239,10 +289,10 @@ include 'unset_validasi.php';
 		<div class="data-klien-wrapper">
 			<div class="heading-klien">Klien kami</div>
 			<div class="segmen-klien">
-				<div class="klien"><img src="assets/images/nxbw.png"></div>
-				<div class="klien"><img src="assets/images/nad.png"></div>
-				<div class="klien"><img src="assets/images/ntsw.png"></div>
-				<div class="klien"><img src="assets/images/nfw.png"></div>
+				<div class="klien"><img src="assets/images/nxbw2.png"></div>
+				<div class="klien"><img src="assets/images/nad2.png"></div>
+				<div class="klien"><img src="assets/images/ntsw2.png"></div>
+				<div class="klien"><img src="assets/images/nfw2.png"></div>
 			</div>
 		</div>
 	</section>
@@ -250,122 +300,45 @@ include 'unset_validasi.php';
 	<section class="artikel">
 		<div class="artikel-wrapper">
 			<div class="heading-artikel">Artikel Kamibox</div>
-			<div class="garis-artikel" style="text-align: center;"><img src="assets/images/gai.png"></div>
-			<!-- Swiper -->
+			<div class="garis-artikel" style="text-align: center;">
+				<img src="assets/images/gai.png">
+			</div>
+			
+			<!-- -------------Swiper ---------------------------------------------------->
 			<div class="card-artikel swiper mySwiper">
 				<div class="swiper-wrapper">
 
+					<?php 
+					
+					include 'connect_db.php';
+
+                    		$query = mysqli_query($conn, "select * from blog");
+                    		while($row=mysqli_fetch_array($query)){
+
+                    		
+                    	?>
+					
+					<!-- -------------Swiper slide-------------------------->
 					<div class="swiper-slide">
 						<div class="segmen-artikel">
 							<div class="post-img">
-								<img class="img-artikel" src="assets/images/s1.jpg">
+								<img class="img-artikel" src="<?php echo $row['img']; ?>">
 							</div>
 							<div class="segmen-content-blogs">
 								<img class="img-bg-content-blog" src="">
 								<div class="segmen-isi-blog">
-									<p class="judul-blog">Buang atau Beruang?</p>
-									<p class="isi-blog">Botol plastik yang sudah tidak ada isinya bisa jadi uang loh! Ingin tahu caranya?</p>
-								</div>
+									<p class="judul-blog"><?php echo $row['judul'];?></p>
+									<p class="isi-blog" style="font-family: var(--main-font2);"><?php echo $row['isi'];?></p>	
+								</div>				
 								<div class="segmen-button-blog">
 									<a href='#' class='btn-blog'>Selengkapnya</a>
-								</div>
+								</div>	
 							</div>
 						</div>
 					</div>
 
-					<div class="swiper-slide">
-						<div class="segmen-artikel">
-							<div class="post-img">
-								<img class="img-artikel" src="assets/images/s2.jpg">
-							</div>
-							<div class="segmen-content-blogs">
-								<div class="post-img">
-									<img class="img-bg-content-blog" src="">
-								</div>
-								<div class="segmen-isi-blog">
-									<p class="judul-blog">Stop Buang Popok Bayi!</p>
-									<p class="isi-blog">Ternyata popok bayi yang sudah terpakai bisa menghasilkan uang. Yuk simak pembahasannya!</p>
-								</div>
-								<div class="segmen-button-blog">
-									<a href='#' class='btn-blog'>Selengkapnya</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="swiper-slide">
-						<div class="segmen-artikel">
-							<div class="post-img">
-								<img class="img-artikel" src="assets/images/s3.jpg">
-							</div>
-							<div class="segmen-content-blogs">
-								<img class="img-bg-content-blog" src="">
-								<div class="segmen-isi-blog">
-									<p class="judul-blog">Daur Ulang Sampah</p>
-									<p class="isi-blog">Daur ulang atau recycle adalah proses pembuatan barang bekas menjadi bahan baru.</p>
-								</div>
-								<div class="segmen-button-blog">
-									<a href='#' class='btn-blog'>Selengkapnya</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="swiper-slide">
-						<div class="segmen-artikel">
-							<div class="post-img">
-								<img class="img-artikel" src="assets/images/s1.jpg">
-							</div>
-							<div class="segmen-content-blogs">
-								<img class="img-bg-content-blog" src="">
-								<div class="segmen-isi-blog">
-									<p class="judul-blog">Buang atau Beruang?</p>
-									<p class="isi-blog">Botol plastik yang sudah tidak ada isinya bisa jadi uang loh! Ingin tahu caranya?</p>
-								</div>
-								<div class="segmen-button-blog">
-									<a href='#' class='btn-blog'>Selengkapnya</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="swiper-slide">
-						<div class="segmen-artikel">
-							<div class="post-img">
-								<img class="img-artikel" src="assets/images/s2.jpg">
-							</div>
-							<div class="segmen-content-blogs">
-								<div class="post-img">
-									<img class="img-bg-content-blog" src="">
-								</div>
-								<div class="segmen-isi-blog">
-									<p class="judul-blog">Stop Buang Popok Bayi!</p>
-									<p class="isi-blog">Ternyata popok bayi yang sudah terpakai bisa menghasilkan uang. Yuk simak pembahasannya!</p>
-								</div>
-								<div class="segmen-button-blog">
-									<a href='#' class='btn-blog'>Selengkapnya</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="swiper-slide">
-						<div class="segmen-artikel">
-							<div class="post-img">
-								<img class="img-artikel" src="assets/images/s3.jpg">
-							</div>
-							<div class="segmen-content-blogs">
-								<img class="img-bg-content-blog" src="">
-								<div class="segmen-isi-blog">
-									<p class="judul-blog">Daur Ulang Sampah</p>
-									<p class="isi-blog">Daur ulang atau recycle adalah proses pembuatan barang bekas menjadi bahan baru.</p>
-								</div>
-								<div class="segmen-button-blog">
-									<a href='#' class='btn-blog'>Selengkapnya</a>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php } ?>
+					<!-- -----------end--Swiper slide-------------------------->	
 
 				</div>
 				<div class="swiper-button-next"></div>
@@ -389,19 +362,21 @@ include 'unset_validasi.php';
 		</div>
 	</section>
 
-	<section class="footer" style="margin-top:0px">
+
+
+	<section class="footer">
 		<div class="containfooter footer-wrapper">
 			<div class="contact-footer">
 				<div class="left-footer">
 					<p class="heading-left-footer">Contact Us</p>
-					<p class="subheading-left-footer">Whatsapp</p>
-					<p class="subheading-left-footer">Telegram</p>
-					<p class="subheading-left-footer">Instagram</p>
+					<p class="subheading-left-footer"><i class="fa fa-whatsapp" style="font-size:18px;color:#FFF"></i>Whatsapp</p>
+					<p class="subheading-left-footer"><i class="fa fa-telegram" style="font-size:18px;color:#FFF"></i>Telegram</p>
+					<p class="subheading-left-footer"><i class="fa fa-instagram" style="font-size:18px;color:#FFF"></i>Instagram</p>
 					<p class="heading-left-footer" style="margin-top:30px">About Us</p>
 				</div>
 				<div class="right-footer">
 					<div class="img-logo-kamibox-putih">
-						<img style="width: 270px;height:42px;" src="assets/images/LogoKamiboxPutih.png">
+						<img src="assets/images/LogoKamiboxPutih.png">
 					</div>
 				</div>
 			</div>
@@ -434,8 +409,8 @@ include 'unset_validasi.php';
 		}
 
 		var swiper = new Swiper(".mySwiper", {
-			spaceBetween: 10,
-			slidesPerView: 3,
+			spaceBetween: 8,
+			slidesPerView: 2.5,
 			slidesPreview: "auto",
 			navigation: {
 				nextEl: ".swiper-button-next",

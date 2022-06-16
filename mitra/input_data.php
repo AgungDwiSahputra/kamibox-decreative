@@ -192,6 +192,7 @@ if (isset($_POST['next'])) {
     <!-- ====================================== -->
     <!-- JAVA SCRIPT -->
     <!-- ====================================== -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDrYzpTeK-Y3UDlMZPeD_EhHW5pm4pUakw"></script>
     <script type="text/javascript">
         window.onload = myMap();
 
@@ -211,6 +212,7 @@ if (isset($_POST['next'])) {
                 map: map,
                 title: "Your location"
             });
+            marker.setMap(map);
             google.maps.event.addListener(marker, 'click', function(e) {
                 document.getElementById("latbox").value = e.latLng.lat();
                 document.getElementById("lngbox").value = e.latLng.lng();
@@ -218,7 +220,6 @@ if (isset($_POST['next'])) {
             });
         }
     </script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <!-- Navigation Interactive -->
     <script>
         /* Select2 Jquery */

@@ -126,8 +126,8 @@
 						<i class='bx bx-check-circle size' style="font-size: 3rem;margin-top:5px; "></i>
 					</div>
 					<div class="check">
-						<p class="headisb">Harga Terbaik</p>
-						<p>Kamibox memiliki harga yang kompetitif dan terbaik di kelasnya.</p>
+						<p class="headisb">Layanan Jemput Sampah</p>
+						<p>Kamibox menyediakan layanan jemput sampah untuk Area Jakarta dan Tangerang Raya. Layanan ini bisa digunakan oleh perkantoran, pertokoan dan rumah tangga.</p><br/>
 					</div>
 				</div>
 				<div class="list">
@@ -135,8 +135,8 @@
 						<i class='bx bx-check-circle size' style="font-size: 3rem;margin-top:5px; "></i>
 					</div>
 					<div class="check">
-						<p class="headisb">Keamanan Terjamin</p>
-						<p>Arsip anda aman karena akan kami kirim ke pabrik untuk daur ulang.</p>
+						<p class="headisb">Pemusnahan Arsip</p>
+						<p>Pemusnahan arsip diperuntukkan untuk menjaga kerahasiaan data perusahaan. Kami menjamin proses pemusnahan akan dilakukan secara bertanggung jawab.</p><br/>
 					</div>
 				</div>
 				<div class="list">
@@ -144,8 +144,8 @@
 						<i class='bx bx-check-circle size' style="font-size: 3rem;margin-top:5px; "></i>
 					</div>
 					<div class="check">
-						<p class="headisb">Armada</p>
-						<p>Kamibox memiliki armada sendiri yang khusus untuk melayani Anda.</p>
+						<p class="headisb">Kemitraan Bank Sampah</p>
+						<p>Kami memiliki layanan kemitraan dengan Bank Sampah untuk bisa melakukan penjualan sampah ke Kamibox. Terdapat banyak keuntungan apabila bemitra dengan kami, yaitu mendapatkan insentif dan fasilitas branding dari Kamibox.</p><br/>
 					</div>
 				</div>
 				<div class="list">
@@ -153,8 +153,8 @@
 						<i class='bx bx-check-circle size' style="font-size: 3rem;margin-top:5px; "></i>
 					</div>
 					<div class="check">
-						<p class="headisb">Team Berpengalaman</p>
-						<p>Kamibox memiliki team yang sudah berpengalaman lebih dari 20 tahun.</p>
+						<p class="headisb">Extended Producer Responsibility (EPR)</p>
+						<p>Untuk produsen yang ingin bertanggung jawab terhadap sampah kemasannya. Kami memiliki jaringan mitra pengumpul yang besar untuk membantu mengumpulkan sampah kemasan agar terdaur ulang dengan baik.</p><br/>
 					</div>
 				</div>
 
@@ -167,6 +167,21 @@
 			</div>
 
 		</div>
+
+	</section>
+	<section>
+		
+		
+
+		
+		
+
+		
+		
+
+		
+
+
 
 	</section>
 

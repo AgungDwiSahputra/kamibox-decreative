@@ -1,0 +1,28 @@
+Perubahan REVISI
+
+1. Halaman index.php 
+   - Ada penambahan di assets/images/hgh22.png untuk background di body landing page
+   - Ada penambahan di assets/images/artikel/ untuk blog
+   - Ada penambahan di assets/images/bgfooter2.png dan bgfooter3.png
+
+   - Ada penambahan di assets/images/nxbw2.png
+   - Ada penambahan di assets/images/nad2.png
+   - Ada penambahan di assets/images/ntsw2.png
+   - Ada penambahan di assets/images/nfw2.png
+
+   - Ada penambahan di assets/images/bt.png
+   - Ada penambahan di assets/images/pl.png
+
+2. Halaman style.css (assets/css/style.css)
+
+3. Halaman layanan.php 
+
+4. Halaman riwayat_transaksi.php di pemasok
+
+
+Note :
+
+-Responsive landing page sudah dibuat di halaman index.php
+-Responsive halaman lain belum dibuat.
+-Tolong dicek ya, jika kemungkinan ada ketidakcocokan di halaman responsive.
+
